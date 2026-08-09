@@ -2971,7 +2971,114 @@
       "Python (diff semântico entre escopo v0 e vN)",
       "Power BI (curva de scope creep semanal)",
       "Streamlit + HITL para o PM validar cada mudança"
-    ]
+    ],
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Detector de Mudança de Escopo' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios, decide go/no-go final",
+        "product_owner": "Prioriza backlog, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva",
+        "Time operacional resiste ao HITL por sobrecarga",
+        "Fonte de dados muda de formato no meio do piloto",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "monitoramento",
+      "referencia": "Piloto novo (preenche gap de processo PMBOK sem cobertura no catálogo original). Metodologia base: backlog Giancarlo aprovado por Prof. Bezerra na Aula 1 [02:48:54]."
+    }
   },
   {
     "id": "previsor-fluxo-caixa",
@@ -3003,7 +3110,114 @@
       "SciPy Monte Carlo para bandas de confiança",
       "Power BI para curva S com faixa P50-P90",
       "ERP (SAP/TOTVS) via API"
-    ]
+    ],
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Previsor de Fluxo de Caixa e Estouro de Orçamento' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios, decide go/no-go final",
+        "product_owner": "Prioriza backlog, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva",
+        "Time operacional resiste ao HITL por sobrecarga",
+        "Fonte de dados muda de formato no meio do piloto",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "monitoramento",
+      "referencia": "Piloto novo (preenche gap de processo PMBOK sem cobertura no catálogo original). Metodologia base: backlog Giancarlo aprovado por Prof. Bezerra na Aula 1 [02:48:54]."
+    }
   },
   {
     "id": "matcher-skills-projeto",
@@ -3034,7 +3248,114 @@
       "LinkedIn Talent API se acessível",
       "SAP SuccessFactors / Workday para base interna",
       "Streamlit + HITL para o gestor validar o match"
-    ]
+    ],
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Matcher de Skills para Adquirir Recursos' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios, decide go/no-go final",
+        "product_owner": "Prioriza backlog, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva",
+        "Time operacional resiste ao HITL por sobrecarga",
+        "Fonte de dados muda de formato no meio do piloto",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "aquisicao",
+      "referencia": "Piloto novo (preenche gap de processo PMBOK sem cobertura no catálogo original). Metodologia base: backlog Giancarlo aprovado por Prof. Bezerra na Aula 1 [02:48:54]."
+    }
   },
   {
     "id": "monitor-utilizacao-equipe",
@@ -3066,6 +3387,113 @@
       "People Analytics research (Microsoft Viva Insights)",
       "Power BI (heatmap de utilização por semana)",
       "Streamlit + HITL — alerta é sugestão, nunca automático"
-    ]
+    ],
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Monitor de Utilização de Equipe e Alerta de Burnout' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios, decide go/no-go final",
+        "product_owner": "Prioriza backlog, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva",
+        "Time operacional resiste ao HITL por sobrecarga",
+        "Fonte de dados muda de formato no meio do piloto",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "monitoramento",
+      "referencia": "Piloto novo (preenche gap de processo PMBOK sem cobertura no catálogo original). Metodologia base: backlog Giancarlo aprovado por Prof. Bezerra na Aula 1 [02:48:54]."
+    }
   }
 ]
