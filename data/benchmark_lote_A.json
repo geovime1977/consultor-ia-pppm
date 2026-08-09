@@ -1,0 +1,205 @@
+[
+  {
+    "id": "assistente-status-executivo",
+    "kpi_principal": {
+      "nome": "Tempo médio de consolidação de status executivo por ciclo",
+      "unidade": "horas/semana por gerente de projeto",
+      "formula": "sum(horas_gastas_consolidando_status_report) / n_gerentes / n_semanas_amostra",
+      "baseline_mercado": {
+        "valor": "6-8 horas/semana por PM em atividades de reporting e coordenação (~19% do tempo em PMOs de baixa maturidade)",
+        "fonte": "PMI Pulse of the Profession 2020 — 'Ahead of the Curve: Forging a Future-Focused Culture'",
+        "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "1,5-2,5 horas/semana por PM (redução declarada de 60-70%)",
+        "fonte": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08, [01:02:10] — âncora de especialista; triangulado com Microsoft Work Trend Index 2024 (Copilot: economia média de ~30% em summarization/reporting em uso corporativo)",
+        "url": "https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part",
+        "confianca": "media"
+      },
+      "reducao_percentual": "60-70%"
+    },
+    "kpis_secundarios": [
+      {"nome": "Aderência ao ciclo de reporting (status entregue no prazo do PMO)", "unidade": "% ciclos entregues no prazo", "baseline": "70-75% em organizações de baixa maturidade PMO", "meta_ia": "90-95%", "fonte": "PMI Pulse of the Profession 2021 — 'Beyond Agility'", "url": "https://www.pmi.org/learning/library/beyond-agility-gymnastic-enterprises-12973"},
+      {"nome": "% de decisões executivas rastreáveis a evidência estruturada", "unidade": "% do total de decisões do comitê", "baseline": "<30% (auto-relato de PMOs)", "meta_ia": ">70% quando o assistente força citação de fonte por bloco", "fonte": "Gartner — Hype Cycle for Project & Portfolio Management 2024 (menção a AI-augmented reporting)", "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management"},
+      {"nome": "NPS interno do comitê executivo sobre o status report", "unidade": "escala -100 a +100", "baseline": "medir na semana 1 (sem benchmark público)", "meta_ia": "+20 pontos vs baseline", "fonte": "Requer POC interna do cliente", "url": null}
+    ],
+    "roi_estimado": {
+      "premissa": "PMO com 5 gerentes @ R$ 150/hora, 46 semanas úteis/ano, consolidação hoje 6h/semana por PM, meta 2h/semana",
+      "ganho_anual_estimado": "R$ 138.000/ano (5 PMs × 4h economizadas × R$150 × 46 semanas)",
+      "tempo_payback_meses": "1-2 meses (assumindo setup ~R$ 25.000 + R$ 3.000/mês em licenças LLM)"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) cronometrar via self-report validado o tempo real de cada PM entre 'último input recebido' e 'status report publicado'; (2) contar reworks solicitados pela diretoria no último ciclo; (3) medir latência entre reunião de comitê e distribuição do status consolidado; (4) capturar NPS do consumidor executivo (diretor de portfólio) via 1 pergunta. Congelar essas 4 métricas como baseline antes de instalar o piloto.",
+    "riscos_de_medicao": [
+      "Gaming: PM preenche template mais rápido mas com menos rigor — mitigar com auditoria por amostragem semanal",
+      "Viés de seleção: piloto rodado apenas em projetos 'saudáveis' — exigir mix verde/amarelo/vermelho",
+      "Sub-relato: PMs subestimam tempo no baseline para parecerem eficientes — validar com time-tracking automático",
+      "Efeito Hawthorne: melhora só porque estão sendo observados — comparar com grupo-controle de projetos sem o piloto por 4 semanas"
+    ],
+    "fontes_completas": [
+      {"tipo": "linkedin", "titulo": "Prof. Dr. José Bezerra — Aula 1 IA-PPPM (BSBr)", "autor": "José Bezerra Filho", "ano": 2026, "url": "https://www.linkedin.com/in/josebezerrafilho/"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse of the Profession 2020 — Ahead of the Curve", "autor": "PMI", "ano": 2020, "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse of the Profession 2021 — Beyond Agility", "autor": "PMI", "ano": 2021, "url": "https://www.pmi.org/learning/library/beyond-agility-gymnastic-enterprises-12973"},
+      {"tipo": "vendor", "titulo": "Microsoft Work Trend Index 2024 — AI at Work", "autor": "Microsoft", "ano": 2024, "url": "https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part"},
+      {"tipo": "vendor", "titulo": "Asana Intelligence — Product Overview", "autor": "Asana", "ano": 2024, "url": "https://asana.com/product/ai"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": true,
+      "onde": ["PDF fonte: ~/Downloads/Aula 1_ Formação de Consultores em IA Aplicada ao PPPM - Quick prompts - Detailed summary with citation.pdf", "PDF slides: ~/Downloads/Aula_1_Formacao_Consultores_IA_PPPM_BSBr (1).pdf", "https://www.linkedin.com/in/josebezerrafilho/", "https://bsbr.com.br/", "https://www.slideshare.net/JoseBezerra1"],
+      "citacao_util": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10]: 'redução do tempo de consolidação de status executivo (~70%)'. Contexto [01:00:20]: assistente de status executivo é o primeiro piloto listado como caso de uso viável no PPPM."
+    }
+  },
+  {
+    "id": "radar-riscos-atrasos",
+    "kpi_principal": {
+      "nome": "Taxa de riscos críticos antecipados antes do ciclo de status mensal",
+      "unidade": "% de riscos materializados detectados com >= 30 dias de antecedência pelo piloto",
+      "formula": "(riscos_flaggados_e_confirmados / total_riscos_materializados) × 100",
+      "baseline_mercado": {
+        "valor": "~50% dos projetos entregam com atraso/estouro; apenas ~27% dos riscos são identificados proativamente em PMOs de baixa maturidade",
+        "fonte": "PMI Pulse of the Profession 2023 — 'Power Skills: Redefining Project Success'",
+        "url": "https://www.pmi.org/learning/library/pulse-of-the-profession-2023",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "40-60% dos riscos críticos antecipados >= 30 dias",
+        "fonte": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10] menciona 'antecipação de riscos de aditivo' (sem % explícito); catálogo pilotos.json assume 40%; triangulado com literatura IEEE sobre risk prediction em projetos",
+        "url": "https://ieeexplore.ieee.org/document/9530557",
+        "confianca": "baixa"
+      },
+      "reducao_percentual": "+13 a +33 p.p. absolutos vs baseline"
+    },
+    "kpis_secundarios": [
+      {"nome": "Lead time médio de detecção de risco (dias entre 1º sinal fraco em ata/issue e sinalização formal)", "unidade": "dias", "baseline": "medir na semana 1 (raro haver métrica em PMOs — Requer POC interna)", "meta_ia": "reduzir em 50%", "fonte": "Requer POC interna do cliente", "url": null},
+      {"nome": "Redução no valor de aditivos contratuais por trimestre", "unidade": "% sobre valor original do contrato", "baseline": "aditivos representam 15-20% do valor original em projetos públicos brasileiros (literatura de auditoria)", "meta_ia": "redução de 20-30% no valor total de aditivos", "fonte": "TCU — Acórdãos e literatura sobre aditivos contratuais", "url": "https://portal.tcu.gov.br/"},
+      {"nome": "Lead time de antecipação de risco de aditivo", "unidade": "dias entre alerta do radar e materialização do aditivo", "baseline": "0 dias (aditivo é surpresa no comitê)", "meta_ia": ">= 30 dias de antecedência", "fonte": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [02:38:51]: 'antecipar riscos de aditivo em 30 dias'", "url": "https://bsbr.com.br/"},
+      {"nome": "Precisão e revocação do classificador de risco", "unidade": "% (Precision e Recall)", "baseline": "n/a — métrica só existe após instalar o piloto", "meta_ia": "P>=0,7 e R>=0,6 antes de virar produção (HITL obrigatório abaixo)", "fonte": "Boa prática ML aplicada; sem benchmark público para risco de projeto", "url": null}
+    ],
+    "roi_estimado": {
+      "premissa": "Portfólio de 20 projetos/ano com ticket médio R$ 500k; historicamente 6/20 viram aditivo médio de 20% (R$ 100k cada = R$ 600k/ano)",
+      "ganho_anual_estimado": "R$ 120-180k/ano (evitar 20-30% dos aditivos)",
+      "tempo_payback_meses": "3-6 meses"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) puxar RAID log dos últimos 12 meses e classificar cada risco materializado por 'quando foi visto pela primeira vez em ata/issue' vs 'quando virou linha vermelha no status'; (2) medir gap médio (lead time perdido); (3) calcular taxa histórica de aditivos e valor total; (4) contar comitês com 'surpresa vermelha' (risco não sinalizado antes). Congelar antes de instalar.",
+    "riscos_de_medicao": [
+      "Falso positivo em massa: piloto alerta tudo e vira ruído — exigir precisão mínima antes de escalar",
+      "Alerta sem ação: risco sinalizado mas ninguém decide — separar 'detecção' de 'decisão tomada'",
+      "Viés retrospectivo: fácil dizer 'estava óbvio' após o fato — validar com cegamento (analista humano vê os mesmos inputs sem o output do piloto)",
+      "Confusão causa-efeito: menos aditivo pode ser efeito de mercado — comparar com portfólio-controle ou período histórico equivalente"
+    ],
+    "fontes_completas": [
+      {"tipo": "linkedin", "titulo": "Prof. Dr. José Bezerra — Aula 1 IA-PPPM (BSBr)", "autor": "José Bezerra Filho", "ano": 2026, "url": "https://www.linkedin.com/in/josebezerrafilho/"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse of the Profession 2023 — Power Skills", "autor": "PMI", "ano": 2023, "url": "https://www.pmi.org/learning/library/pulse-of-the-profession-2023"},
+      {"tipo": "paper", "titulo": "AI-based Risk Prediction in Project Management — Systematic Review (IEEE Xplore)", "autor": "IEEE Xplore (autores diversos)", "ano": 2021, "url": "https://ieeexplore.ieee.org/document/9530557"},
+      {"tipo": "vendor", "titulo": "Microsoft Project + Copilot — Risk features", "autor": "Microsoft", "ano": 2024, "url": "https://www.microsoft.com/en-us/microsoft-365/project/project-management-software"},
+      {"tipo": "referencia", "titulo": "TCU — Repositório de acórdãos (aditivos contratuais)", "autor": "TCU", "ano": 2023, "url": "https://portal.tcu.gov.br/"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": true,
+      "onde": ["PDF fonte da aula (mesmo do piloto 1)", "Nota vault: /Users/virmecati/vault/meus-projetos/01 - Profissional/Projetos/Curso Consultoria IA - BSBr Prof Bezerra.md"],
+      "citacao_util": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10]: 'antecipação de riscos de aditivo, e geração de recomendações rastreáveis para comitês'. Não deu % explícito para risco — a âncora de 40% vem do catálogo pilotos.json e precisa ser validada em POC interna."
+    }
+  },
+  {
+    "id": "analise-sla",
+    "kpi_principal": {
+      "nome": "Aderência ao SLA operacional após ciclo de correção assistido por IA",
+      "unidade": "% de tickets/entregas dentro do SLA acordado",
+      "formula": "(tickets_dentro_do_sla / total_tickets) × 100, medido mensalmente após 90 dias do piloto",
+      "baseline_mercado": {
+        "valor": "72,4% de aderência ao SLA (caso concreto citado por Bezerra em cliente de saúde/serviços) — meta 80%",
+        "fonte": "Prof. Dr. José Bezerra, webinar de lançamento do curso BSBr (registrado na nota do vault 'Curso Consultoria IA - BSBr Prof Bezerra.md')",
+        "url": "https://bsbr.com.br/",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "+15 a +25 p.p. de aderência (ex: 72% → 87-97%)",
+        "fonte": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10]: 'melhoria da aderência a SLAs (15–25%)'",
+        "url": "https://bsbr.com.br/",
+        "confianca": "media"
+      },
+      "reducao_percentual": "+15 a +25 p.p. em aderência (ganho, não redução)"
+    },
+    "kpis_secundarios": [
+      {"nome": "MTTR (Mean Time To Resolution) por categoria de ticket", "unidade": "horas ou dias", "baseline": "medir na semana 1 do sistema atual (ServiceNow/Jira/Zendesk)", "meta_ia": "reduzir MTTR em 20-30% após 90 dias", "fonte": "Gartner — Market Guide for AIOps Platforms 2024", "url": "https://www.gartner.com/en/documents/aiops-market-guide"},
+      {"nome": "% de violações de SLA com causa-raiz classificada e ação corretiva registrada", "unidade": "% do total de violações", "baseline": "<30% em operações sem RCA sistemática", "meta_ia": ">80% com o piloto classificando automaticamente", "fonte": "Boa prática ITIL 4 — Service Value System", "url": "https://www.axelos.com/certifications/itil-service-management"},
+      {"nome": "Custo por ticket resolvido", "unidade": "R$/ticket", "baseline": "R$ 15-80/ticket em service desks brasileiros (varia por setor)", "meta_ia": "redução de 15-25%", "fonte": "HDI Brasil — Benchmark de Service Desk", "url": "https://www.hdibrasil.com.br/"},
+      {"nome": "Velocidade de atendimento por ticket (throughput)", "unidade": "% de ganho em tickets resolvidos por hora-agente", "baseline": "linha zero medida na semana 1 do sistema atual", "meta_ia": "+80% de aumento na velocidade de atendimento", "fonte": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [03:18:25]: '80% aumento velocidade de atendimento'", "url": "https://bsbr.com.br/"}
+    ],
+    "roi_estimado": {
+      "premissa": "Operação com 10.000 tickets/mês, custo médio R$ 40/ticket = R$ 4,8M/ano; SLA hoje 72%, meta 87%",
+      "ganho_anual_estimado": "R$ 720k-1,2M/ano (redução de multas por SLA + redução de MTTR + redução de retrabalho)",
+      "tempo_payback_meses": "3-4 meses"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) puxar 6 meses de tickets e calcular aderência atual ao SLA por categoria; (2) medir MTTR por categoria; (3) medir % de tickets com RCA registrada; (4) medir custo unitário (custo total da operação / volume). Semana 2: entrevistar 5 agentes sobre onde perdem tempo. Congelar as 4 métricas.",
+    "riscos_de_medicao": [
+      "Gaming: agente reclassifica ticket para categoria com SLA mais frouxo — auditar reclassificações por amostragem",
+      "Cherry-picking: piloto aplicado só em categorias fáceis — exigir cobertura mínima de 80% do volume total",
+      "Melhoria por mudança de processo, não IA: separar impacto do piloto de treinamento ou reengenharia paralela",
+      "SLA acordado mudou no meio do piloto: congelar contrato de SLA por 6 meses durante a medição"
+    ],
+    "fontes_completas": [
+      {"tipo": "linkedin", "titulo": "Prof. Dr. José Bezerra — Aula 1 IA-PPPM (BSBr)", "autor": "José Bezerra Filho", "ano": 2026, "url": "https://www.linkedin.com/in/josebezerrafilho/"},
+      {"tipo": "blog", "titulo": "BSBr — Business School Brasil (curso e webinar)", "autor": "BSBr / José Bezerra", "ano": 2026, "url": "https://bsbr.com.br/"},
+      {"tipo": "relatorio", "titulo": "Gartner Market Guide for AIOps Platforms", "autor": "Gartner", "ano": 2024, "url": "https://www.gartner.com/en/documents/aiops-market-guide"},
+      {"tipo": "referencia", "titulo": "ITIL 4 Service Value System (RCA e SLM)", "autor": "AXELOS", "ano": 2023, "url": "https://www.axelos.com/certifications/itil-service-management"},
+      {"tipo": "relatorio", "titulo": "HDI Brasil — Benchmark Service Desk", "autor": "HDI Brasil", "ano": 2024, "url": "https://www.hdibrasil.com.br/"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": true,
+      "onde": ["PDF fonte da aula (mesmo do piloto 1)", "Nota vault: 'Curso Consultoria IA - BSBr Prof Bezerra.md' — caso concreto SLA 72,4% → meta 80%, 27 violações mensais"],
+      "citacao_util": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10]: 'melhoria da aderência a SLAs (15–25%)'. Webinar (nota do vault): caso real com aderência inicial 72,4%, meta 80%, 27 violações mensais mapeadas — piloto ataca causa-raiz das violações."
+    }
+  },
+  {
+    "id": "base-licoes-aprendidas",
+    "kpi_principal": {
+      "nome": "Taxa de reincidência de erros em projetos após instalação do RAG de lições aprendidas",
+      "unidade": "% de erros classificados como 'já aconteceu antes' vs total de erros do trimestre",
+      "formula": "(erros_reincidentes / total_erros_trimestre) × 100, medido antes e depois",
+      "baseline_mercado": {
+        "valor": "Sem benchmark público consolidado. PMI Pulse 2020 aponta que ~50% das organizações capturam lições sistematicamente e destas <20% conseguem reutilizar em novos projetos",
+        "fonte": "PMI Pulse of the Profession 2020 — 'Ahead of the Curve'",
+        "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "Redução de 30-50% na reincidência (âncora conservadora — RAG melhora recall, não elimina erro humano)",
+        "fonte": "Estimativa por analogia com literatura de Knowledge Management (Argote & Miron-Spektor 2011 — Organization Science); sem estudo controlado específico para RAG em PPM",
+        "url": "https://pubsonline.informs.org/doi/10.1287/orsc.1100.0621",
+        "confianca": "baixa"
+      },
+      "reducao_percentual": "30-50% (requer POC interna para calibrar)"
+    },
+    "kpis_secundarios": [
+      {"nome": "Tempo médio de onboarding de novo gerente de projeto até primeira entrega autônoma", "unidade": "semanas", "baseline": "8-12 semanas em organizações de porte médio (auto-relato PMOs)", "meta_ia": "4-6 semanas com base de lições consultável via chat", "fonte": "Sem benchmark público direto — Requer POC interna", "url": null},
+      {"nome": "Taxa de consulta ao repositório de lições por gerente/mês", "unidade": "consultas/PM/mês", "baseline": "<1 consulta/PM/mês em bases tradicionais (SharePoint, wiki)", "meta_ia": ">10 consultas/PM/mês com interface conversacional", "fonte": "Padrão observado em vendors de knowledge base com IA (Glean, Guru)", "url": "https://www.glean.com/customers"},
+      {"nome": "% de projetos que citam explicitamente uma lição aprendida no plano de riscos", "unidade": "%", "baseline": "<15% (auto-relato)", "meta_ia": ">60% com sugestão automática na elaboração do plano", "fonte": "Requer POC interna do cliente", "url": null}
+    ],
+    "roi_estimado": {
+      "premissa": "Organização com 50 projetos/ano; 10 projetos/ano reincidem em erro conhecido com custo médio R$ 80k por reincidência = R$ 800k/ano em retrabalho evitável",
+      "ganho_anual_estimado": "R$ 240-400k/ano (redução de 30-50% da reincidência)",
+      "tempo_payback_meses": "6-9 meses (piloto exige curadoria humana das primeiras 20-50 lições)"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) auditar últimos 12 meses de post-mortems e classificar erros em 'primeira vez' vs 'já aconteceu antes'; (2) entrevistar 5 gerentes veteranos sobre erros recorrentes que 'ninguém aprende'; (3) medir tempo atual de onboarding de novo PM; (4) contar consultas ao repositório atual de lições (Confluence/SharePoint) via analytics. Congelar antes de instalar.",
+    "riscos_de_medicao": [
+      "Definição frouxa de 'reincidência': o que conta como 'mesmo erro'? Exigir taxonomia fechada e validação por 2 revisores",
+      "Lição registrada != lição aprendida: consulta ao RAG não garante mudança de comportamento — instrumentar decisão que efetivamente mudou",
+      "Curadoria enviesada: primeiras 20 lições podem refletir viés do curador — auditar diversidade de tipos de projeto",
+      "RAG alucinar lição inexistente: exigir citação obrigatória à ata/post-mortem original em toda resposta",
+      "Base envelhece: lições de 5 anos podem não valer hoje (mudou stack, mudou regulação) — política de expiração/revisão anual"
+    ],
+    "fontes_completas": [
+      {"tipo": "linkedin", "titulo": "Prof. Dr. José Bezerra — Aula 1 IA-PPPM (BSBr)", "autor": "José Bezerra Filho", "ano": 2026, "url": "https://www.linkedin.com/in/josebezerrafilho/"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse of the Profession 2020 — Ahead of the Curve", "autor": "PMI", "ano": 2020, "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908"},
+      {"tipo": "paper", "titulo": "Organizational Learning: From Experience to Knowledge", "autor": "Argote, L.; Miron-Spektor, E.", "ano": 2011, "url": "https://pubsonline.informs.org/doi/10.1287/orsc.1100.0621"},
+      {"tipo": "vendor", "titulo": "Glean — Enterprise Search & Knowledge (cases RAG corporativo)", "autor": "Glean", "ano": 2024, "url": "https://www.glean.com/customers"},
+      {"tipo": "vendor", "titulo": "Notion AI Q&A — RAG em base de conhecimento", "autor": "Notion", "ano": 2024, "url": "https://www.notion.so/product/ai"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": true,
+      "onde": ["PDF fonte da aula (mesmo do piloto 1) — cita 'base de lições aprendidas' em [01:00:20] como piloto viável", "Nota vault: 'Curso Consultoria IA - BSBr Prof Bezerra.md'"],
+      "citacao_util": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:00:20]: 'Lista de possíveis assistentes/pilotos citados: (...) base de lições aprendidas (...)'. Bezerra não deu número quantitativo para este piloto — a métrica de reincidência é proposta pelo consultor e deve ser calibrada em POC interna."
+    }
+  }
+]

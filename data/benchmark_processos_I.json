@@ -1,0 +1,206 @@
+[
+  {
+    "processo_id": "4.3",
+    "processo_nome": "Desenvolver o Orçamento",
+    "area": "Finanças",
+    "grupo": "Planejamento",
+    "pilotos_primarios": ["estimador-esforco"],
+    "metricas": [
+      {"nome": "MAPE do orçamento inicial vs. custo real ao encerrar", "unidade": "% (MAPE)", "formula": "MAPE = (1/n) * Σ |custo_real_i - orcamento_baseline_i| / orcamento_baseline_i * 100", "baseline_mercado": {"valor": "27% a 45% de estouro médio em megaprojetos; ~50% em early estimates AACE Classe 5", "fonte": "Flyvbjerg 'What You Should Know About Megaprojects and Why' (PMJ 2014) + AACE RP 18R-97", "url": "https://doi.org/10.1002/pmj.21409", "confianca": "alta"}, "meta_com_ia": {"valor": "8% a 15% (RCF + ML em base histórica calibrada + Monte Carlo P50/P80)", "fonte": "McKinsey Bloch/Blumberg/Laartz 2012 — Delivering large-scale IT projects", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value", "confianca": "alta"}, "reducao_percentual": "60% a 75% de redução no MAPE"},
+      {"nome": "Percentual de projetos entregues dentro de +/- 10% do orçamento aprovado", "unidade": "% de projetos no ciclo", "formula": "(projetos com |custo_real - baseline|/baseline <= 10% / total encerrados) * 100", "baseline_mercado": {"valor": "31% a 43% (CHAOS on-budget; PMI Pulse 2020: 43% dentro do orçamento)", "fonte": "Standish CHAOS 2023 + PMI Pulse 2020", "url": "https://standishgroup.com/sample_research_files/CHAOSReport2023.pdf", "confianca": "alta"}, "meta_com_ia": {"valor": "60% a 75% (ML + RCF + guardrails de contingência calibrada)", "fonte": "Gartner Market Guide for Adaptive PM 2024 + PMI Standard for AI in PPPM 2026", "url": "https://www.gartner.com/en/documents/market-guide-for-adaptive-project-management-and-reporting", "confianca": "media"}, "reducao_percentual": "Aumento de ~1.7x (~37% → ~65%)"},
+      {"nome": "Tempo de ciclo para consolidar orçamento baseline aprovado", "unidade": "dias úteis", "formula": "média(data_aprovacao_baseline - data_kickoff_orcamento) por projeto", "baseline_mercado": {"valor": "15 a 45 dias úteis (bottom-up manual com múltiplas iterações)", "fonte": "Deloitte Global Cost Management Survey 2023 + APQC Process Benchmark", "url": "https://www2.deloitte.com/us/en/insights/topics/operations/global-cost-management-survey.html", "confianca": "media"}, "meta_com_ia": {"valor": "3 a 8 dias úteis (LLM extrai premissas + ML gera P50/P80 por pacote + comitê valida)", "fonte": "McKinsey State of AI 2024 + Bloch et al. 2012", "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai", "confianca": "media"}, "reducao_percentual": "70% a 85%"},
+      {"nome": "Percentual de linhas orçamentárias com reserva de contingência calibrada por risco", "unidade": "% de linhas com contingência Monte Carlo/AACE", "formula": "(linhas com contingência calculada por P80/simulação / total) * 100", "baseline_mercado": {"valor": "10% a 25% (maioria usa % fixo 5-10% horizontal)", "fonte": "AACE International RP 40R-08", "url": "https://web.aacei.org/resources/recommended-practices", "confianca": "media"}, "meta_com_ia": {"valor": "70% a 90% (Monte Carlo por linha + histórico de risco)", "fonte": "PMI Practice Standard for Estimating 2019 + AACE 40R-08", "url": "https://www.pmi.org/pmbok-guide-standards/practice-standards/estimating", "confianca": "media"}, "reducao_percentual": "Aumento de ~4x (~18% → ~80%)"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "eap_wbs_xlsx_json", "descricao": "EAP/WBS com pacotes, dependências e recurso previsto", "exemplo_estrutura": "id_pacote | nome | descricao | dependencias | recurso_previsto | esforco_hh | duracao_dias | responsavel"},
+      {"tipo": "historico_orcamentos_csv", "descricao": "Base histórica de baseline vs. custo real", "exemplo_estrutura": "id_projeto | categoria | baseline_R$ | real_R$ | contingencia_usada_% | classe_aace | desvio_%"},
+      {"tipo": "cotacoes_fornecedores_pdf_xlsx", "descricao": "Cotações (LLM extrai preços unitários e prazos)", "exemplo_estrutura": "fornecedor | item | qtd | valor_unit | valor_total | prazo | validade_dias | condicoes_pgto"},
+      {"tipo": "curva_indices_sinapi_sicro_csv", "descricao": "Índices setoriais (SINAPI habitação, SICRO infra, IPCA)", "exemplo_estrutura": "codigo | descricao | unidade | valor_R$ | mes_ano | uf | fonte (SINAPI/SICRO/CUB)"},
+      {"tipo": "premissas_macro_json", "descricao": "Premissas macroeconômicas (câmbio, juros, inflação) para cenarização", "exemplo_estrutura": "{data_referencia, USD_BRL, selic_%, ipca_12m_%, tr_%, cenario: base/otimista/pessimista}"},
+      {"tipo": "matriz_riscos_orcamento_xlsx", "descricao": "Riscos com prob e impacto financeiro para reserva de contingência", "exemplo_estrutura": "id_risco | descricao | probabilidade | impacto_R$ | expo_R$ = P*I | estrategia | dono"}
+    ],
+    "ferramentas_stack": ["Python (pandas, scikit-learn, XGBoost)", "SciPy/NumPy (Monte Carlo P50/P80/P95)", "PuLP/OR-Tools (otimização de mix)", "Streamlit (upload EAP + revisão HITL)", "Power BI (baseline vs real)", "SQLite/PostgreSQL (repositório histórico)", "APIs BCB SGS + SINAPI/SICRO"],
+    "riscos_de_medicao": [
+      "Padding intencional: gerente infla baseline — auditar variação vs. faixa ML e RCF",
+      "Optimism bias e strategic misrepresentation (Flyvbjerg): sponsors subestimam — comparar com base de referência",
+      "Data drift macroeconômico (câmbio, inflação) — reindexar mensalmente por IPCA/USD",
+      "Base histórica pequena (<50 projetos) causa overfitting — cross-validation e priors setoriais",
+      "Gaming da classificação AACE — auditar maturidade do escopo",
+      "LGPD: apontamentos individuais são dados pessoais — anonimizar por senioridade/perfil"
+    ],
+    "fontes_completas": [
+      {"tipo": "paper", "titulo": "What You Should Know About Megaprojects (Flyvbjerg 2014)", "url": "https://doi.org/10.1002/pmj.21409"},
+      {"tipo": "relatorio", "titulo": "Delivering large-scale IT projects (McKinsey 2012)", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value"},
+      {"tipo": "norma", "titulo": "AACE International RP 18R-97", "url": "https://web.aacei.org/resources/recommended-practices"},
+      {"tipo": "norma", "titulo": "AACE International RP 40R-08", "url": "https://web.aacei.org/resources/recommended-practices"},
+      {"tipo": "relatorio", "titulo": "CHAOS Report 2023", "url": "https://standishgroup.com/sample_research_files/CHAOSReport2023.pdf"},
+      {"tipo": "relatorio", "titulo": "Pulse of the Profession 2020", "url": "https://www.pmi.org/learning/thought-leadership/pulse/pulse-of-the-profession-2020"},
+      {"tipo": "relatorio", "titulo": "The Standard for AI in PPPM", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "relatorio", "titulo": "Market Guide for Adaptive PM 2024", "url": "https://www.gartner.com/en/documents/market-guide-for-adaptive-project-management-and-reporting"},
+      {"tipo": "dados", "titulo": "SINAPI (Caixa)", "url": "https://www.caixa.gov.br/poder-publico/modernizacao-gestao/sinapi/"},
+      {"tipo": "dados", "titulo": "SICRO (DNIT)", "url": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/custos-e-pagamentos/sicro"},
+      {"tipo": "dados", "titulo": "BCB SGS", "url": "https://www3.bcb.gov.br/sgspub/"}
+    ]
+  },
+  {
+    "processo_id": "4.4",
+    "processo_nome": "Monitorar e Controlar as Finanças",
+    "area": "Finanças",
+    "grupo": "Monitoramento e Controle",
+    "pilotos_primarios": ["previsor-fluxo-caixa"],
+    "metricas": [
+      {"nome": "Cost Performance Index (CPI) médio na janela de M&C", "unidade": "adimensional (EV/AC)", "formula": "CPI = Earned Value / Actual Cost — meta >= 0.95", "baseline_mercado": {"valor": "0.82 a 0.92 (média com monitoramento manual mensal)", "fonte": "PMI Practice Standard for EVM 2nd + PMI Pulse 2022", "url": "https://www.pmi.org/pmbok-guide-standards/practice-standards/earned-value-management-2nd-edition", "confianca": "media"}, "meta_com_ia": {"valor": "0.95 a 1.02 (ciclo semanal + alerta preditivo)", "fonte": "PMI Standard for AI in PPPM 2026 + Gartner Adaptive PM 2024", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "media"}, "reducao_percentual": "Melhoria de ~10-15% no CPI médio"},
+      {"nome": "Antecedência da detecção de estouro > 10% do baseline", "unidade": "dias corridos entre alerta e materialização real", "formula": "média(data_estouro_real - data_alerta_preditivo)", "baseline_mercado": {"valor": "0 a 15 dias (detecção pós-fato via fechamento mensal)", "fonte": "Standish CHAOS 2023 + KPMG Global PMO Survey 2022", "url": "https://standishgroup.com/sample_research_files/CHAOSReport2023.pdf", "confianca": "baixa"}, "meta_com_ia": {"valor": "30 a 90 dias de antecedência (EVM semanal + ML tendência + Monte Carlo)", "fonte": "PMI Standard for AI in PPPM 2026 + PMI EVM Practice Standard", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "media"}, "reducao_percentual": "Aumento de ~5-10x na antecedência"},
+      {"nome": "Erro percentual do EAC previsto vs. custo final real", "unidade": "% (MAPE do EAC)", "formula": "MAPE_EAC = |EAC_previsto_50%_avanço - custo_final| / custo_final * 100", "baseline_mercado": {"valor": "18% a 35% (EAC clássico EAC = BAC/CPI, sem ML)", "fonte": "Christensen & Heise 'CPI Stability Study' (NPS)", "url": "https://apps.dtic.mil/sti/citations/ADA277358", "confianca": "media"}, "meta_com_ia": {"valor": "6% a 12% (EAC híbrido: EVM + ML + Monte Carlo sobre eventos de risco)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "media"}, "reducao_percentual": "60% a 70%"},
+      {"nome": "Frequência efetiva de reforecast financeiro", "unidade": "ciclos por mês", "formula": "número de reforecasts aprovados / mês / projeto", "baseline_mercado": {"valor": "0.5 a 1.0 (reforecast mensal ou trimestral)", "fonte": "Deloitte Global Cost Management Survey 2023 + APQC Financial Planning", "url": "https://www2.deloitte.com/us/en/insights/topics/operations/global-cost-management-survey.html", "confianca": "media"}, "meta_com_ia": {"valor": "4 a 8 (semanal ou quinzenal + validação HITL)", "fonte": "Gartner Adaptive PM 2024 + PMI Standard for AI in PPPM 2026", "url": "https://www.gartner.com/en/documents/market-guide-for-adaptive-project-management-and-reporting", "confianca": "media"}, "reducao_percentual": "Aumento de ~4-8x na frequência"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "baseline_orcamento_json_xlsx", "descricao": "Baseline aprovado do 4.3", "exemplo_estrutura": "id_pacote | mes | valor_planejado_R$ | curva_S | responsavel"},
+      {"tipo": "apontamentos_timesheet_csv", "descricao": "Apontamentos reais de horas por recurso/pacote", "exemplo_estrutura": "data | recurso | pacote | horas | valor_hora | custo_R$"},
+      {"tipo": "erp_financeiro_api_json", "descricao": "Realizado financeiro via ERP (SAP/TOTVS/Oracle)", "exemplo_estrutura": "{doc, data, centro_custo, projeto, valor_R$, status: empenhado/liquidado/pago}"},
+      {"tipo": "curva_avanco_fisico_xlsx", "descricao": "% de avanço físico por pacote (base para EV)", "exemplo_estrutura": "id_pacote | data | %avanco_planejado | %avanco_real | metodo (0/50/100, ponderado, marcos)"},
+      {"tipo": "eventos_risco_realizado_json", "descricao": "Log de riscos materializados com impacto financeiro", "exemplo_estrutura": "{id_risco, data_materializacao, impacto_R$_real, categoria, acao_tomada}"},
+      {"tipo": "premissas_macro_atualizadas_json", "descricao": "Reindexação macro (BCB SGS: câmbio, IPCA, Selic)", "exemplo_estrutura": "{data, USD_BRL, IPCA_12m_%, selic_%, delta_vs_baseline_%}"}
+    ],
+    "ferramentas_stack": ["Python (pandas, scikit-learn, XGBoost, statsmodels)", "SciPy (Monte Carlo do EAC)", "Streamlit (dashboard semanal HITL)", "Power BI (EVM Curva S)", "APIs BCB SGS + ERP", "PostgreSQL (histórico)", "n8n / Power Automate (alertas)"],
+    "riscos_de_medicao": [
+      "Gaming do avanço físico — auditoria cega por amostra",
+      "Sub-relatório de AC (notas em trânsito) — reconciliação mensal empenhado vs. liquidado",
+      "Ancoragem do revisor HITL no rascunho do ML — auditoria independente periódica",
+      "CPI instability em fases early (<20% avanço) — usar EAC ML só a partir de 20-30% de avanço",
+      "Data drift: mudança de fornecedor/stack — retreino trimestral com walk-forward",
+      "LGPD: apontamentos individuais — anonimizar por senioridade e centro de custo"
+    ],
+    "fontes_completas": [
+      {"tipo": "norma", "titulo": "PMI Practice Standard for EVM (2nd Ed.)", "url": "https://www.pmi.org/pmbok-guide-standards/practice-standards/earned-value-management-2nd-edition"},
+      {"tipo": "relatorio", "titulo": "The Standard for AI in PPPM", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "paper", "titulo": "CPI Stability — Christensen & Heise", "url": "https://apps.dtic.mil/sti/citations/ADA277358"},
+      {"tipo": "relatorio", "titulo": "Bloch/McKinsey 2012", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value"},
+      {"tipo": "relatorio", "titulo": "CHAOS Report 2023", "url": "https://standishgroup.com/sample_research_files/CHAOSReport2023.pdf"},
+      {"tipo": "relatorio", "titulo": "Gartner Adaptive PM 2024", "url": "https://www.gartner.com/en/documents/market-guide-for-adaptive-project-management-and-reporting"},
+      {"tipo": "norma", "titulo": "AACE International RP 86R-14", "url": "https://web.aacei.org/resources/recommended-practices"},
+      {"tipo": "dados", "titulo": "BCB SGS", "url": "https://www3.bcb.gov.br/sgspub/"}
+    ]
+  },
+  {
+    "processo_id": "5.1",
+    "processo_nome": "Identificar Partes Interessadas",
+    "area": "Partes Interessadas",
+    "grupo": "Início",
+    "pilotos_primarios": [],
+    "gap_sugestao_novo_piloto": {
+      "id_sugerido": "mapeador-stakeholders",
+      "nome_sugerido": "Mapeador de Stakeholders (extrator LLM)",
+      "descricao_curta": "Lê contratos, TAP, atas iniciais, escopo, comunicações e organogramas para extrair automaticamente lista de stakeholders com atributos (papel, poder, interesse, influência, atitude) e sugerir classificação inicial (Salience Model / Power-Interest Grid), com HITL do gerente antes de virar registro oficial.",
+      "justificativa": "Um dos gaps de maior payoff LLM em PPPM — 20-35% dos riscos vêm de stakeholder esquecido no M0."
+    },
+    "metricas": [
+      {"nome": "Recall de stakeholders relevantes na primeira identificação vs. lista consolidada 60d após", "unidade": "% (recall)", "formula": "recall = (|identificados_M0 ∩ consolidados_M2| / |consolidados_M2|) * 100", "baseline_mercado": {"valor": "50% a 70% (workshop + brainstorm; 30-50% dos stakeholders só aparecem entre M2-M6)", "fonte": "PMI Pulse of the Profession 2018 + KPMG Global PMO Survey 2022", "url": "https://www.pmi.org/learning/thought-leadership/pulse/pulse-of-the-profession-2018", "confianca": "media"}, "meta_com_ia": {"valor": "85% a 95% (LLM extrai de contratos + atas + organograma + rede de e-mails, HITL valida)", "fonte": "PMI Standard for AI in PPPM 2026 + Forrester Customer Analytics 2023", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~1.5x no recall (~60% → ~90%)"},
+      {"nome": "Tempo de ciclo para produzir Registro das Partes Interessadas validado", "unidade": "dias úteis", "formula": "média(data_aprovacao_registro - data_kickoff_projeto)", "baseline_mercado": {"valor": "5 a 20 dias úteis (workshops presenciais + rodadas com sponsor)", "fonte": "APQC + PMI Pulse 2023", "url": "https://www.apqc.org/process-frameworks", "confianca": "media"}, "meta_com_ia": {"valor": "0.5 a 2 dias úteis (LLM extrai → gerente revisa em sessão HITL de 60-90min)", "fonte": "McKinsey State of AI 2024", "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai", "confianca": "media"}, "reducao_percentual": "85% a 95%"},
+      {"nome": "Cobertura de atributos estruturados por stakeholder (papel, poder, interesse, influência, atitude)", "unidade": "% de stakeholders com 5 atributos preenchidos", "formula": "(stakeholders com 5 atributos / total no registro) * 100", "baseline_mercado": {"valor": "25% a 45% (só nome, cargo e área)", "fonte": "PMI Pulse 2016 + KPMG 2022", "url": "https://www.pmi.org/learning/thought-leadership/pulse/the-high-cost-of-low-performance-2016", "confianca": "baixa"}, "meta_com_ia": {"valor": "80% a 95% (template estruturado forçado + HITL preenche lacunas)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~2.5x (~35% → ~87%)"},
+      {"nome": "Percentual de riscos causados por stakeholder 'esquecido' na identificação inicial", "unidade": "% de riscos materializados por stakeholder ausente do registro M0", "formula": "(riscos com causa raiz 'stakeholder não identificado no M0' / total de riscos materializados) * 100", "baseline_mercado": {"valor": "20% a 35% (governamentais, sindicatos, comunidades, áreas técnicas transversais)", "fonte": "Flyvbjerg 2014 + IPMA Perspectives 2020", "url": "https://doi.org/10.1002/pmj.21409", "confianca": "media"}, "meta_com_ia": {"valor": "3% a 10% (extração multi-fonte + organogramas + análise de rede)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "65% a 85%"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "tap_termo_abertura_docx_pdf", "descricao": "TAP — LLM extrai sponsor, gerente, cliente, patrocinadores", "exemplo_estrutura": "objetivo, sponsor, cliente, restrições, premissas, cronograma macro, orçamento macro"},
+      {"tipo": "contrato_pdf", "descricao": "Contrato + aditivos (LLM extrai partes contratuais, fiadores, intervenientes)", "exemplo_estrutura": "cabeçalho + partes + objeto + cláusulas + anexos técnicos"},
+      {"tipo": "organograma_xlsx_json", "descricao": "Organograma da organização executora e do cliente (para inferir poder)", "exemplo_estrutura": "id | nome | cargo | area | reporta_a | nivel_hierarquico | contato"},
+      {"tipo": "atas_kickoff_docx_md", "descricao": "Atas de reuniões iniciais (M0-M1)", "exemplo_estrutura": "cabeçalho + participantes + decisões + pendências"},
+      {"tipo": "email_mbox_eml_json", "descricao": "Comunicações do projeto (rede de coautoria/menção para inferir influência)", "exemplo_estrutura": "RFC 5322: From/To/Cc/Subject/Date + corpo; grafo remetente↔destinatário"},
+      {"tipo": "registro_stakeholders_xlsx_json", "descricao": "Registro consolidado (saída estruturada, formato PMBOK)", "exemplo_estrutura": "id | nome | cargo | area | papel | poder(1-5) | interesse(1-5) | influencia(1-5) | atitude | estrategia | dono_relacionamento"}
+    ],
+    "ferramentas_stack": ["Python (spaCy NER, pandas, networkx)", "LLM (Azure OpenAI / AWS Bedrock / Anthropic)", "Streamlit (revisão HITL do registro)", "Power BI (Power-Interest Grid, Salience Model)", "PostgreSQL/SQLite", "n8n / Power Automate"],
+    "riscos_de_medicao": [
+      "LGPD e sigilo contratual: dados pessoais e cláusulas sensíveis — anonimização e base legal explícita",
+      "Extração fantasma (alucinação) — HITL obrigatório antes de virar registro oficial",
+      "Viés de rede: sobrepondera quem escreve muito — validar com organograma",
+      "Ancoragem do revisor no rascunho do LLM — ordem aleatória e justificativa de rejeição",
+      "Recall subestimado se lista M2 também incompleta — auditoria externa em amostra",
+      "Classificação de poder por cargo é heurística — permitir override com trilha"
+    ],
+    "fontes_completas": [
+      {"tipo": "norma", "titulo": "The Standard for AI in PPPM — Stakeholders", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "relatorio", "titulo": "Pulse of the Profession 2018", "url": "https://www.pmi.org/learning/thought-leadership/pulse/pulse-of-the-profession-2018"},
+      {"tipo": "relatorio", "titulo": "Pulse of the Profession 2016", "url": "https://www.pmi.org/learning/thought-leadership/pulse/the-high-cost-of-low-performance-2016"},
+      {"tipo": "paper", "titulo": "Mitchell/Agle/Wood — Stakeholder Salience (AMR 1997)", "url": "https://doi.org/10.2307/259247"},
+      {"tipo": "paper", "titulo": "Flyvbjerg 2014", "url": "https://doi.org/10.1002/pmj.21409"},
+      {"tipo": "relatorio", "titulo": "Forrester Customer Analytics 2023", "url": "https://www.forrester.com/report/the-state-of-customer-analytics-2023/RES179421"},
+      {"tipo": "framework", "titulo": "APQC PCF — Project Initiation", "url": "https://www.apqc.org/process-frameworks"}
+    ]
+  },
+  {
+    "processo_id": "5.2",
+    "processo_nome": "Planejar o Engajamento das Partes Interessadas",
+    "area": "Partes Interessadas",
+    "grupo": "Planejamento",
+    "pilotos_primarios": [],
+    "metricas": [
+      {"nome": "Cobertura do Plano de Engajamento — % de stakeholders com estratégia individualizada", "unidade": "% stakeholders com estratégia + dono + cadência", "formula": "(stakeholders com {estrategia, dono, cadencia, canal} / total) * 100", "baseline_mercado": {"valor": "35% a 55% (planos genéricos sem individualização)", "fonte": "PMI Pulse 2018 + KPMG 2022", "url": "https://www.pmi.org/learning/thought-leadership/pulse/pulse-of-the-profession-2018", "confianca": "baixa"}, "meta_com_ia": {"valor": "85% a 98% (template estruturado + LLM sugere estratégia por perfil)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~2x (~45% → ~90%)"},
+      {"nome": "Diferencial entre engajamento atual e desejado (gap D-C-N-A-L)", "unidade": "média absoluta (0 a 4) na matriz Desinformado-Contrário-Neutro-Apoiador-Líder", "formula": "média(|nivel_desejado_i - nivel_atual_i|)", "baseline_mercado": {"valor": "1.4 a 2.2 (planos identificam gap mas não agem)", "fonte": "PMI PMBOK 7 Stakeholder Domain + KPMG 2022", "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok", "confianca": "baixa"}, "meta_com_ia": {"valor": "0.4 a 0.9 (revisões semanais + alertas de estagnação)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "50% a 70%"},
+      {"nome": "Índice de qualidade do plano (rubrica: individualização + mensurabilidade + trilha + integração com riscos)", "unidade": "score 0 a 100", "formula": "score = individualizacao*0.3 + mensurabilidade*0.3 + trilha*0.2 + integracao_riscos*0.2", "baseline_mercado": {"valor": "40 a 60 (planos textuais sem métricas ou revisão)", "fonte": "PMI Pulse 2023 + Forrester Customer Analytics 2023", "url": "https://www.pmi.org/learning/thought-leadership/pulse", "confianca": "baixa"}, "meta_com_ia": {"valor": "80 a 95 (template rico + IA sugere KPIs por estratégia)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~1.7x (~50 → ~87)"},
+      {"nome": "Tempo de ciclo para produzir Plano de Engajamento aprovado", "unidade": "dias úteis", "formula": "média(data_aprovacao - data_registro_pronto)", "baseline_mercado": {"valor": "5 a 15 dias úteis (workshops + rodadas)", "fonte": "APQC + PMI Pulse 2023", "url": "https://www.apqc.org/process-frameworks", "confianca": "media"}, "meta_com_ia": {"valor": "0.5 a 2 dias úteis (LLM propõe estratégia por perfil + HITL)", "fonte": "McKinsey State of AI 2024", "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai", "confianca": "media"}, "reducao_percentual": "85% a 95%"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "registro_stakeholders_xlsx_json", "descricao": "Saída do 5.1 — insumo obrigatório", "exemplo_estrutura": "id | nome | papel | poder | interesse | influencia | atitude | area"},
+      {"tipo": "matriz_engajamento_dcnal_xlsx", "descricao": "Matriz D-C-N-A-L com nível atual e desejado", "exemplo_estrutura": "id_stakeholder | nivel_atual (D/C/N/A/L) | nivel_desejado | gap | prazo_ajuste"},
+      {"tipo": "plano_engajamento_json_xlsx", "descricao": "Plano estruturado (saída)", "exemplo_estrutura": "id_stakeholder | estrategia | canal | cadencia | dono_relacionamento | kpi_relacionamento | proxima_revisao"},
+      {"tipo": "historico_engajamento_projetos_csv", "descricao": "Estratégias eficazes por perfil", "exemplo_estrutura": "perfil | estrategia_aplicada | resultado (movimentou_atitude?) | tempo_para_mover"},
+      {"tipo": "matriz_riscos_projeto_xlsx", "descricao": "Riscos para integrar riscos de stakeholder ao plano", "exemplo_estrutura": "id_risco | descricao | stakeholder_associado | estrategia_engajamento_mitigadora"}
+    ],
+    "ferramentas_stack": ["Python (pandas, networkx)", "LLM (Azure OpenAI / Anthropic)", "Streamlit (editor HITL)", "Power BI (Power-Interest Grid, D-C-N-A-L)", "PostgreSQL/SQLite", "n8n / Power Automate (lembretes de cadência)"],
+    "riscos_de_medicao": [
+      "Gaming da matriz D-C-N-A-L — auditoria com sponsor e cliente",
+      "Individualização cosmética — checar diversidade real de estratégias",
+      "Ancoragem do LLM em priors políticos — permitir override com trilha",
+      "LGPD: dados de atitude/comportamento são sensíveis — controle de acesso",
+      "Métricas subjetivas + efeito Hawthorne — combinar com sinais objetivos",
+      "Deriva do plano sem revisão — cadência mínima quinzenal + sinalizador"
+    ],
+    "fontes_completas": [
+      {"tipo": "norma", "titulo": "The Standard for AI in PPPM — Stakeholders", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "norma", "titulo": "PMBOK Guide 7 — Stakeholder Domain", "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok"},
+      {"tipo": "relatorio", "titulo": "Pulse 2018 — Success in Disruptive Times", "url": "https://www.pmi.org/learning/thought-leadership/pulse/pulse-of-the-profession-2018"},
+      {"tipo": "relatorio", "titulo": "Pulse 2023 — Power Skills", "url": "https://www.pmi.org/learning/thought-leadership/pulse/power-skills-redefining-project-success"},
+      {"tipo": "paper", "titulo": "Mitchell/Agle/Wood 1997", "url": "https://doi.org/10.2307/259247"},
+      {"tipo": "framework", "titulo": "APQC PCF — Stakeholder Engagement", "url": "https://www.apqc.org/process-frameworks"}
+    ]
+  },
+  {
+    "processo_id": "5.3",
+    "processo_nome": "Planejar o Gerenciamento das Comunicações",
+    "area": "Partes Interessadas",
+    "grupo": "Planejamento",
+    "pilotos_primarios": [],
+    "metricas": [
+      {"nome": "Cobertura da matriz RACI de comunicação por artefato/audiência", "unidade": "% (combinações {artefato x audiência} com R/A/C/I definidos / total)", "formula": "(células RACI preenchidas / (n_artefatos * n_audiencias)) * 100", "baseline_mercado": {"valor": "40% a 60% (RACIs incompletos)", "fonte": "PMI Pulse 2013 'Essential Role of Communications' + APQC PCF", "url": "https://www.pmi.org/learning/thought-leadership/pulse/the-essential-role-of-communications", "confianca": "media"}, "meta_com_ia": {"valor": "85% a 98% (template forçado + LLM sugere R/A/C/I por perfil)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~1.8x (~50% → ~90%)"},
+      {"nome": "Percentual de comunicações previstas entregues no ciclo definido", "unidade": "% de comunicações on-time", "formula": "(comunicações no prazo / total planejado no ciclo) * 100", "baseline_mercado": {"valor": "46% a 60% (PMI Pulse 2023: 46% entregam no ciclo previsto)", "fonte": "PMI Pulse 2023 + Pulse 2013", "url": "https://www.pmi.org/learning/thought-leadership/pulse/power-skills-redefining-project-success", "confianca": "media"}, "meta_com_ia": {"valor": "85% a 96% (calendário automatizado + geração LLM + alerta atraso)", "fonte": "PMI Standard for AI in PPPM 2026 + Microsoft Work Trend Index 2024", "url": "https://www.microsoft.com/en-us/worklab/work-trend-index", "confianca": "media"}, "reducao_percentual": "Aumento de ~1.7x (~53% → ~90%)"},
+      {"nome": "Índice de qualidade do plano de comunicação (rubrica 5W2H)", "unidade": "score 0 a 100", "formula": "score = média por artefato do % de campos 5W2H preenchidos * 100", "baseline_mercado": {"valor": "45 a 65 (planos omitem 'Why', 'How Much', critério de qualidade)", "fonte": "PMI Pulse 2013 + KPMG 2022", "url": "https://www.pmi.org/learning/thought-leadership/pulse/the-essential-role-of-communications", "confianca": "baixa"}, "meta_com_ia": {"valor": "85 a 95 (template estruturado + validação automática + sugestão LLM)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~1.6x (~55 → ~90)"},
+      {"nome": "Tempo de ciclo para produzir Plano de Comunicações aprovado", "unidade": "dias úteis", "formula": "média(data_aprovacao - data_registro_stakeholders_pronto)", "baseline_mercado": {"valor": "3 a 10 dias úteis (workshops + validação PMO)", "fonte": "APQC + PMI Pulse 2023", "url": "https://www.apqc.org/process-frameworks", "confianca": "media"}, "meta_com_ia": {"valor": "0.25 a 1 dia útil (LLM gera rascunho + HITL em sessão de 60min)", "fonte": "McKinsey State of AI 2024", "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai", "confianca": "media"}, "reducao_percentual": "85% a 95%"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "registro_stakeholders_xlsx_json", "descricao": "Saída do 5.1 com canal preferido e cadência", "exemplo_estrutura": "id | nome | papel | canal_preferido | cadencia_desejada | idioma | fuso"},
+      {"tipo": "catalogo_artefatos_projeto_xlsx", "descricao": "Catálogo de artefatos de comunicação", "exemplo_estrutura": "id_artefato | nome | proposito | formato | audiencia_alvo | responsavel"},
+      {"tipo": "matriz_raci_comunicacao_xlsx", "descricao": "Matriz RACI cruzando artefatos e audiências", "exemplo_estrutura": "artefato | audiencia | R | A | C | I"},
+      {"tipo": "calendario_comunicacoes_ics_json", "descricao": "Calendário formal com cadência, canal, dono, prazo", "exemplo_estrutura": "{data, artefato, audiencia, canal, dono, prazo_producao, prazo_distribuicao}"},
+      {"tipo": "politica_comunicacao_docx_pdf", "descricao": "Política corporativa (LGPD, sigilo, canais autorizados)", "exemplo_estrutura": "princípios, canais oficiais, sigilo, LGPD, retenção, escalonamento"},
+      {"tipo": "historico_feedback_comunicacao_csv", "descricao": "Feedback de audiências (VoC do stakeholder)", "exemplo_estrutura": "data | artefato | audiencia | nota_utilidade (1-5) | comentario_livre | acao_tomada"}
+    ],
+    "ferramentas_stack": ["Python (pandas, jinja2)", "LLM (Azure OpenAI / Anthropic)", "Streamlit (editor HITL)", "Power BI ou Streamlit (calendário e KPIs)", "PostgreSQL/SQLite", "n8n / Power Automate / Outlook Calendar API"],
+    "riscos_de_medicao": [
+      "Gaming da cobertura RACI — auditoria de qualidade em amostra",
+      "On-time inflado por mover prazo previsto — trilha imutável plano vs execução",
+      "Ancoragem do revisor no RACI do LLM — obrigar justificativa",
+      "LGPD: canais e listas contêm dados pessoais — retenção controlada e base legal",
+      "Sobrecarga informacional — segmentar por relevância declarada",
+      "Deriva do plano após kickoff — alerta automático de revisão"
+    ],
+    "fontes_completas": [
+      {"tipo": "norma", "titulo": "The Standard for AI in PPPM — Comunicações", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "norma", "titulo": "PMBOK Guide 7 — Stakeholder Domain", "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2013 — Essential Role of Communications", "url": "https://www.pmi.org/learning/thought-leadership/pulse/the-essential-role-of-communications"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2023 — Power Skills", "url": "https://www.pmi.org/learning/thought-leadership/pulse/power-skills-redefining-project-success"},
+      {"tipo": "relatorio", "titulo": "Microsoft Work Trend Index 2024", "url": "https://www.microsoft.com/en-us/worklab/work-trend-index"},
+      {"tipo": "framework", "titulo": "APQC PCF — Communications Planning", "url": "https://www.apqc.org/process-frameworks"},
+      {"tipo": "lei", "titulo": "LGPD Lei 13.709/2018", "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"}
+    ]
+  }
+]

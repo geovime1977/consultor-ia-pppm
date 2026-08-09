@@ -1,0 +1,212 @@
+[
+  {
+    "id": "priorizacao-portfolio",
+    "kpi_principal": {
+      "nome": "Aderência do portfólio à estratégia corporativa",
+      "unidade": "% de projetos ativos alinhados a objetivos estratégicos formalmente aprovados",
+      "formula": "(projetos com score estratégico >= corte) / (total de projetos ativos) * 100",
+      "baseline_mercado": {
+        "valor": "~55% dos projetos entregam valor estratégico esperado; ~47% considerados de alto alinhamento",
+        "fonte": "PMI Pulse of the Profession (relatórios anuais 2020-2024)",
+        "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "+20 a +30 p.p. em aderência (patamar típico 70-80%) com score AHP/TOPSIS auditável + explicação IA para comitê",
+        "fonte": "Ganho declarado na aula BSBr Prof. Bezerra + literatura AHP/portfolio selection (Saaty; Archer & Ghasemzadeh)",
+        "url": "https://bsbr.com.br/",
+        "confianca": "baixa"
+      },
+      "reducao_percentual": "+20 a 30 p.p. (ganho, não redução)"
+    },
+    "kpis_secundarios": [
+      {"nome": "Tempo de ciclo de aprovação do portfólio", "unidade": "dias úteis", "baseline": "30-60 dias", "meta_ia": "5-10 dias", "fonte": "Gartner IT Score for PPM", "url": "https://www.gartner.com/en/information-technology/insights/project-portfolio-management"},
+      {"nome": "Retrabalho de repriorização intra-ciclo", "unidade": "% projetos que mudam de prioridade entre 2 comitês", "baseline": "25-35%", "meta_ia": "<10%", "fonte": "Requer POC interna do cliente", "url": ""},
+      {"nome": "Cobertura de critérios estratégicos por decisão", "unidade": "% decisões com >=4 critérios ponderados registrados", "baseline": "<30%", "meta_ia": ">90%", "fonte": "PMI Standard for Portfolio Management, 4th ed.", "url": "https://www.pmi.org/pmbok-guide-standards/foundational/standard-for-portfolio-management"}
+    ],
+    "roi_estimado": {
+      "premissa": "PMO com 40 projetos/ano, ticket médio R$ 500k, comitê mensal 5 executivos @ R$ 300/h por 4h",
+      "ganho_anual_estimado": "R$ 1,2M a R$ 3,0M (economia de tempo de comitê + realocação de R$ 2-4M para projetos de maior valor)",
+      "tempo_payback_meses": "3-6"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) listar projetos ativos, (2) pedir a 3 executivos que pontuem 1-5 aderência estratégica sem se falarem, (3) medir desvio-padrão e concordância com prioridade oficial, (4) cronometrar reunião de comitê atual e contar decisões revertidas em 60 dias.",
+    "riscos_de_medicao": [
+      "Gaming do score (dono aprende os pesos e infla critério favorito)",
+      "Viés de seleção (PMO só submete ao score o que já quer aprovar)",
+      "Concordância espúria (aderência sobe porque critérios foram frouxeados)",
+      "Confusão entre aderência declarada e benefits realization"
+    ],
+    "fontes_completas": [
+      {"tipo": "relatorio", "titulo": "Pulse of the Profession", "autor": "PMI", "ano": 2024, "url": "https://www.pmi.org/learning/thought-leadership/pulse"},
+      {"tipo": "relatorio", "titulo": "The Standard for Portfolio Management, 4th ed.", "autor": "PMI", "ano": 2017, "url": "https://www.pmi.org/pmbok-guide-standards/foundational/standard-for-portfolio-management"},
+      {"tipo": "relatorio", "titulo": "IT Score for Program and Portfolio Management", "autor": "Gartner", "ano": 2023, "url": "https://www.gartner.com/en/information-technology/insights/project-portfolio-management"},
+      {"tipo": "paper", "titulo": "The Analytic Hierarchy Process", "autor": "Thomas L. Saaty", "ano": 1980, "url": "https://doi.org/10.1016/0377-2217(90)90057-I"},
+      {"tipo": "paper", "titulo": "An integrated framework for project portfolio selection", "autor": "Archer & Ghasemzadeh", "ano": 1999, "url": "https://doi.org/10.1016/S0263-7863(98)00032-5"},
+      {"tipo": "vendor", "titulo": "Planview Portfolios — AI-assisted prioritization", "autor": "Planview", "ano": 2024, "url": "https://www.planview.com/products-solutions/products/planview-portfolios/"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": true,
+      "onde": ["https://www.linkedin.com/in/josebezerrafilho/", "https://www.slideshare.net/JoseBezerra1", "https://bsbr.com.br/", "vault: 01 - Profissional/Projetos/Curso Consultoria IA - BSBr Prof Bezerra.md"],
+      "citacao_util": "Módulo 6 do curso BSBr é explicitamente 'Ferramentas de PPM — Project Portfolio Management com IA'. Ganho +20-30% de aderência corresponde ao ganho_esperado catalogado em data/pilotos.json. WebFetch bloqueado nesta sessão — raspagem detalhada de LinkedIn/SlideShare pendente."
+    }
+  },
+  {
+    "id": "consolidador-atas",
+    "kpi_principal": {
+      "nome": "Horas semanais devolvidas por gerente em documentação de reunião",
+      "unidade": "horas/gerente/semana",
+      "formula": "(horas gastas em transcrever+estruturar+circular ata antes) - (horas revisando ata gerada por LLM depois)",
+      "baseline_mercado": {
+        "valor": "3-5h/semana por gerente em atas e follow-up; profissional passa em média 23h/semana em reuniões",
+        "fonte": "HBR 'Stop the Meeting Madness' (Perlow et al., 2017); Microsoft Work Trend Index 2023-2024",
+        "url": "https://hbr.org/2017/07/stop-the-meeting-madness",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "-70 a -85% no tempo de produção de ata (~3-5h/semana devolvidas) com transcrição automática + sumarização LLM + template padronizado + revisão humana curta",
+        "fonte": "Microsoft — Teams Intelligent Recap / Copilot; estudo IDC-Microsoft 2024",
+        "url": "https://www.microsoft.com/en-us/worklab/work-trend-index",
+        "confianca": "media"
+      },
+      "reducao_percentual": "-70 a -85%"
+    },
+    "kpis_secundarios": [
+      {"nome": "Taxa de decisões rastreáveis por reunião", "unidade": "% reuniões com decisão+responsável+prazo", "baseline": "<50%", "meta_ia": ">90%", "fonte": "PMI Practice Guide — Requirements Management", "url": "https://www.pmi.org/"},
+      {"nome": "Latência entre reunião e publicação da ata", "unidade": "horas", "baseline": "24-72h", "meta_ia": "<2h", "fonte": "Vendor claims (Otter.ai, Fireflies, MS Teams recap)", "url": "https://otter.ai/"},
+      {"nome": "Perda de ações (decisões que somem)", "unidade": "% ações que não viram tarefa acompanhada", "baseline": "30-50%", "meta_ia": "<10%", "fonte": "Requer POC interna", "url": ""}
+    ],
+    "roi_estimado": {
+      "premissa": "PMO com 10 gerentes @ R$ 150/h, cada um 4h/semana em atas",
+      "ganho_anual_estimado": "R$ 240k a R$ 300k (4h x 50 semanas x R$ 150 x 10 gerentes x 80% de economia)",
+      "tempo_payback_meses": "2-4"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) 5 gerentes registram por 5 dias tempo em gravar/transcrever/estruturar/circular/cobrar, (2) coletar 10 atas atuais e medir % com decisão+responsável+prazo, (3) medir latência real de 3 reuniões típicas.",
+    "riscos_de_medicao": [
+      "Substituição de esforço (revisar LLM leva o mesmo tempo que escrever)",
+      "Alucinação de decisão (risco de auditoria)",
+      "Viés de conveniência (sumário suaviza discordância relevante)",
+      "LGPD (gravação sem consentimento invalida uso)",
+      "Deriva de qualidade após 1º mês sem revisão"
+    ],
+    "fontes_completas": [
+      {"tipo": "relatorio", "titulo": "Stop the Meeting Madness", "autor": "Perlow, Hadley, Eun (HBR)", "ano": 2017, "url": "https://hbr.org/2017/07/stop-the-meeting-madness"},
+      {"tipo": "relatorio", "titulo": "Work Trend Index Annual Report", "autor": "Microsoft", "ano": 2024, "url": "https://www.microsoft.com/en-us/worklab/work-trend-index"},
+      {"tipo": "relatorio", "titulo": "The Business Opportunity of AI", "autor": "IDC & Microsoft", "ano": 2024, "url": "https://info.microsoft.com/ww-landing-the-business-opportunity-of-ai.html"},
+      {"tipo": "paper", "titulo": "BERTSum: Fine-tune BERT for Extractive Summarization", "autor": "Liu & Lapata", "ano": 2019, "url": "https://arxiv.org/abs/1903.10318"},
+      {"tipo": "vendor", "titulo": "Microsoft Teams Intelligent Recap", "autor": "Microsoft", "ano": 2024, "url": "https://learn.microsoft.com/en-us/microsoftteams/rooms/intelligent-recap"},
+      {"tipo": "vendor", "titulo": "Otter.ai", "autor": "Otter.ai", "ano": 2024, "url": "https://otter.ai/"},
+      {"tipo": "vendor", "titulo": "Fireflies.ai", "autor": "Fireflies.ai", "ano": 2024, "url": "https://fireflies.ai/"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": true,
+      "onde": ["https://www.linkedin.com/in/josebezerrafilho/", "https://www.slideshare.net/JoseBezerra1", "https://bsbr.com.br/"],
+      "citacao_util": "Módulos 3 (Diagnóstico) e 4 (Business Cases Piloto) do curso BSBr mencionam transformar sinais brutos (atas, SLA, indicadores) em decisão rastreável, alinhado a este piloto. WebFetch bloqueado — raspagem específica pendente."
+    }
+  },
+  {
+    "id": "auditor-cronograma",
+    "kpi_principal": {
+      "nome": "Redução de atrasos recorrentes no portfólio",
+      "unidade": "% de projetos entregues fora do prazo original em janela de 12 meses",
+      "formula": "delta na taxa de atraso (>=10% do prazo original) antes vs depois do piloto",
+      "baseline_mercado": {
+        "valor": "43-50% dos projetos atrasam; ~53% concluídos no prazo original; CHAOS Report para TI ~60% atraso",
+        "fonte": "PMI Pulse of the Profession 2020-2024; Standish CHAOS",
+        "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "-25% na taxa de atraso quando cronogramas passam por auditoria pré-kickoff (folgas, dependências, caminho crítico) com IA + PO (CPM/PERT/Monte Carlo)",
+        "fonte": "Ganho declarado catálogo BSBr + literatura schedule risk analysis (Hulett, Vanhoucke) + vendor Deltek Acumen Fuse / Safran Risk",
+        "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen",
+        "confianca": "baixa"
+      },
+      "reducao_percentual": "-25%"
+    },
+    "kpis_secundarios": [
+      {"nome": "Folga do caminho crítico auditada", "unidade": "% tarefas do CC com folga <5%", "baseline": "raramente medido", "meta_ia": "100% dos projetos com relatório DCMA antes do kickoff", "fonte": "Deltek Acumen Fuse — DCMA 14-point", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse"},
+      {"nome": "Dependências mal mapeadas por 100 tarefas", "unidade": "n FS ausentes, SS abusivos, leads/lags injustificados", "baseline": "5-15", "meta_ia": "<3 após 2 rodadas", "fonte": "DCMA 14-Point Assessment", "url": "https://www.dcma.mil/"},
+      {"nome": "MAE de previsão de conclusão", "unidade": "dias", "baseline": "Requer POC interna", "meta_ia": ">=30% menor que chute do gerente", "fonte": "Vanhoucke — Measuring Time", "url": "https://link.springer.com/book/10.1007/978-3-642-00758-4"}
+    ],
+    "roi_estimado": {
+      "premissa": "Portfólio 40 projetos/ano, ticket médio R$ 500k, custo de atraso ~8%/mês",
+      "ganho_anual_estimado": "R$ 1,6M a R$ 2,4M (redução de 25% em atrasos = ~8-12 projetos-mês evitados)",
+      "tempo_payback_meses": "4-8"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) coletar cronogramas dos 20 projetos ativos em MS Project/Primavera/Excel, (2) rodar checklist DCMA 14-point manual e contar violações, (3) medir taxa histórica de atraso do PMO nos últimos 12 meses, (4) comparar caminho crítico declarado vs realizado em 3 projetos fechados.",
+    "riscos_de_medicao": [
+      "Cronograma sem formato estruturado (planilhas soltas)",
+      "Gerente infla folga — auditoria pega folga, não atraso real",
+      "Atraso reclassificado como replanejamento e sai da estatística",
+      "Viés de sobrevivência (projetos cancelados fora do denominador)",
+      "Confusão entre redução de atraso e redução de escopo entregue"
+    ],
+    "fontes_completas": [
+      {"tipo": "relatorio", "titulo": "Pulse of the Profession", "autor": "PMI", "ano": 2024, "url": "https://www.pmi.org/learning/thought-leadership/pulse"},
+      {"tipo": "relatorio", "titulo": "CHAOS Report", "autor": "Standish Group", "ano": 2020, "url": "https://www.standishgroup.com/"},
+      {"tipo": "relatorio", "titulo": "DCMA 14-Point Schedule Assessment", "autor": "DCMA", "ano": 2012, "url": "https://www.dcma.mil/"},
+      {"tipo": "paper", "titulo": "Practical Schedule Risk Analysis", "autor": "David Hulett", "ano": 2009, "url": "https://www.routledge.com/9780566087905"},
+      {"tipo": "paper", "titulo": "Measuring Time", "autor": "Mario Vanhoucke", "ano": 2010, "url": "https://link.springer.com/book/10.1007/978-3-642-00758-4"},
+      {"tipo": "vendor", "titulo": "Deltek Acumen Fuse", "autor": "Deltek", "ano": 2024, "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse"},
+      {"tipo": "vendor", "titulo": "Safran Risk", "autor": "Safran", "ano": 2024, "url": "https://www.safran.com/software/safran-risk"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": false,
+      "onde": ["https://www.linkedin.com/in/josebezerrafilho/", "https://www.slideshare.net/JoseBezerra1", "https://bsbr.com.br/"],
+      "citacao_util": "Não há material público específico do Prof. Bezerra sobre auditoria de cronograma confirmado nesta sessão (WebFetch negado). O -25% está declarado em data/pilotos.json como derivado da aula; exige validação contra deck original + Hulett/Vanhoucke antes de virar cláusula contratual."
+    }
+  },
+  {
+    "id": "estimador-esforco",
+    "kpi_principal": {
+      "nome": "Redução de estouro de prazo e orçamento em novos projetos",
+      "unidade": "% de desvio médio entre estimativa inicial e realizado",
+      "formula": "média(|realizado - estimado| / estimado) em 12 meses; comparar antes vs depois",
+      "baseline_mercado": {
+        "valor": "Projetos de TI estouram em média 45% em custo e 7% em prazo; software especificamente ~66% acima do orçamento e ~33% acima do prazo",
+        "fonte": "McKinsey & University of Oxford (Bloch, Blumberg, Laartz, 2012); Standish CHAOS",
+        "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value",
+        "confianca": "alta"
+      },
+      "meta_com_ia": {
+        "valor": "-20% no desvio médio de estimativa quando chute é substituído por faixa fundamentada em histórico via ML (analogia + regressão) + LLM sobre projetos comparáveis",
+        "fonte": "Ganho declarado catálogo BSBr + literatura effort estimation (COCOMO II, Jorgensen)",
+        "url": "https://csse.usc.edu/csse/research/COCOMOII/cocomo_main.html",
+        "confianca": "media"
+      },
+      "reducao_percentual": "-20%"
+    },
+    "kpis_secundarios": [
+      {"nome": "Taxa de estimativa fora do intervalo P10-P90", "unidade": "%", "baseline": "60-80%", "meta_ia": "20-30%", "fonte": "Jorgensen — expert estimation review", "url": "https://doi.org/10.1016/j.jss.2003.09.033"},
+      {"nome": "Tempo para produzir estimativa formal", "unidade": "horas/projeto", "baseline": "20-40h", "meta_ia": "4-8h", "fonte": "Vendor claims (Jira Align, Monday AI)", "url": "https://www.atlassian.com/software/jira/align"},
+      {"nome": "Viés médio de otimismo (realizado/estimado)", "unidade": "razão", "baseline": "1,3-1,6", "meta_ia": "0,95-1,10 após 2 ciclos", "fonte": "Kahneman — planning fallacy", "url": "https://en.wikipedia.org/wiki/Planning_fallacy"}
+    ],
+    "roi_estimado": {
+      "premissa": "Portfólio 40 projetos/ano, custo médio R$ 500k, estouro histórico médio 30%",
+      "ganho_anual_estimado": "R$ 1,2M evitados (redução de 20% sobre R$ 6M de estouro anual)",
+      "tempo_payback_meses": "6-10 (exige base histórica limpa antes)"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) 20 projetos fechados nos últimos 24 meses com estimativa inicial (custo, prazo, esforço), (2) comparar com realizado, (3) segmentar por tipo/porte/tecnologia, (4) entrevistar 3 estimadores sobre método atual (chute, analogia, PERT, story points).",
+    "riscos_de_medicao": [
+      "Base histórica ajustada retroativamente para bater com realizado",
+      "Overfitting no histórico ruim (reproduz viés de otimismo)",
+      "Gaming (faixa artificialmente alargada)",
+      "Deriva de escopo tratada como erro de estimativa",
+      "Mix novo diferente do histórico invalida modelo",
+      "Sample bias (projetos cancelados por má estimativa ficam fora)"
+    ],
+    "fontes_completas": [
+      {"tipo": "relatorio", "titulo": "Delivering large-scale IT projects on time, on budget, and on value", "autor": "McKinsey & Oxford (Bloch, Blumberg, Laartz)", "ano": 2012, "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value"},
+      {"tipo": "relatorio", "titulo": "CHAOS Report", "autor": "Standish Group", "ano": 2020, "url": "https://www.standishgroup.com/"},
+      {"tipo": "paper", "titulo": "A review of studies on expert estimation of software development effort", "autor": "Magne Jorgensen", "ano": 2004, "url": "https://doi.org/10.1016/j.jss.2003.09.033"},
+      {"tipo": "paper", "titulo": "COCOMO II Model Definition Manual", "autor": "Barry Boehm et al.", "ano": 2000, "url": "https://csse.usc.edu/csse/research/COCOMOII/cocomo_main.html"},
+      {"tipo": "vendor", "titulo": "Jira Align — AI-powered estimation", "autor": "Atlassian", "ano": 2024, "url": "https://www.atlassian.com/software/jira/align"},
+      {"tipo": "vendor", "titulo": "Monday.com AI", "autor": "Monday.com", "ano": 2024, "url": "https://monday.com/w/ai"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": false,
+      "onde": ["https://www.linkedin.com/in/josebezerrafilho/", "https://www.slideshare.net/JoseBezerra1", "https://bsbr.com.br/"],
+      "citacao_util": "Sem material público específico do Prof. Bezerra sobre estimador de esforço confirmado nesta sessão. A promessa -20% está ancorada em data/pilotos.json + baseline McKinsey/Oxford 2012 (alta confiança). Raspagem LinkedIn/Pulse pendente."
+    }
+  }
+]

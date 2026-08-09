@@ -1,0 +1,304 @@
+[
+  {
+    "processo_id": "1.1",
+    "processo_nome": "Iniciar Projeto ou Fase",
+    "area": "Governanca",
+    "grupo": "Inicio",
+    "pilotos_primarios": ["priorizacao-portfolio"],
+    "metricas": [
+      {
+        "nome": "Lead time do TAP (Termo de Abertura de Projeto) — do pedido de novo projeto ate aprovacao formal pelo comite",
+        "unidade": "dias uteis",
+        "formula": "media(data_aprovacao_TAP - data_solicitacao_novo_projeto) na janela de 12 meses",
+        "baseline_mercado": {"valor": "20-45 dias uteis (PMOs de baixa/media maturidade, 3-5 iteracoes entre PMO, sponsor e area demandante)", "fonte": "Gartner IT Score for PPM 2024 — organizacoes nivel 2/5 gastam 4-6 semanas entre demanda e aprovacao formal do charter", "url": "https://www.gartner.com/en/documents/it-score-for-program-and-portfolio-management", "confianca": "media"},
+        "meta_com_ia": {"valor": "5-12 dias uteis (LLM pre-preenche TAP via RAG sobre 100+ TAPs historicos + template padrao; humano revisa e aprova)", "fonte": "McKinsey 'The economic potential of generative AI' (2023) — ganho 60-70% em document generation; triangulado com Microsoft Work Trend Index 2024", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier", "confianca": "media"},
+        "reducao_percentual": "60-75% no lead time do TAP"
+      },
+      {
+        "nome": "% de TAPs aprovados sem retrabalho na primeira revisao do comite",
+        "unidade": "% do total de TAPs submetidos no trimestre",
+        "formula": "(TAPs_aprovados_1a_revisao / total_TAPs_submetidos) x 100",
+        "baseline_mercado": {"valor": "25-40% (maioria retorna com pedidos de esclarecimento)", "fonte": "PMI Pulse of the Profession 2020 — 'Ahead of the Curve'", "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908", "confianca": "media"},
+        "meta_com_ia": {"valor": "65-80% (LLM cruza TAP rascunho com padrao PMI e TAPs historicos)", "fonte": "PMI Standard for AI in PPPM (2026)", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"},
+        "reducao_percentual": "Aumento de 2x na taxa de aprovacao no primeiro comite"
+      },
+      {
+        "nome": "% de projetos iniciados formalmente descontinuados nos primeiros 90 dias (falso start)",
+        "unidade": "% do total de projetos iniciados",
+        "formula": "(projetos_descontinuados_ate_90d / projetos_iniciados_na_janela) x 100",
+        "baseline_mercado": {"valor": "10-18% cancelados no primeiro trimestre por falta de alinhamento estrategico", "fonte": "PMI Pulse of the Profession 2023 — 'Power Skills'", "url": "https://www.pmi.org/learning/library/pulse-of-the-profession-2023", "confianca": "media"},
+        "meta_com_ia": {"valor": "3-7% (LLM+AHP forcam explicitacao de criterios estrategicos e sponsor antes do sign-off)", "fonte": "Gartner Hype Cycle for PPM 2024 — categoria AI-Augmented Portfolio Selection", "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management", "confianca": "media"},
+        "reducao_percentual": "50-70% no falso start"
+      }
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "documento_word_docx", "descricao": "Template corporativo de TAP em .docx", "exemplo_estrutura": "Identificacao | Justificativa | Objetivos SMART | Escopo alto nivel | Premissas | Restricoes | Riscos iniciais | Stakeholders | Sponsor | Orcamento estimado | Marcos"},
+      {"tipo": "planilha_excel", "descricao": "Planilha de solicitacao de novo projeto pela area demandante", "exemplo_estrutura": "id_demanda | area | data | descricao_necessidade | valor_negocio_estimado | prazo | criticidade | sponsor_indicado | dependencias_conhecidas"},
+      {"tipo": "email", "descricao": "E-mail livre do sponsor descrevendo demanda — insumo para LLM converter em TAP", "exemplo_estrutura": "assunto + corpo + anexos; LLM extrai objetivo, escopo, premissas e sinaliza lacunas"},
+      {"tipo": "json_api", "descricao": "Webhook do sistema de intake (Monday, Asana, Jira Portfolio, Planview)", "exemplo_estrutura": "request_id, requestor, department, business_case, requested_priority, estimated_value_brl, target_date, sponsor_email, strategic_pillar_id"},
+      {"tipo": "base_historica_vetorial", "descricao": "Vector store (Chroma, Qdrant, Azure AI Search) com TAPs aprovados dos ultimos 3-5 anos para RAG", "exemplo_estrutura": "chunk: texto_tap + metadados (ano, area, valor, sucesso_final, tags); embeddings multilingue"}
+    ],
+    "riscos_de_medicao": [
+      "Gaming do lead time: PMO abre TAP oficial so quando ja esta pronto — medir do primeiro contato",
+      "Vies de selecao: projetos simples vao para o piloto — exigir mix por valor e complexidade",
+      "Falso positivo em cancelamento: auditar 30 casos ex-post por trimestre",
+      "Alucinacao em premissas orcamentarias: obrigar citacao de fonte por premissa numerica",
+      "LGPD: anonimizar corpus historico antes do RAG"
+    ],
+    "fontes_completas": [
+      {"tipo": "relatorio", "titulo": "PMI Pulse of the Profession 2020 — Ahead of the Curve", "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse of the Profession 2023 — Power Skills", "url": "https://www.pmi.org/learning/library/pulse-of-the-profession-2023"},
+      {"tipo": "relatorio", "titulo": "PMI Standard for AI in PPPM", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "relatorio", "titulo": "Gartner IT Score for PPM", "url": "https://www.gartner.com/en/documents/it-score-for-program-and-portfolio-management"},
+      {"tipo": "relatorio", "titulo": "Gartner Hype Cycle for PPM 2024", "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management"},
+      {"tipo": "relatorio", "titulo": "McKinsey — The economic potential of generative AI", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier"},
+      {"tipo": "vendor", "titulo": "Microsoft Work Trend Index 2024", "url": "https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part"}
+    ]
+  },
+  {
+    "processo_id": "1.2",
+    "processo_nome": "Integrar e Alinhar Planos do Projeto",
+    "area": "Governanca",
+    "grupo": "Planejamento",
+    "pilotos_primarios": ["priorizacao-portfolio"],
+    "metricas": [
+      {
+        "nome": "Inconsistencias detectadas entre planos subsidiarios antes do baseline",
+        "unidade": "n inconsistencias identificadas por plano integrado",
+        "formula": "contagem de itens em conflito (data, entrega, recurso, fornecedor, premissa) via cruzamento automatico",
+        "baseline_mercado": {"valor": "1-3 inconsistencias detectadas manualmente por revisao; PMI: ~35% dos projetos entram em execucao com planos contraditorios", "fonte": "PMI Pulse of the Profession 2021 — 'Beyond Agility'", "url": "https://www.pmi.org/learning/library/beyond-agility-gymnastic-enterprises-12973", "confianca": "media"},
+        "meta_com_ia": {"valor": "8-20 inconsistencias por revisao (agente varre planos e cruza entidades)", "fonte": "Gartner Hype Cycle for PPM 2024 — AI-Augmented PPM projeta 3-5x", "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management", "confianca": "media"},
+        "reducao_percentual": "Aumento de 4-7x na deteccao pre-baseline"
+      },
+      {
+        "nome": "Tempo de ciclo para integrar e homologar planos subsidiarios apos rebaseline",
+        "unidade": "dias uteis",
+        "formula": "media(data_homologacao_planos_integrados - data_solicitacao_rebaseline)",
+        "baseline_mercado": {"valor": "10-20 dias uteis por rebaseline em programas medios", "fonte": "Deloitte Global PMO Benchmark 2022", "url": "https://www2.deloitte.com/global/en/pages/operations/articles/pmo-benchmark.html", "confianca": "baixa"},
+        "meta_com_ia": {"valor": "3-7 dias uteis (agente pre-consolida; humano decide trade-offs; PL aloca recursos)", "fonte": "McKinsey GenAI 2023 — 40-60% em cross-document synthesis", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier", "confianca": "media"},
+        "reducao_percentual": "60-70% no tempo de ciclo de rebaseline"
+      },
+      {
+        "nome": "% de recursos com sobre-alocacao no plano homologado (>100% de capacidade)",
+        "unidade": "% de recursos com utilizacao planejada >100%",
+        "formula": "(recursos_sobrealocados / total_recursos_do_programa) x 100",
+        "baseline_mercado": {"valor": "15-30% dos recursos entram no baseline sobre-alocados", "fonte": "Planview State of Strategic Portfolio Management 2024", "url": "https://www.planview.com/resources/guide/state-of-strategic-portfolio-management/", "confianca": "media"},
+        "meta_com_ia": {"valor": "3-8% (PL rebalanceia carga respeitando capacidade e prazos)", "fonte": "Literatura RCPSP — solvers PL/MILP reduzem sobre-alocacao para <5%", "url": "https://link.springer.com/article/10.1007/s10951-019-00631-5", "confianca": "media"},
+        "reducao_percentual": "70-80% em sobre-alocacao"
+      }
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "arquivo_mpp_ou_xml", "descricao": "Cronograma exportado do MS Project (.mpp) ou padrao MSP XML", "exemplo_estrutura": "task_id, name, wbs, start, finish, duration, predecessors, resource_names, work_hours, baseline_start, baseline_finish, %complete"},
+      {"tipo": "planilha_excel_multi_aba", "descricao": "Workbook consolidando planos subsidiarios em abas separadas", "exemplo_estrutura": "abas: Escopo | Cronograma | Custo | Riscos | Recursos | Aquisicoes"},
+      {"tipo": "json_api", "descricao": "API do Jira Align, Planview ou Smartsheet devolvendo objetos de plano", "exemplo_estrutura": "initiative_id, epic_ids[], planned_start, planned_end, assigned_team, capacity_hours, dependency_ids[], risk_score"},
+      {"tipo": "documento_word_docx", "descricao": "Plano de gerenciamento do projeto em .docx", "exemplo_estrutura": "Visao geral | Premissas | Restricoes | Estrategia de execucao | Governanca | Referencias cruzadas"},
+      {"tipo": "dados_brutos_csv", "descricao": "CSV de matriz de recursos por projeto e por mes", "exemplo_estrutura": "recurso_id | nome | mes | horas_capacidade | horas_alocadas_proj_A | horas_alocadas_proj_B | utilizacao_%"}
+    ],
+    "riscos_de_medicao": [
+      "Falsa consistencia: agente marca planos como coerentes so por baterem sintaticamente — revisor humano em amostra",
+      "Solucao otima PL ignora politica: rebalanceamento pode violar acordo tacito sponsor-gerente",
+      "Gaming da metrica: gerentes evitam registrar dependencia formal — separar owner de detector",
+      "Vies de completude: mais inconsistencias infla ruido — auditar % que viraram acao real",
+      "Contaminacao de baseline: congelar janela mensal se rebaseline acontece toda semana"
+    ],
+    "fontes_completas": [
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2021 — Beyond Agility", "url": "https://www.pmi.org/learning/library/beyond-agility-gymnastic-enterprises-12973"},
+      {"tipo": "relatorio", "titulo": "PMI Standard for AI in PPPM", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "relatorio", "titulo": "Gartner Hype Cycle for PPM 2024", "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management"},
+      {"tipo": "relatorio", "titulo": "McKinsey — economic potential of generative AI", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier"},
+      {"tipo": "relatorio", "titulo": "Planview — State of Strategic Portfolio Management 2024", "url": "https://www.planview.com/resources/guide/state-of-strategic-portfolio-management/"},
+      {"tipo": "paper", "titulo": "RCPSP models — Hartmann & Briskorn", "url": "https://link.springer.com/article/10.1007/s10951-019-00631-5"}
+    ]
+  },
+  {
+    "processo_id": "1.5",
+    "processo_nome": "Gerenciar a Garantia da Qualidade",
+    "area": "Governanca",
+    "grupo": "Execucao",
+    "pilotos_primarios": ["analise-sla"],
+    "gargalo_case_alfa": true,
+    "metricas": [
+      {
+        "nome": "Custo de nao-qualidade (rework + defeitos + retrabalho) como % do custo total do projeto",
+        "unidade": "% do orcamento executado",
+        "formula": "(custo_rework + custo_defeitos_pos_entrega + custo_correcoes) / custo_total_executado x 100",
+        "baseline_mercado": {"valor": "20-40% do custo total consumido em rework e correcao de defeitos em organizacoes com QA reativo", "fonte": "PMI Pulse of the Profession 2018 — 'Success in Disruptive Times'", "url": "https://www.pmi.org/learning/library/success-disruptive-times-11128", "confianca": "media"},
+        "meta_com_ia": {"valor": "8-15% (ML preve probabilidade de defeito + CEP dispara parada antes)", "fonte": "Gartner Hype Cycle for PPM 2024 + literatura Six Sigma com ML aplicado", "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management", "confianca": "media"},
+        "reducao_percentual": "50-65% no custo de nao-qualidade"
+      },
+      {
+        "nome": "Aderencia ao SLA operacional apos ciclo de correcao assistido por IA (KPI-ancora Bezerra)",
+        "unidade": "% de tickets/entregas dentro do SLA acordado",
+        "formula": "(tickets_dentro_do_sla / total_tickets) x 100, medido mensalmente apos 90 dias",
+        "baseline_mercado": {"valor": "72,4% de aderencia (caso concreto Bezerra em cliente de saude/servicos — meta contratual 80%, 27 violacoes/mes)", "fonte": "Prof. Dr. Jose Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10] + webinar de lancamento", "url": "https://bsbr.com.br/", "confianca": "alta"},
+        "meta_com_ia": {"valor": "+15 a +25 p.p. de aderencia (ex: 72% → 87-97%)", "fonte": "Bezerra Aula 1 [01:02:10] + Gartner AIOps", "url": "https://www.gartner.com/en/documents/aiops-market-guide", "confianca": "media"},
+        "reducao_percentual": "+15 a +25 p.p. em aderencia (ganho absoluto)"
+      },
+      {
+        "nome": "Cobertura de inspecao — % das entregas/lotes inspecionados contra padrao de qualidade",
+        "unidade": "% do volume total",
+        "formula": "(entregas_inspecionadas / total_entregas_produzidas) x 100",
+        "baseline_mercado": {"valor": "5-15% (amostragem manual — resto passa sem controle formal)", "fonte": "ASQ + literatura ISO 9001 sobre amostragem estatistica", "url": "https://asq.org/quality-resources/quality-management-system", "confianca": "media"},
+        "meta_com_ia": {"valor": "80-100% (visao computacional 100% do que passa pela camera; ML classifica 100% do texto/log)", "fonte": "Bezerra Aula 1 + vendors industrial vision (Landing AI, Cognex)", "url": "https://landing.ai/case-studies", "confianca": "media"},
+        "reducao_percentual": "Aumento de 6-15x em cobertura"
+      },
+      {
+        "nome": "% de violacoes de SLA com causa-raiz classificada e acao corretiva registrada (RCA sistematica)",
+        "unidade": "% do total de violacoes",
+        "formula": "(violacoes_com_rca / total_violacoes) x 100",
+        "baseline_mercado": {"valor": "<30% em operacoes sem RCA estruturada", "fonte": "Boa pratica ITIL 4 — Service Value System (Problem Management)", "url": "https://www.axelos.com/certifications/itil-service-management", "confianca": "media"},
+        "meta_com_ia": {"valor": ">80% (LLM classifica cada violacao em taxonomia de causa e sugere acao)", "fonte": "HDI Brasil — Benchmark Service Desk 2024 + ITIL 4", "url": "https://www.hdibrasil.com.br/", "confianca": "media"},
+        "reducao_percentual": "Aumento de 2,5-3x em cobertura de RCA"
+      }
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "json_api", "descricao": "API do ServiceNow, Jira Service Management ou Zendesk devolvendo tickets com metadados de SLA", "exemplo_estrutura": "ticket_id, categoria, prioridade, sla_target_hours, opened_at, resolved_at, breached (bool), root_cause_id, assignee, customer_id"},
+      {"tipo": "planilha_excel", "descricao": "Planilha mensal de nao-conformidades exportada do sistema de QA/controle de processos", "exemplo_estrutura": "nc_id | data | processo | tipo_defeito | severidade (1-4) | custo_estimado_rework | responsavel | status | acao_corretiva | data_encerramento"},
+      {"tipo": "imagens_lote_zip", "descricao": "Lote de imagens de inspecao visual para modelo de visao computacional classificar", "exemplo_estrutura": "pasta_lote_YYYY-MM-DD.zip com N imagens .jpg + metadados.csv (id_peca, linha_producao, operador, timestamp)"},
+      {"tipo": "dados_brutos_txt", "descricao": "Logs textuais de auditoria de qualidade / atas de QA em texto livre com marcadores manuais ('NC:', 'ACAO:', 'PRAZO:')", "exemplo_estrutura": "texto livre com prefixos convencionados — LLM extrai NCs, prazos e responsaveis"},
+      {"tipo": "csv_serie_temporal", "descricao": "Serie temporal de indicadores de processo (Cp, Cpk, taxa de defeito por hora) para CEP e ML preditivo", "exemplo_estrutura": "timestamp | linha | variavel_medida | valor | lsl | usl | media_movel_30 | cp | cpk"}
+    ],
+    "riscos_de_medicao": [
+      "Gaming por reclassificacao: agente move ticket para categoria com SLA mais frouxo — auditar",
+      "Cherry-picking: piloto aplicado so em categorias faceis — cobertura minima 80%",
+      "Melhoria por mudanca de processo, nao IA: grupo controle ou serie temporal congelada 60 dias antes",
+      "Falso positivo caro em visao computacional: modelo para linha por defeito inexistente — calibrar",
+      "SLA acordado mudou no meio do piloto: congelar contrato por 6 meses durante medicao",
+      "Alucinacao em RCA: LLM inventa causa — obrigar citacao de evidencia por classificacao"
+    ],
+    "fontes_completas": [
+      {"tipo": "linkedin", "titulo": "Prof. Dr. Jose Bezerra — Aula 1 IA-PPPM (BSBr)", "url": "https://www.linkedin.com/in/josebezerrafilho/"},
+      {"tipo": "blog", "titulo": "BSBr — Business School Brasil", "url": "https://bsbr.com.br/"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2018 — Success in Disruptive Times", "url": "https://www.pmi.org/learning/library/success-disruptive-times-11128"},
+      {"tipo": "relatorio", "titulo": "Gartner Market Guide for AIOps Platforms", "url": "https://www.gartner.com/en/documents/aiops-market-guide"},
+      {"tipo": "relatorio", "titulo": "Gartner Hype Cycle for PPM 2024", "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management"},
+      {"tipo": "referencia", "titulo": "ITIL 4 Service Value System (RCA e SLM)", "url": "https://www.axelos.com/certifications/itil-service-management"},
+      {"tipo": "relatorio", "titulo": "HDI Brasil — Benchmark Service Desk", "url": "https://www.hdibrasil.com.br/"},
+      {"tipo": "referencia", "titulo": "ASQ Quality Management System resources", "url": "https://asq.org/quality-resources/quality-management-system"},
+      {"tipo": "vendor", "titulo": "Landing AI — Industrial Visual Inspection Case Studies", "url": "https://landing.ai/case-studies"}
+    ]
+  },
+  {
+    "processo_id": "1.6",
+    "processo_nome": "Gerenciar o Conhecimento do Projeto",
+    "area": "Governanca",
+    "grupo": "Execucao",
+    "pilotos_primarios": ["base-licoes-aprendidas"],
+    "metricas": [
+      {
+        "nome": "Taxa de reincidencia de erros ja documentados em licoes aprendidas historicas",
+        "unidade": "% de erros do trimestre classificados como 'ja aconteceu antes'",
+        "formula": "(erros_reincidentes / total_erros_trimestre) x 100",
+        "baseline_mercado": {"valor": "~50% das organizacoes capturam licoes sistematicamente e destas <20% reutilizam — reincidencia observada 40-60%", "fonte": "PMI Pulse of the Profession 2020 — 'Ahead of the Curve'", "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908", "confianca": "media"},
+        "meta_com_ia": {"valor": "Reducao de 30-50% na reincidencia (RAG melhora recall mas nao elimina erro humano)", "fonte": "Argote & Miron-Spektor 2011 (Org. Science) + Glean/Guru enterprise knowledge search", "url": "https://pubsonline.informs.org/doi/10.1287/orsc.1100.0621", "confianca": "baixa"},
+        "reducao_percentual": "30-50% (requer POC interna para calibrar)"
+      },
+      {
+        "nome": "Taxa de consulta ao repositorio de licoes por gerente/mes",
+        "unidade": "consultas por PM por mes",
+        "formula": "total_consultas_repositorio_mes / n_gerentes_ativos",
+        "baseline_mercado": {"valor": "<1 consulta/PM/mes em bases tradicionais (SharePoint, wiki)", "fonte": "Glean 'State of Enterprise Search' 2024", "url": "https://www.glean.com/resources/state-of-work", "confianca": "media"},
+        "meta_com_ia": {"valor": ">10 consultas/PM/mes com interface conversacional (RAG + chat)", "fonte": "Glean, Guru reportam 10-20x pos-implantacao", "url": "https://www.glean.com/customers", "confianca": "media"},
+        "reducao_percentual": "Aumento de 10-20x em uso da base"
+      },
+      {
+        "nome": "Tempo medio de onboarding de novo gerente de projeto ate primeira entrega autonoma",
+        "unidade": "semanas",
+        "formula": "media(data_1a_entrega_autonoma - data_admissao)",
+        "baseline_mercado": {"valor": "8-12 semanas em organizacoes de porte medio", "fonte": "Deloitte Global PMO Benchmark 2022", "url": "https://www2.deloitte.com/global/en/pages/operations/articles/pmo-benchmark.html", "confianca": "baixa"},
+        "meta_com_ia": {"valor": "4-6 semanas com base de licoes consultavel via chat", "fonte": "Deloitte State of Generative AI Q1 2024", "url": "https://www2.deloitte.com/us/en/pages/consulting/articles/state-of-generative-ai-in-enterprise.html", "confianca": "baixa"},
+        "reducao_percentual": "40-55% no tempo de onboarding"
+      }
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "documento_word_docx", "descricao": "Post-mortem ou relatorio de encerramento em .docx com secao de licoes aprendidas", "exemplo_estrutura": "Sumario | O que funcionou | O que nao funcionou | Causa-raiz | Licao | Recomendacao | Assinaturas"},
+      {"tipo": "planilha_excel", "descricao": "Planilha corporativa de licoes com uma linha por licao", "exemplo_estrutura": "id_licao | data | projeto_origem | area | dominio | descricao_situacao | licao | recomendacao | tags | autor | aprovado_por"},
+      {"tipo": "base_historica_vetorial", "descricao": "Vector store (Chroma, Qdrant, Pinecone, Azure AI Search) indexando 500+ post-mortems", "exemplo_estrutura": "chunk: texto_licao + metadados; embeddings multilingue"},
+      {"tipo": "dados_brutos_txt", "descricao": "Atas de retrospectiva sprint/marco em texto livre (Confluence, Notion, Google Docs)", "exemplo_estrutura": "texto livre com secoes (Positivo/Negativo/Melhorar/Acoes) — LLM extrai licao + acao + owner"},
+      {"tipo": "json_api", "descricao": "API do Confluence, Notion ou SharePoint listando paginas taggeadas como 'licao aprendida'", "exemplo_estrutura": "page_id, title, body_html, tags[], created_by, created_at, project_id, space_key"}
+    ],
+    "riscos_de_medicao": [
+      "Licoes mal escritas viram ruido no RAG — template minimo + curadoria trimestral",
+      "Contagem inflada de consultas: auditar por tempo de sessao e cliques em resultados",
+      "Vies de sobrevivencia em onboarding: normalizar por complexidade do projeto",
+      "Reincidencia depende de rotulagem historica: construir baseline retroativo com 30 erros amostrais",
+      "LGPD e confidencialidade: anonimizar antes de indexar",
+      "Efeito novidade: primeiros 90 dias tem uso alto — medir em janela de 6 meses"
+    ],
+    "fontes_completas": [
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2020 — Ahead of the Curve", "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908"},
+      {"tipo": "paper", "titulo": "Argote & Miron-Spektor — Organizational Learning (Org. Science)", "url": "https://pubsonline.informs.org/doi/10.1287/orsc.1100.0621"},
+      {"tipo": "relatorio", "titulo": "Deloitte State of GenAI Enterprise Q1 2024", "url": "https://www2.deloitte.com/us/en/pages/consulting/articles/state-of-generative-ai-in-enterprise.html"},
+      {"tipo": "vendor", "titulo": "Glean — Enterprise AI Search", "url": "https://www.glean.com/customers"},
+      {"tipo": "vendor", "titulo": "Guru — Enterprise Knowledge Management", "url": "https://www.getguru.com/"}
+    ]
+  },
+  {
+    "processo_id": "1.7",
+    "processo_nome": "Monitorar e Controlar o Desempenho do Projeto",
+    "area": "Governanca",
+    "grupo": "Monitoramento e Controle",
+    "pilotos_primarios": ["assistente-status-executivo"],
+    "metricas": [
+      {
+        "nome": "Tempo medio de consolidacao de status executivo por ciclo (KPI-ancora Bezerra)",
+        "unidade": "horas/semana por gerente de projeto",
+        "formula": "sum(horas_consolidando_status) / n_gerentes / n_semanas_amostra",
+        "baseline_mercado": {"valor": "6-8 horas/semana por PM em reporting e coordenacao (~19% do tempo em PMOs de baixa maturidade)", "fonte": "PMI Pulse of the Profession 2020", "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908", "confianca": "media"},
+        "meta_com_ia": {"valor": "1,5-2,5 horas/semana por PM (reducao 60-70%)", "fonte": "Prof. Dr. Jose Bezerra, Aula 1 IA-PPPM [01:02:10] + Microsoft Work Trend Index 2024", "url": "https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part", "confianca": "media"},
+        "reducao_percentual": "60-70%"
+      },
+      {
+        "nome": "Precisao da previsao de EAC 4-8 semanas antes do encerramento do ciclo",
+        "unidade": "MAPE (%) entre EAC previsto e custo final realizado",
+        "formula": "media(|EAC_previsto_semana_N - custo_realizado_final| / custo_realizado_final) x 100",
+        "baseline_mercado": {"valor": "MAPE 15-30% em previsao classica de EVM", "fonte": "Vanhoucke (2011)", "url": "https://doi.org/10.1080/00207543.2010.539283", "confianca": "media"},
+        "meta_com_ia": {"valor": "MAPE 5-12% (ML aprende serie historica de CPI/SPI)", "fonte": "PMI Standard for AI in PPPM (2026) + IEEE ML aplicado a EVM", "url": "https://ieeexplore.ieee.org/document/9530557", "confianca": "baixa"},
+        "reducao_percentual": "40-60% no erro de previsao"
+      },
+      {
+        "nome": "Aderencia ao ciclo de reporting (status entregue no prazo do PMO)",
+        "unidade": "% ciclos entregues no prazo",
+        "formula": "(ciclos_no_prazo / total_ciclos_previstos) x 100",
+        "baseline_mercado": {"valor": "70-75% em organizacoes de baixa maturidade PMO", "fonte": "PMI Pulse 2021 — Beyond Agility", "url": "https://www.pmi.org/learning/library/beyond-agility-gymnastic-enterprises-12973", "confianca": "media"},
+        "meta_com_ia": {"valor": "90-95% (assistente pre-consolida no D-2)", "fonte": "Asana Intelligence + Monday.com Work Management Trends 2024", "url": "https://asana.com/product/ai", "confianca": "media"},
+        "reducao_percentual": "+20 p.p. absolutos em aderencia"
+      },
+      {
+        "nome": "% de projetos com risco de estouro >15% antecipados >= 4 semanas",
+        "unidade": "% dos projetos que estouram detectados com antecedencia",
+        "formula": "(projetos_estouro_detectados_>=4sem_antes / total_projetos_com_estouro) x 100",
+        "baseline_mercado": {"valor": "20-35% detectados apenas no comite quando ja materializaram", "fonte": "PMI Pulse 2023 — Power Skills", "url": "https://www.pmi.org/learning/library/pulse-of-the-profession-2023", "confianca": "media"},
+        "meta_com_ia": {"valor": "60-75% (previsao EAC + SDS antecipa estouro)", "fonte": "McKinsey Delivering large-scale IT projects", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value", "confianca": "media"},
+        "reducao_percentual": "Aumento de 2-3x em antecipacao de estouros"
+      }
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "planilha_excel", "descricao": "Template de status semanal exportado do MS Project ou preenchido pelo PM", "exemplo_estrutura": "tarefa | responsavel | %concluido | data_inicio_prev | data_fim_prev | data_fim_baseline | status (verde/amarelo/vermelho) | risco_ativo | acao_proposta"},
+      {"tipo": "relatorio_pdf", "descricao": "Status report mensal do PMO em PDF para o comite executivo", "exemplo_estrutura": "Capa | Sumario executivo | RAID | Cronograma | Financeiro (CPI/SPI) | Marcos | Decisoes solicitadas"},
+      {"tipo": "json_api", "descricao": "Webhook do Jira, Monday.com ou Asana com issues do sprint", "exemplo_estrutura": "id, key, status, assignee, sprint, story_points, resolution_time_hours, updated_at, project_id, epic_link"},
+      {"tipo": "csv_serie_temporal", "descricao": "Serie temporal de EVM (BCWS, BCWP, ACWP) por projeto e semana", "exemplo_estrutura": "projeto_id | semana | bcws | bcwp | acwp | cpi | spi | eac_atual | bac"},
+      {"tipo": "dados_brutos_txt", "descricao": "Ata de reuniao de status em texto livre (Teams, Meet, Zoom transcript)", "exemplo_estrutura": "estrutura livre com marcadores 'DECISAO:', 'ACAO:', 'RISCO:', 'RESPONSAVEL:', 'PRAZO:'"},
+      {"tipo": "email", "descricao": "E-mails semanais de gerentes ao PMO com atualizacoes textuais", "exemplo_estrutura": "remetente, assunto, corpo texto livre, anexo — LLM extrai %concluido, riscos e acoes"}
+    ],
+    "riscos_de_medicao": [
+      "Gaming: PM preenche template mais rapido com menos rigor — auditoria por amostragem + rework como contra-metrica",
+      "Vies de selecao: piloto rodado apenas em projetos saudaveis — mix verde/amarelo/vermelho obrigatorio",
+      "Sub-relato: PMs subestimam tempo no baseline — validar com time-tracking automatico",
+      "Efeito Hawthorne: grupo-controle de 4 semanas",
+      "Series curtas para forecasting: modelo instavel em projetos <20 semanas",
+      "Alucinacao em citacao: LLM cita fonte inexistente — validar links/IDs por regex",
+      "Contaminacao entre projetos: segregar por dominio"
+    ],
+    "fontes_completas": [
+      {"tipo": "linkedin", "titulo": "Prof. Dr. Jose Bezerra — Aula 1 IA-PPPM (BSBr)", "url": "https://www.linkedin.com/in/josebezerrafilho/"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2020 — Ahead of the Curve", "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2021 — Beyond Agility", "url": "https://www.pmi.org/learning/library/beyond-agility-gymnastic-enterprises-12973"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2023 — Power Skills", "url": "https://www.pmi.org/learning/library/pulse-of-the-profession-2023"},
+      {"tipo": "relatorio", "titulo": "McKinsey — Delivering large-scale IT projects", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value"},
+      {"tipo": "vendor", "titulo": "Microsoft Work Trend Index 2024", "url": "https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part"},
+      {"tipo": "vendor", "titulo": "Asana Intelligence", "url": "https://asana.com/product/ai"},
+      {"tipo": "paper", "titulo": "Vanhoucke — On the dynamic use of project performance", "url": "https://doi.org/10.1080/00207543.2010.539283"}
+    ]
+  }
+]

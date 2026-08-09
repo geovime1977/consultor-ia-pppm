@@ -1,0 +1,37 @@
+[
+  {
+    "numero": 1,
+    "rotulo": "Ausente",
+    "faixa": [0, 6],
+    "descricao": "A organização ainda não possui iniciativas estruturadas de IA em PPPM. Processos manuais e reativos, sem método, governança ou métrica.",
+    "leitura_executiva_template": "A organização opera IA de forma ausente ou meramente pontual. Uso solto, sem método, sem governança e sem métrica de valor. O gargalo prioritário é {gargalo}, o que indica que o primeiro passo deve ser {acao_gargalo} antes de investir em qualquer nova ferramenta. Como diz o Prof. Bezerra: quem usa IA acelera tarefas; quem lidera IA gera valor — e sem método, IA vira só ferramenta."
+  },
+  {
+    "numero": 2,
+    "rotulo": "Reativo",
+    "faixa": [7, 12],
+    "descricao": "Equipes usam IA informalmente para atas, relatórios, comunicação e análises pontuais. Ainda não há critério de priorização nem métrica clara de benefícios.",
+    "leitura_executiva_template": "A organização já usa IA em atividades pontuais, mas ainda não possui governança, critérios de priorização e métrica clara de benefícios. O gargalo prioritário é {gargalo}, e o próximo movimento consultivo é {acao_gargalo} — antes de escalar casos de uso. Lembre-se: quem não mede não gerencia, e uma boa ideia não implementada vale zero."
+  },
+  {
+    "numero": 3,
+    "rotulo": "Experimental",
+    "faixa": [13, 18],
+    "descricao": "A organização já experimenta casos de uso de IA em PPPM com algum critério, mas sem governança consolidada nem business case estruturado.",
+    "leitura_executiva_template": "A organização está em fase experimental: já testa casos de uso de IA em PPPM, mas ainda sofre para conectar dados, decisão e valor. O gargalo prioritário é {gargalo}. O próximo passo consultivo é {acao_gargalo}, para transformar experimentação em decisão executiva reprodutível. Dado é ouro — mas só vira valor quando resultado é rei."
+  },
+  {
+    "numero": 4,
+    "rotulo": "Definido",
+    "faixa": [19, 24],
+    "descricao": "Existem casos de uso definidos, governança formal, HITL previsto e leitura executiva sobre os benefícios entregues.",
+    "leitura_executiva_template": "A organização tem casos de uso definidos, governança formal e leitura executiva sobre os benefícios. O gargalo residual é {gargalo}, e a recomendação consultiva é {acao_gargalo} — para consolidar a IA como competência, e não apenas como projeto. IA com método vira valor; IA sem método volta a ser ferramenta."
+  },
+  {
+    "numero": 5,
+    "rotulo": "Otimizado",
+    "faixa": [25, 30],
+    "descricao": "IA aplicada ao PPPM é competência consultiva madura: conecta estratégia, execução, valor, dados, governança e HITL de forma reprodutível.",
+    "leitura_executiva_template": "A organização opera IA no PPPM como competência consultiva madura, conectando estratégia, execução e valor. Mesmo em nível otimizado, o gargalo relativo é {gargalo}. A recomendação é {acao_gargalo} — para sustentar diferencial competitivo e continuar escalando com governança."
+  }
+]

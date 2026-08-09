@@ -1,0 +1,67 @@
+{
+  "versao": "1.0",
+  "fonte": "Casos reais mencionados pelo Prof. Dr. José Bezerra na Aula 1 IA-PPPM (BSBr, 2026-08-08). Ver docs/FONTES-BEZERRA-AULA1-TRANSCRICAO-RAW.md.",
+  "regra_de_uso": "Storytelling em pitch e PDF de proposta. Trocar nome do cliente se pedir sigilo. Sempre citar timestamp e curso como fonte.",
+  "cases": [
+    {
+      "id": "contabilidade-sus-5m",
+      "setor": "Serviços contábeis",
+      "porte": "PME",
+      "dor": "Cliente prestava serviços ao SUS e não cobrava — faturamento evaporava por falha de rotina do contador.",
+      "intervencao": "Consultoria estruturou revisão de guias e cobrança retroativa; substituiu o contador.",
+      "resultado_numerico": "R$ 5 milhões recuperados de faturamento não cobrado.",
+      "moral": "IA + método aplicado a dados que já existiam desbloqueou R$ 5M. Piloto ancora comercial em 'consultoria por resultado' — cobrar % do que o cliente ganhar, não hora.",
+      "aplicavel_aos_pilotos": ["analise-sla", "auditor-cronograma", "base-licoes-aprendidas"],
+      "timestamp_aula": "[01:33]",
+      "citacao_bezerra": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:33]"
+    },
+    {
+      "id": "detran-fortaleza",
+      "setor": "Público estadual — trânsito",
+      "porte": "Grande",
+      "dor": "Cada departamento operava com sua planilha própria; equipes se recusavam a alimentar CRM corporativo; visibilidade zero para a direção.",
+      "intervencao": "Bezerra assumiu como diretor por 1 ano; forçou alimentação do CRM via decisão da presidência.",
+      "resultado_numerico": "Governança forçada de cima para baixo; caso ilustra que resistência da média gerência é maior obstáculo que tecnologia.",
+      "moral": "IA sem governança forçada = investimento perdido. Sponsor executivo é pré-requisito, não opção.",
+      "aplicavel_aos_pilotos": ["priorizacao-portfolio", "assistente-status-executivo", "detector-dependencias"],
+      "timestamp_aula": "[01:27:50]",
+      "citacao_bezerra": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:27:50]"
+    },
+    {
+      "id": "empresa-11k-vies-genero",
+      "setor": "Corporativo — RH/contratação",
+      "porte": "Grande (11.000 funcionários)",
+      "dor": "Sistema de IA usado para triagem sugeriu 80% homens e 20% mulheres para novas posições de gerência — reflexo de viés histórico dos dados.",
+      "intervencao": "Descoberta em auditoria posterior; obrigou revisão de modelo e reforço de HITL.",
+      "resultado_numerico": "80% homens / 20% mulheres — número que motiva discussão de governança e HITL em qualquer proposta.",
+      "moral": "IA sem HITL amplifica viés dos dados. 'A IA recomenda, o humano valida e decide' não é slogan — é blindagem legal e reputacional.",
+      "aplicavel_aos_pilotos": ["classificador-requisitos", "priorizacao-portfolio", "analise-satisfacao-stakeholder"],
+      "timestamp_aula": "[01:30:27]",
+      "citacao_bezerra": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:30:27]"
+    },
+    {
+      "id": "oficina-felipe-30k-mes",
+      "setor": "Serviço local — automotivo",
+      "porte": "Micro (oficinas mecânicas)",
+      "dor": "Oficinas mecânicas sem site perdem clientes locais; contato manual é lento e caro.",
+      "intervencao": "IA localiza oficinas sem site, gera site automaticamente e dispara WhatsApp/e-mail comercial padronizado.",
+      "resultado_numerico": "R$ 200 a R$ 1.000 por site × 10 sites/dia = R$ 30.000/mês de faturamento recorrente possível.",
+      "moral": "Produto de IA escalável em PME não exige grande cliente — 10 pequenos/dia geram receita superior a 1 grande. Modelo comercial de mini-consultoria.",
+      "aplicavel_aos_pilotos": ["sumarizador-discovery", "consolidador-atas"],
+      "timestamp_aula": "[03:18:25]",
+      "citacao_bezerra": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [03:18:25]"
+    },
+    {
+      "id": "marielle-8k-documentos",
+      "setor": "Investigação / Jurídico",
+      "porte": "Investigação criminal complexa",
+      "dor": "Investigação de assassinato exigia análise de milhares de documentos — humano puro é inviável.",
+      "intervencao": "IA analisou 8.000 documentos em volume que ninguém conseguiria ler manualmente.",
+      "resultado_numerico": "8.000 documentos processados por IA — ordem de grandeza que legitima ferramenta para discovery, jurídico, auditoria.",
+      "moral": "IA em volume é insubstituível. Onde há milhares de documentos, IA + HITL é o único caminho auditável.",
+      "aplicavel_aos_pilotos": ["sumarizador-discovery", "base-licoes-aprendidas", "consolidador-atas"],
+      "timestamp_aula": "[03:41:29]",
+      "citacao_bezerra": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [03:41:29]"
+    }
+  ]
+}

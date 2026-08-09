@@ -1,0 +1,153 @@
+[
+  {
+    "processo_id": "2.4",
+    "processo_nome": "Desenvolver a Estrutura do Escopo (EAP/WBS)",
+    "area": "Escopo",
+    "grupo": "Planejamento",
+    "pilotos_primarios": ["sumarizador-discovery"],
+    "metricas": [
+      {"nome": "Cobertura de entregas do escopo declarado presentes na EAP (completude)", "unidade": "% de entregas do TAP/escopo assinado presentes como pacote de trabalho", "formula": "(entregas do escopo mapeadas na EAP / total de entregas declaradas no TAP) * 100", "baseline_mercado": {"valor": "60% a 80% (workshops de WBS deixam entregas implícitas fora; PMI: só 47% dos projetos usam WBS de forma disciplinada)", "fonte": "PMI Practice Standard for WBS 2nd Edition + PMI Pulse 2020", "url": "https://www.pmi.org/pmbok-guide-standards/practice-standards-frameworks/work-breakdown-structures", "confianca": "media"}, "meta_com_ia": {"valor": "92% a 99% (LLM cruza TAP/atas com nós da EAP e flagga entregas órfãs; HITL confirma)", "fonte": "The Standard for AI in PPPM (PMI 2026) + Microsoft Project + Copilot GA notes 2024", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~40% na completude (de ~70% para ~95%)"},
+      {"nome": "Tempo de ciclo para produzir EAP validada a partir do escopo assinado", "unidade": "dias úteis", "formula": "média(data_EAP_validada - data_escopo_aprovado) por projeto no trimestre", "baseline_mercado": {"valor": "5 a 20 dias úteis (workshops presenciais, revisões sucessivas)", "fonte": "PMI Practice Standard for WBS 2nd + Wellingtone State of PM 2023", "url": "https://wellingtone.co.uk/wp-content/uploads/2023/06/The-State-of-Project-Management-2023.pdf", "confianca": "media"}, "meta_com_ia": {"valor": "1 a 4 dias úteis (LLM propõe rascunho hierárquico; comitê refina)", "fonte": "McKinsey State of AI 2024 + Microsoft Copilot for Project preview docs", "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai", "confianca": "media"}, "reducao_percentual": "70% a 90%"},
+      {"nome": "Aderência da EAP à regra 100% e ao heurístico 8/80 (qualidade estrutural)", "unidade": "% de pacotes com esforço entre 8 e 80 horas E soma dos filhos = escopo do pai", "formula": "(pacotes conformes 8/80 e 100% / total de pacotes) * 100", "baseline_mercado": {"valor": "40% a 65% (EAPs manuais violam 8/80 em decomposição irregular)", "fonte": "PMI Practice Standard for WBS 2nd + AACE International RP 18R-97", "url": "https://web.aacei.org/resources/recommended-practices", "confianca": "media"}, "meta_com_ia": {"valor": "85% a 95% (validador programático flagga violações; LLM sugere decomposição)", "fonte": "Deltek Acumen Fuse + PMI Standard for AI in PPPM 2026", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~1.7x (de ~52% para ~90%)"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "tap_escopo_docx_pdf", "descricao": "Termo de Abertura do Projeto e declaração de escopo assinada", "exemplo_estrutura": "objetivo, entregas, premissas, restrições, critérios de aceite, exclusões"},
+      {"tipo": "atas_discovery_txt_md", "descricao": "Atas das reuniões de discovery e workshops de escopo", "exemplo_estrutura": "cabeçalho + decisões + entregas mencionadas + owners"},
+      {"tipo": "eap_atual_xlsx_mpp", "descricao": "EAP em construção (Excel indentado, MS Project .mpp, Miro export ou WBS Schedule Pro)", "exemplo_estrutura": "id_wbs (1.1.2) | nome_pacote | descricao | pai | nivel | esforco_h | entrega_associada"},
+      {"tipo": "biblioteca_wbs_padrao_json", "descricao": "Biblioteca de EAPs de projetos similares (reuso corporativo)", "exemplo_estrutura": "{template_id, dominio, entregas_padrao[], estrutura_wbs[]}"},
+      {"tipo": "contrato_pdf", "descricao": "Contrato ou proposta comercial com entregas contratualmente vinculadas", "exemplo_estrutura": "cláusulas numeradas; anexo de entregas com aceite"}
+    ],
+    "ferramentas_stack": ["Streamlit (interface HITL de validação)", "Python + LangChain (LLM extrai entregas do TAP)", "Azure OpenAI / AWS Bedrock", "MS Project + Copilot ou WBS Schedule Pro", "Deltek Acumen Fuse (validação estrutural)", "Power BI"],
+    "riscos_de_medicao": ["Gaming: pacotes vazios para cumprir regra 100% — auditar entregas vazias", "Ancoragem: comitê aceita rascunho do LLM — revisão cega por segundo par", "Baseline móvel: escopo muda durante criação da EAP — congelar TAP", "Fragmentação excessiva pelo LLM — limitar profundidade máxima", "Cobertura falsa positiva: entrega citada no TAP ausente na EAP — validar com dicionário", "LGPD: TAP e contratos podem conter dados pessoais — anonimizar"],
+    "fontes_completas": [
+      {"tipo": "standard", "titulo": "Practice Standard for WBS 2nd Edition", "url": "https://www.pmi.org/pmbok-guide-standards/practice-standards-frameworks/work-breakdown-structures"},
+      {"tipo": "standard", "titulo": "The Standard for AI in PPPM (PMI 2026)", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "relatorio", "titulo": "Pulse of the Profession 2020", "url": "https://www.pmi.org/learning/thought-leadership/pulse"},
+      {"tipo": "relatorio", "titulo": "State of Project Management 2023 (Wellingtone)", "url": "https://wellingtone.co.uk/wp-content/uploads/2023/06/The-State-of-Project-Management-2023.pdf"},
+      {"tipo": "standard", "titulo": "AACE International RP 18R-97", "url": "https://web.aacei.org/resources/recommended-practices"},
+      {"tipo": "vendor", "titulo": "Deltek Acumen Fuse", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse"}
+    ]
+  },
+  {
+    "processo_id": "2.5",
+    "processo_nome": "Monitorar e Controlar o Escopo",
+    "area": "Escopo",
+    "grupo": "Monitoramento e Controle",
+    "pilotos_primarios": ["detector-mudanca-escopo"],
+    "metricas": [
+      {"nome": "Cobertura de scope creep detectado antes do baseline ser oficialmente rompido", "unidade": "% de mudanças materializadas com sinal capturado >= 7 dias antes", "formula": "(mudanças formalizadas com sinal prévio >= 7 dias / total de mudanças aprovadas no trimestre) * 100", "baseline_mercado": {"valor": "20% a 40% (mudanças aparecem no CCB tarde; PMI: 52% dos projetos sofrem scope creep material)", "fonte": "PMI Pulse 2018 + Standish CHAOS 2023", "url": "https://www.pmi.org/-/media/pmi/documents/public/pdf/learning/thought-leadership/pulse/pulse-of-the-profession-2018.pdf", "confianca": "media"}, "meta_com_ia": {"valor": "70% a 88% (pipeline NLP lê fontes de comunicação e cruza com EAP)", "fonte": "PMI Standard for AI in PPPM 2026 + Gartner Hype Cycle for PPM 2024", "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~2.4x na antecipação (~30% → ~78%)"},
+      {"nome": "Percentual de solicitações de mudança com CR formalizado antes da execução", "unidade": "% CRs formalizados / total de mudanças efetivamente executadas", "formula": "(CRs formalizados antes da execução / total detectadas ex post) * 100", "baseline_mercado": {"valor": "40% a 60% (equipes executam informalmente para não travar cronograma)", "fonte": "PMI Pulse 2020 + Wellingtone 2023", "url": "https://wellingtone.co.uk/wp-content/uploads/2023/06/The-State-of-Project-Management-2023.pdf", "confianca": "media"}, "meta_com_ia": {"valor": "85% a 97% (detector cria rascunho de CR pré-preenchido)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~1.8x (~50% → ~90%)"},
+      {"nome": "Variação de escopo do baseline por sprint/ciclo (Scope Variance %)", "unidade": "% de esforço fora da baseline sobre esforço total do ciclo", "formula": "(esforço em entregas não-baseline / esforço total do ciclo) * 100", "baseline_mercado": {"valor": "15% a 35% (média de scope creep em projetos ágeis sem controle)", "fonte": "Standish CHAOS 2023 + PMI Pulse 2020", "url": "https://standishgroup.com/sample_research_files/CHAOSReport2023.pdf", "confianca": "media"}, "meta_com_ia": {"valor": "5% a 12% (visibilidade contínua → decisão consciente)", "fonte": "Deltek Acumen Fuse 2024", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse", "confianca": "baixa"}, "reducao_percentual": "Redução de ~65% no creep não controlado"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "eap_baseline_json_xlsx", "descricao": "EAP baseline oficial congelada com data de aprovação", "exemplo_estrutura": "id_wbs | nome_pacote | esforco_h | baseline_versao | data_congelamento"},
+      {"tipo": "cr_log_xlsx", "descricao": "Log de Change Requests aprovados e rejeitados", "exemplo_estrutura": "cr_id | data | solicitante | descrição | impacto_prazo | impacto_custo | status | data_aprovacao"},
+      {"tipo": "ata_chat_email_txt", "descricao": "Atas, threads Slack/Teams e e-mails do projeto (sinais fracos de pedidos)", "exemplo_estrutura": "texto livre com timestamps e speaker/autor"},
+      {"tipo": "jira_ado_api_json", "descricao": "Issues criadas fora do épico/feature baseline (sinal forte de scope creep)", "exemplo_estrutura": "{issue_key, epic_link, created, labels[], component, sprint_id, story_points}"},
+      {"tipo": "commits_prs_git", "descricao": "Commits e PRs com labels/menções a features fora do backlog aprovado", "exemplo_estrutura": "{sha, autor, mensagem, arquivos_alterados[], pr_link, labels[]}"},
+      {"tipo": "timesheet_apontamentos_csv", "descricao": "Apontamentos de hora por pacote — flag esforço em pacote não-baseline", "exemplo_estrutura": "data | recurso | pacote_wbs | horas | comentário"}
+    ],
+    "ferramentas_stack": ["Python + spaCy/BERTimbau (NLP ptBR)", "LangChain / LlamaIndex (RAG sobre baseline)", "Streamlit (cartão HITL)", "n8n / Power Automate (webhooks Jira/ADO/GitHub)", "Azure OpenAI / AWS Bedrock", "Power BI"],
+    "riscos_de_medicao": ["Falso positivo epidêmico: LLM sinaliza tudo como creep — calibrar com dicionário de domínio", "Gaming: gerente reclassifica creep como 'clarificação' — auditor externo mensal", "Viés do baseline: EAP mal feita gera creep aparente — validar qualidade da EAP", "Cobertura de fontes: se pipeline não lê Slack, subestima sinais — mapear canais", "LGPD: leitura de chat/e-mail exige base legal + DPIA", "Efeito Hawthorne: primeiros 90 dias equipe formaliza mais — baseline pós-90d"],
+    "fontes_completas": [
+      {"tipo": "standard", "titulo": "The Standard for AI in PPPM (PMI 2026)", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2018", "url": "https://www.pmi.org/-/media/pmi/documents/public/pdf/learning/thought-leadership/pulse/pulse-of-the-profession-2018.pdf"},
+      {"tipo": "relatorio", "titulo": "CHAOS Report 2023", "url": "https://standishgroup.com/sample_research_files/CHAOSReport2023.pdf"},
+      {"tipo": "relatorio", "titulo": "State of Project Management 2023", "url": "https://wellingtone.co.uk/wp-content/uploads/2023/06/The-State-of-Project-Management-2023.pdf"},
+      {"tipo": "relatorio", "titulo": "Hype Cycle for PPM 2024", "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management"},
+      {"tipo": "vendor", "titulo": "Deltek Acumen Fuse", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse"},
+      {"tipo": "modelo", "titulo": "BERTimbau (NLP ptBR)", "url": "https://github.com/neuralmind-ai/portuguese-bert"}
+    ]
+  },
+  {
+    "processo_id": "2.6",
+    "processo_nome": "Validar o Escopo",
+    "area": "Escopo",
+    "grupo": "Monitoramento e Controle",
+    "pilotos_primarios": [],
+    "observacao_piloto": "Processo é cerimônia formal de aceite com cliente/patrocinador. IA tem valor limitado — assiste na preparação do dossiê e no registro, mas o ato de aceitar é humano por definição contratual.",
+    "metricas": [
+      {"nome": "Percentual de entregas aceitas na primeira apresentação (First-Pass Yield de aceite)", "unidade": "% de entregas aceitas sem retrabalho na primeira reunião", "formula": "(entregas aceitas na 1ª apresentação / total apresentadas no ciclo) * 100", "baseline_mercado": {"valor": "50% a 70% (retrabalho em aceite comum quando critérios não são explícitos)", "fonte": "Standish CHAOS 2023 + PMI Practice Standard for Requirements", "url": "https://standishgroup.com/sample_research_files/CHAOSReport2023.pdf", "confianca": "media"}, "meta_com_ia": {"valor": "80% a 92% (LLM verifica critérios × entrega antes da reunião; dossiê pré-preenchido)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Redução de ~55% no retrabalho (~40% → ~15%)"},
+      {"nome": "Tempo de ciclo entre entrega concluída e aceite formal registrado", "unidade": "dias úteis", "formula": "média(data_termo_aceite - data_entrega_concluida) mensal", "baseline_mercado": {"valor": "7 a 30 dias úteis (agendamento + revisão manual + assinaturas)", "fonte": "Wellingtone 2023 + PMI Pulse 2023", "url": "https://wellingtone.co.uk/wp-content/uploads/2023/06/The-State-of-Project-Management-2023.pdf", "confianca": "baixa"}, "meta_com_ia": {"valor": "1 a 5 dias úteis (dossiê no dia da entrega + assinatura eletrônica)", "fonte": "McKinsey State of AI 2024 + DocuSign benchmarks", "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai", "confianca": "baixa"}, "reducao_percentual": "75% a 90%"},
+      {"nome": "Percentual de critérios de aceite pré-verificados e evidenciados antes da reunião", "unidade": "% de critérios com evidência anexada antes do encontro", "formula": "(critérios com evidência linkada / total de critérios de aceite) * 100", "baseline_mercado": {"valor": "30% a 60% (equipes chegam à reunião com critérios só na cabeça)", "fonte": "PMI Practice Standard for Requirements Management", "url": "https://www.pmi.org/pmbok-guide-standards/foundational/requirements-management", "confianca": "baixa"}, "meta_com_ia": {"valor": "90% a 100% (checklist automatizado exige evidência antes de agendar)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~2x (~45% → ~95%)"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "criterios_aceite_docx_md", "descricao": "Critérios de aceite por entrega", "exemplo_estrutura": "entrega_id | critério | tipo_verificação | evidência_esperada"},
+      {"tipo": "evidencias_zip_pdf_imagens", "descricao": "Evidências (relatório de teste, screenshot, log, laudo)", "exemplo_estrutura": "pasta por entrega + índice de evidência linkado ao critério"},
+      {"tipo": "termo_aceite_template_docx", "descricao": "Template de termo de aceite corporativo", "exemplo_estrutura": "cabeçalho + entrega + critérios + evidências anexas + campo de assinatura"},
+      {"tipo": "cronograma_entregas_mpp_xlsx", "descricao": "Cronograma com marcos de entrega e data de validação prevista", "exemplo_estrutura": "entrega | data_pronta | data_reuniao_aceite | responsável_cliente | status"},
+      {"tipo": "historico_aceites_csv", "descricao": "Log histórico de aceites", "exemplo_estrutura": "entrega_id | data | resultado | motivo_rejeicao | ciclos_ate_aceite"}
+    ],
+    "ferramentas_stack": ["Streamlit (checklist HITL de pré-aceite)", "Python (verificador critério × evidência)", "Azure OpenAI", "DocuSign / Clicksign (assinatura eletrônica)", "SharePoint / Google Drive", "Power BI"],
+    "riscos_de_medicao": ["Cerimônia versus aceite real: cliente pode assinar sem revisar — auditar retrabalho pós-aceite", "Gaming: engenheiro fecha critério com evidência frágil — segunda opinião em entregas críticas", "Baseline móvel de critérios: congelar critérios 30d antes", "Ausência de rastreabilidade critério → evidência — exigir link antes de agendar", "LGPD/sigilo: dossiê pode conter dados sensíveis — controle de acesso", "Aceite tácito por silêncio distorce tempo de ciclo — separar aceite ativo de tácito"],
+    "fontes_completas": [
+      {"tipo": "standard", "titulo": "Practice Standard for Requirements Management", "url": "https://www.pmi.org/pmbok-guide-standards/foundational/requirements-management"},
+      {"tipo": "standard", "titulo": "The Standard for AI in PPPM (PMI 2026)", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "relatorio", "titulo": "CHAOS Report 2023", "url": "https://standishgroup.com/sample_research_files/CHAOSReport2023.pdf"},
+      {"tipo": "vendor", "titulo": "DocuSign eSignature", "url": "https://www.docusign.com/products/electronic-signature"},
+      {"tipo": "vendor", "titulo": "Clicksign", "url": "https://www.clicksign.com/"}
+    ]
+  },
+  {
+    "processo_id": "3.1",
+    "processo_nome": "Planejar o Gerenciamento do Cronograma",
+    "area": "Cronograma",
+    "grupo": "Planejamento",
+    "pilotos_primarios": [],
+    "observacao_piloto": "Processo de governança (política, unidades, tolerâncias, ciclo). Sem piloto IA operacional dedicado — assistido por sumarizador-discovery para redação.",
+    "metricas": [
+      {"nome": "Completude do Plano de Gerenciamento do Cronograma vs. checklist PMBOK 8", "unidade": "% de itens do checklist presentes no plano", "formula": "(itens presentes / total do checklist normativo) * 100", "baseline_mercado": {"valor": "50% a 75% (planos omitem tolerâncias e ciclo de atualização)", "fonte": "PMI Pulse 2020 + PMBOK Guide 8th", "url": "https://www.pmi.org/learning/thought-leadership/pulse", "confianca": "media"}, "meta_com_ia": {"valor": "90% a 100% (LLM gera rascunho + validador programático checa cada item)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~50% (~63% → ~95%)"},
+      {"nome": "Tempo de ciclo para produzir Plano de Gerenciamento do Cronograma aprovado", "unidade": "dias úteis", "formula": "média(data_aprovacao_plano - data_kickoff) por projeto", "baseline_mercado": {"valor": "10 a 25 dias úteis (rascunho manual, revisões, aprovação em comitê)", "fonte": "Wellingtone 2023 + PMI Pulse 2023", "url": "https://wellingtone.co.uk/wp-content/uploads/2023/06/The-State-of-Project-Management-2023.pdf", "confianca": "media"}, "meta_com_ia": {"valor": "2 a 5 dias úteis (LLM redige rascunho a partir de TAP + template + histórico)", "fonte": "McKinsey State of AI 2024 + Microsoft Copilot for Project", "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai", "confianca": "baixa"}, "reducao_percentual": "70% a 90%"},
+      {"nome": "Aderência do cronograma resultante ao padrão DCMA 14-point (proxy indireto)", "unidade": "% de checks DCMA aprovados no primeiro baseline", "formula": "(checks aprovados / 14) * 100", "baseline_mercado": {"valor": "45% a 65% (cronogramas iniciais violam múltiplos checks)", "fonte": "DCMA 14-Point Assessment + Deltek Acumen Fuse", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse", "confianca": "media"}, "meta_com_ia": {"valor": "85% a 95% (plano com regras claras + validador DCMA na criação)", "fonte": "Deltek Acumen Fuse + PMI Standard for AI in PPPM 2026", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~70% (~55% → ~90%)"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "tap_docx_pdf", "descricao": "TAP (contexto para calibrar tolerâncias)", "exemplo_estrutura": "objetivo, escopo, orçamento macro, marcos, patrocinador"},
+      {"tipo": "template_plano_gerenciamento_docx", "descricao": "Template corporativo do Plano", "exemplo_estrutura": "política, unidades, ciclo, tolerâncias, marcos, reporting, papéis"},
+      {"tipo": "checklist_pmbok_json", "descricao": "Checklist normativo do PMBOK 8 seção 3.1", "exemplo_estrutura": "{item_id, descricao, obrigatorio (S/N), evidencia_esperada}"},
+      {"tipo": "historico_planos_projetos_similares", "descricao": "Base de planos aprovados em projetos similares (RAG)", "exemplo_estrutura": "projeto_id | dominio | porte | plano_final.pdf | licoes_aprendidas.md"},
+      {"tipo": "politica_corporativa_pmo_pdf", "descricao": "Política de PMO corporativa", "exemplo_estrutura": "governança, tolerâncias mínimas, cadência mínima de reporte, papéis"}
+    ],
+    "ferramentas_stack": ["Streamlit (formulário HITL)", "Python + LangChain (LLM redige)", "Azure OpenAI / AWS Bedrock", "MS Project + Copilot", "Deltek Acumen Fuse (verificador DCMA)", "SharePoint (versionamento)"],
+    "riscos_de_medicao": ["Completude formal vs qualidade: auditoria qualitativa por PM sênior", "Template overfitting: validar customizações por projeto", "Aprovação de fachada: medir citações do plano em decisões", "Tolerâncias irrealistas herdadas — calibrar com histórico", "Deriva do padrão: revisar checklist anualmente", "LGPD: anonimizar histórico antes de RAG"],
+    "fontes_completas": [
+      {"tipo": "standard", "titulo": "PMBOK Guide 7/8th Edition", "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok"},
+      {"tipo": "standard", "titulo": "The Standard for AI in PPPM (PMI 2026)", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "standard", "titulo": "DCMA 14-Point Schedule Assessment", "url": "https://www.dcma.mil/"},
+      {"tipo": "relatorio", "titulo": "State of Project Management 2023", "url": "https://wellingtone.co.uk/wp-content/uploads/2023/06/The-State-of-Project-Management-2023.pdf"},
+      {"tipo": "vendor", "titulo": "Deltek Acumen Fuse", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse"}
+    ]
+  },
+  {
+    "processo_id": "4.1",
+    "processo_nome": "Planejar o Gerenciamento Financeiro",
+    "area": "Finanças",
+    "grupo": "Planejamento",
+    "pilotos_primarios": [],
+    "observacao_piloto": "Processo de governança financeira. Fortemente moldado por TCU e Lei 14.133/2021 em obras públicas BR.",
+    "metricas": [
+      {"nome": "Completude do Plano de Gerenciamento Financeiro vs. checklist PMBOK 8 + AACE 18R-97 + TCU", "unidade": "% de itens normativos presentes", "formula": "(itens presentes / total do checklist consolidado) * 100", "baseline_mercado": {"valor": "45% a 70% (omite reserva de contingência, curva-S, política de reajuste)", "fonte": "AACE International RP 18R-97 + PMI Pulse 2020 + TCU Roteiro Auditoria de Obras", "url": "https://portal.tcu.gov.br/fiscalizacao-de-obras-publicas/", "confianca": "media"}, "meta_com_ia": {"valor": "90% a 100% (LLM gera rascunho + validador programático)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~65% (~57% → ~95%)"},
+      {"nome": "Tempo de ciclo para produzir Plano Financeiro aprovado pelo CFO", "unidade": "dias úteis", "formula": "média(data_aprovacao_plano - data_kickoff_financeiro)", "baseline_mercado": {"valor": "10 a 30 dias úteis (planejamento manual, alinhamento com controladoria, revisão jurídica)", "fonte": "Deloitte Global Cost Survey 2023 + Wellingtone 2023", "url": "https://www2.deloitte.com/us/en/insights/topics/operations/global-cost-management-survey.html", "confianca": "media"}, "meta_com_ia": {"valor": "2 a 6 dias úteis (LLM redige + validador de conformidade + fluxo aprovação)", "fonte": "McKinsey State of AI 2024", "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai", "confianca": "baixa"}, "reducao_percentual": "70% a 85%"},
+      {"nome": "Aderência da reserva de contingência à faixa recomendada AACE por classe de estimativa", "unidade": "% de projetos com contingência na faixa AACE 18R-97", "formula": "(projetos com contingência na faixa AACE por classe / total planejados) * 100", "baseline_mercado": {"valor": "35% a 55% (reservas arbitrárias — TCU aponta subestimativa em obras públicas)", "fonte": "AACE International RP 18R-97 + TCU Acórdãos 2019-2024", "url": "https://web.aacei.org/resources/recommended-practices", "confianca": "media"}, "meta_com_ia": {"valor": "80% a 92% (Monte Carlo calibrado por histórico + validador AACE)", "fonte": "AACE International RP 40R-08 + Deltek Acumen Risk", "url": "https://web.aacei.org/resources/recommended-practices", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~1.8x (~45% → ~85%)"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "tap_docx_pdf", "descricao": "TAP com orçamento macro", "exemplo_estrutura": "objetivo, orçamento_macro, fonte_recurso, restrições, marcos financeiros"},
+      {"tipo": "template_plano_financeiro_docx", "descricao": "Template corporativo", "exemplo_estrutura": "moeda, ciclo, contas contábeis, tolerâncias, reserva contingência, política reajuste, reporting"},
+      {"tipo": "politica_financeira_corporativa_pdf", "descricao": "Política financeira/orçamentária (controladoria)", "exemplo_estrutura": "regras: aprovação por faixa, contingência mínima, política de reajuste, contas contábeis"},
+      {"tipo": "checklist_pmbok_aace_tcu_json", "descricao": "Checklist consolidado (PMBOK 8 + AACE 18R-97 + TCU)", "exemplo_estrutura": "{item_id, fonte (PMBOK/AACE/TCU), descricao, obrigatorio, evidencia}"},
+      {"tipo": "historico_orcamentos_projetos_similares_xlsx", "descricao": "Base histórica para calibrar contingência", "exemplo_estrutura": "projeto_id | dominio | orcamento_baseline | realizado | contingencia_% | desvio_final_%"},
+      {"tipo": "curva_s_baseline_xlsx", "descricao": "Curva-S financeira baseline por marco/período", "exemplo_estrutura": "período | custo_planejado_acumulado | marco | fonte_recurso"}
+    ],
+    "ferramentas_stack": ["Streamlit (validação AACE)", "Python + LangChain", "Azure OpenAI / AWS Bedrock", "SciPy/NumPy (Monte Carlo)", "Power BI (curva-S)", "SAP S/4HANA / Oracle EPM / TOTVS Protheus", "Deltek Acumen Risk"],
+    "riscos_de_medicao": ["Completude formal vs qualidade: auditoria por controller sênior", "Reserva de contingência política: comparar com histórico de desvios", "Deriva regulatória: TCU e Lei 14.133 atualizam — revisar trimestralmente", "Baseline móvel: congelar plano com marco formal", "Viés otimista sistêmico (Flyvbjerg): cruzar com benchmarks setoriais externos", "LGPD e sigilo: controle de acesso em RAG"],
+    "fontes_completas": [
+      {"tipo": "standard", "titulo": "PMBOK Guide 7/8th Edition", "url": "https://www.pmi.org/pmbok-guide-standards/foundational/pmbok"},
+      {"tipo": "standard", "titulo": "The Standard for AI in PPPM (PMI 2026)", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "standard", "titulo": "AACE International RP 18R-97", "url": "https://web.aacei.org/resources/recommended-practices"},
+      {"tipo": "standard", "titulo": "AACE International RP 40R-08", "url": "https://web.aacei.org/resources/recommended-practices"},
+      {"tipo": "orgao_publico", "titulo": "TCU — Fiscalização de Obras Públicas", "url": "https://portal.tcu.gov.br/fiscalizacao-de-obras-publicas/"},
+      {"tipo": "legislacao", "titulo": "Lei 14.133/2021 — Nova Lei de Licitações", "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"},
+      {"tipo": "vendor", "titulo": "Deltek Acumen Risk", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/risk"},
+      {"tipo": "livro", "titulo": "How Big Things Get Done (Flyvbjerg & Gardner)", "url": "https://sites.google.com/view/bentflyvbjerg/publications"}
+    ]
+  }
+]

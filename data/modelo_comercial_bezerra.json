@@ -1,0 +1,53 @@
+{
+  "versao": "1.0",
+  "fonte": "Método comercial do Prof. Dr. José Bezerra registrado na transcrição RAW da Aula 1 IA-PPPM (BSBr, 2026-08-08). Ver docs/FONTES-BEZERRA-AULA1-TRANSCRICAO-RAW.md.",
+  "principios": [
+    "Resultado é rei — cobrar pelo valor entregue, não pela hora trabalhada.",
+    "Diagnóstico inicial é gratuito — porta de entrada que qualifica o cliente e amostra o método.",
+    "Uma boa ideia não implementada vale zero — foco em entregar piloto rodando, não em relatório."
+  ],
+  "modalidades": [
+    {
+      "nome": "Diagnóstico gratuito",
+      "descricao": "Porta de entrada — sessão de 60-90 min que aplica os 5 Porquês, mapeia dor prioritária e propõe 3 caminhos (A/B/C).",
+      "ticket_referencia": "R$ 0 (custo do consultor absorvido na conversão)",
+      "quando_usar": "Primeiro contato com lead qualificado; qualifica quem tem sponsor executivo real.",
+      "citacao": "Prof. Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [48:47]"
+    },
+    {
+      "nome": "Consultoria por resultado",
+      "descricao": "Percentual do ganho auditado que o cliente obteve com a intervenção. Modelo preferido quando há métrica financeira clara (recuperação, redução de custo, aumento de receita).",
+      "ticket_referencia": "% do ganho — ex.: caso contabilidade SUS recuperou R$ 5 milhões [01:33]",
+      "quando_usar": "Cliente com dor mensurável em R$ e sponsor que aceita partilhar o ganho.",
+      "citacao": "Prof. Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:34:01]"
+    },
+    {
+      "nome": "Consultoria por escopo (piloto de 30 dias)",
+      "descricao": "Ticket fechado por piloto — inclui EAP + baseline + rodada supervisionada + leitura executiva. Preserva previsibilidade do cliente e do consultor.",
+      "ticket_referencia": "Definido caso a caso — base: 20-40h de consultor × R$ 300-600/h",
+      "quando_usar": "Cliente sem métrica financeira clara mas com dor operacional definida; POC antes de escalar.",
+      "citacao": "Adaptado do plano_projeto_30d (backlog Giancarlo aprovado por Bezerra [02:48:54])"
+    },
+    {
+      "nome": "Micro-produto de IA (SaaS/serviço padronizado)",
+      "descricao": "Produto empacotado com IA (ex.: gerador de sites, radar de leads, dashboard automático). Escalável, cliente self-service ou baixo touch.",
+      "ticket_referencia": "R$ 200 a R$ 1.000 por entrega; escala a R$ 30.000/mês com 10 entregas/dia",
+      "quando_usar": "Nicho vertical de PME com dor repetível; operação de baixo margem-alta escala.",
+      "citacao": "Prof. Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [03:18:25] (oficina + Felipe)"
+    },
+    {
+      "nome": "Modalidade presencial",
+      "descricao": "Presencial vale 5x o preço da remota, mas escala pior. Usar para clientes estratégicos ou quando o problema exige leitura do ambiente.",
+      "ticket_referencia": "~5x o valor da consultoria remota equivalente",
+      "quando_usar": "Cliente C-level, projetos de transformação cultural, discovery em campo.",
+      "citacao": "Prof. Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [14:58]"
+    }
+  ],
+  "regras_de_pricing": [
+    "Diagnóstico sempre gratuito; se o lead não aceita, não é lead qualificado.",
+    "Antes de assinar contrato por resultado, exigir metric-baseline congelada por escrito.",
+    "Contrato por escopo protege o consultor iniciante — resultado só depois de 3-5 clientes.",
+    "Micro-produto exige margem de escala — não vale a pena se cada entrega precisa de personalização.",
+    "Presencial deve ser cobrado 5x — não é vaidade, é custo de deslocamento + oportunidade."
+  ]
+}

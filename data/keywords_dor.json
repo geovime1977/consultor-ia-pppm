@@ -1,0 +1,17 @@
+{
+  "comunicacao_stakeholder": ["status", "reporte", "reportar", "reunião", "reuniao", "executivo", "diretoria", "comitê", "comite", "stakeholder"],
+  "reporting": ["relatório", "relatorio", "consolidação", "consolidacao", "dashboard", "planilha", "planilhas conflitantes", "informação pouco executiva"],
+  "visibilidade_portfolio": ["portfólio", "portfolio", "visão do portfólio", "visao do portfolio", "visibilidade", "pmo", "consolidado"],
+  "risco": ["risco", "riscos", "incerteza", "problema", "issue", "raid", "matriz de risco", "alerta"],
+  "atraso": ["atraso", "atrasos", "atrasar", "prazo", "prazos", "cronograma", "deadline", "sla estourado", "estouro de prazo"],
+  "priorizacao": ["priorizar", "priorização", "priorizacao", "escolher", "backlog", "seleção de projetos", "selecao de projetos", "alocar recursos", "alocação de recursos"],
+  "alocacao_recursos": ["alocação", "alocacao", "recursos", "capacidade", "time", "alocar equipe", "escassez"],
+  "roi": ["roi", "benefício", "beneficio", "business case", "retorno", "ganho financeiro", "custo-benefício", "mensuração", "mensuracao"],
+  "sla": ["sla", "atendimento", "chamado", "ticket", "tickets", "nível de serviço", "nivel de servico", "violação", "violacao"],
+  "atas_documentacao": ["ata", "atas", "documento", "documentação", "documentacao", "requisito", "requisitos", "discovery", "transcrição", "transcricao"],
+  "estimativa_esforco": ["estimativa", "esforço", "esforco", "horas", "prazo", "escopo", "quanto tempo", "quanto custa"],
+  "licoes_aprendidas": ["lições aprendidas", "licoes aprendidas", "aprendizado", "retrospectiva", "post mortem", "post-mortem", "repetimos erros"],
+  "dependencias": ["dependência", "dependencia", "dependências", "dependencias", "interface", "integração", "integracao", "bloqueio"],
+  "governanca_hitl": ["governança", "governanca", "validação humana", "validacao humana", "hitl", "compliance", "auditoria", "aprovação", "aprovacao", "lgpd"],
+  "satisfacao_stakeholder": ["satisfação", "satisfacao", "nps", "cliente insatisfeito", "reclamação", "reclamacao", "feedback", "engajamento"]
+}

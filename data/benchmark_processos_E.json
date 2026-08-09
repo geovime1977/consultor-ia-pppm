@@ -1,0 +1,435 @@
+[
+  {
+    "processo_id": "2.2",
+    "processo_nome": "Coletar e Analisar Requisitos",
+    "area_conhecimento": "Escopo",
+    "grupo_processo": "Planejamento",
+    "pilotos_primarios": ["sumarizador-discovery", "classificador-requisitos"],
+    "metricas": [
+      {
+        "nome": "Tempo médio de consolidação de requisitos a partir de discovery",
+        "unidade": "horas por projeto (do fim da última entrevista à baseline de requisitos aprovada)",
+        "formula": "sum(horas_consolidacao_requisitos) / n_projetos",
+        "baseline_mercado": {
+          "valor": "40-80 horas de BA/PO por projeto de porte médio; ~47% dos projetos falham por requisitos mal capturados",
+          "fonte": "PMI — Requirements Management: A Core Competency for Project and Program Success (2014)",
+          "url": "https://www.pmi.org/learning/thought-leadership/pulse/requirements-management-9351",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "10-20 horas por projeto (redução 60-75%)",
+          "fonte": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 (piloto sumarizador-discovery); McKinsey State of AI 2024 (product mgmt 30-45%)",
+          "url": "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai",
+          "confianca": "media"
+        },
+        "reducao_percentual": "60-75%"
+      },
+      {
+        "nome": "Taxa de retrabalho de requisitos (churn pós-baseline)",
+        "unidade": "% requisitos alterados/reabertos após baseline",
+        "formula": "(requisitos_alterados_pos_baseline / total_requisitos_baseline) * 100",
+        "baseline_mercado": {
+          "valor": "35-50% de churn em projetos de TI de porte médio",
+          "fonte": "Standish CHAOS Report; Jorgensen (2004) IEEE TSE",
+          "url": "https://www.standishgroup.com/sample_research_files/CHAOSReport2015-Final.pdf",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "15-25% com classificador detectando ambiguidade/duplicidade/conflito",
+          "fonte": "Ferrari et al. IEEE 2018 — NLP para ambiguidade em requisitos; PMI Standard for AI in PPPM (2026)",
+          "url": "https://ieeexplore.ieee.org/document/8491137",
+          "confianca": "media"
+        },
+        "reducao_percentual": "40-60%"
+      },
+      {
+        "nome": "Cobertura da matriz de rastreabilidade requisito → entrega",
+        "unidade": "% requisitos aprovados com traceability preenchida até entrega",
+        "formula": "(requisitos_com_traceability_completa / total_requisitos_aprovados) * 100",
+        "baseline_mercado": {
+          "valor": "40-60% em PMOs de baixa maturidade",
+          "fonte": "PMI Requirements Management Practice Guide (2016)",
+          "url": "https://www.pmi.org/pmbok-guide-standards/practice-guides/requirements-management",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": ">85% (vínculo automático via embeddings)",
+          "fonte": "Jira Align/Aha!/Productboard — vendor docs",
+          "url": "https://www.atlassian.com/software/jira/align",
+          "confianca": "baixa"
+        },
+        "reducao_percentual": "+25 a +45 p.p. absolutos"
+      }
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "transcricao_reuniao_txt", "descricao": "Transcrição de discovery (Zoom/Meet/Teams) em .txt ou .vtt", "exemplo_estrutura": "timestamp | falante | texto"},
+      {"tipo": "planilha_excel", "descricao": "Backlog inicial em Excel", "exemplo_estrutura": "ID | tipo (funcional/NF) | descrição | ator | prioridade MoSCoW | origem | status"},
+      {"tipo": "pdf_ata_workshop", "descricao": "Ata de workshop em PDF (pdfplumber)", "exemplo_estrutura": "participantes | agenda | decisões | requisitos elicitados | pendências"},
+      {"tipo": "json_api_jira", "descricao": "Export REST de issues Jira/Azure DevOps", "exemplo_estrutura": "{issue_id, summary, description, priority, labels[], epic_link, assignee}"},
+      {"tipo": "csv_survey", "descricao": "CSV de survey de usuários", "exemplo_estrutura": "respondent_id | perfil | dor_atual | solução_esperada | criticidade"}
+    ],
+    "ferramentas_stack": ["Python (pdfplumber, python-docx, whisper)", "Streamlit", "spaCy/BERTimbau (NLP pt-BR)", "RPA (n8n/UiPath)", "Power BI"],
+    "riscos_de_medicao": [
+      "Gaming: BA declara requisito aprovado sem validação real — exigir aceite formal por e-mail",
+      "Viés de seleção: piloto só em projetos com stakeholder engajado",
+      "Alucinação do LLM inventando requisito — HITL obrigatório",
+      "Sub-relato do baseline de horas — cruzar com timesheet real",
+      "Ambiguidade de definição de 'requisito alterado' vs 'refinamento'"
+    ],
+    "fontes_completas": [
+      {"tipo": "guia", "titulo": "PMI Requirements Management Practice Guide", "url": "https://www.pmi.org/pmbok-guide-standards/practice-guides/requirements-management"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse of the Profession 2018", "url": "https://www.pmi.org/learning/thought-leadership/pulse/success-in-disruptive-times-9426"},
+      {"tipo": "relatorio", "titulo": "Standish CHAOS Report", "url": "https://www.standishgroup.com/sample_research_files/CHAOSReport2015-Final.pdf"},
+      {"tipo": "paper", "titulo": "Detecting requirements defects with NLP — Ferrari et al.", "url": "https://ieeexplore.ieee.org/document/8491137"},
+      {"tipo": "aula", "titulo": "Aula 1 IA-PPPM (BSBr) — Bezerra", "url": "https://bsbr.com.br/"},
+      {"tipo": "vendor", "titulo": "Jira Align (traceability)", "url": "https://www.atlassian.com/software/jira/align"}
+    ]
+  },
+  {
+    "processo_id": "2.3",
+    "processo_nome": "Definir o Escopo",
+    "area_conhecimento": "Escopo",
+    "grupo_processo": "Planejamento",
+    "pilotos_primarios": ["sumarizador-discovery", "classificador-requisitos"],
+    "metricas": [
+      {
+        "nome": "Aderência do escopo entregue vs baseline (scope creep)",
+        "unidade": "% de aumento do escopo entre baseline e entrega",
+        "formula": "((escopo_entregue - escopo_baseline) / escopo_baseline) * 100",
+        "baseline_mercado": {
+          "valor": "52% dos projetos sofrem scope creep declarado; média +20 a +30% sobre baseline",
+          "fonte": "PMI Pulse of the Profession 2018",
+          "url": "https://www.pmi.org/learning/thought-leadership/pulse/success-in-disruptive-times-9426",
+          "confianca": "alta"
+        },
+        "meta_com_ia": {
+          "valor": "<15% (exclusões explícitas + checklist de premissas + validação semântica de mudanças)",
+          "fonte": "McKinsey — Bloch, Blumberg, Laartz 2012 (scope statement robusto reduz 30% do estouro); PMI Standard for AI in PPPM 2026",
+          "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value",
+          "confianca": "media"
+        },
+        "reducao_percentual": "40-60% do creep"
+      },
+      {
+        "nome": "Tempo de elaboração da Declaração de Escopo + EAP inicial",
+        "unidade": "horas de PM/BA por projeto",
+        "formula": "sum(horas_scope_statement_v1_aprovada) / n_projetos",
+        "baseline_mercado": {
+          "valor": "24-40 horas em projetos de médio porte",
+          "fonte": "PMI Practice Standard for WBS (2nd ed., 2019)",
+          "url": "https://www.pmi.org/pmbok-guide-standards/practice/work-breakdown-structures-2nd-edition",
+          "confianca": "baixa"
+        },
+        "meta_com_ia": {
+          "valor": "6-12 horas (LLM gera rascunho de Scope Statement + EAP; PM revisa)",
+          "fonte": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08",
+          "url": "https://bsbr.com.br/",
+          "confianca": "media"
+        },
+        "reducao_percentual": "60-70%"
+      },
+      {
+        "nome": "Cobertura de exclusões e premissas declaradas",
+        "unidade": "número por Scope Statement",
+        "formula": "media(qtd_exclusoes + qtd_premissas) por projeto",
+        "baseline_mercado": {
+          "valor": "1-3 exclusões por scope statement em PMOs de baixa maturidade",
+          "fonte": "Requer POC interna; TCU — Acórdãos sobre aditivos de escopo",
+          "url": "https://portal.tcu.gov.br/",
+          "confianca": "baixa"
+        },
+        "meta_com_ia": {
+          "valor": ">=8 exclusões e >=5 premissas (checklist forçado pelo assistente)",
+          "fonte": "PMBOK 8 + Prince2 — boa prática consolidada",
+          "url": "https://www.pmi.org/pmbok-guide-standards",
+          "confianca": "media"
+        },
+        "reducao_percentual": "+3 a +6 exclusões por projeto"
+      }
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "markdown_scope_draft", "descricao": "Rascunho de escopo em .md", "exemplo_estrutura": "objetivo | entregas | exclusões | premissas | restrições | critérios de aceite"},
+      {"tipo": "planilha_excel_eap", "descricao": "EAP em Excel (WBS 3 níveis)", "exemplo_estrutura": "codigo_wbs (1.1.1) | entregavel | responsável | criterio_aceite | fase"},
+      {"tipo": "json_backlog", "descricao": "Export Jira/Azure DevOps para inferir escopo real", "exemplo_estrutura": "{epic_id, story_id, story_points, in_scope, sprint, status}"},
+      {"tipo": "pdf_contrato", "descricao": "Contrato/TR em PDF", "exemplo_estrutura": "objeto | escopo | prazos | penalidades | responsabilidades"},
+      {"tipo": "docx_project_charter", "descricao": "Termo de Abertura em .docx", "exemplo_estrutura": "patrocinador | objetivo | escopo alto nível | marcos | orçamento macro"}
+    ],
+    "ferramentas_stack": ["Python (python-docx, pdfplumber)", "Streamlit", "LLM local (Llama 3.1/Ollama) para dados sensíveis", "Azure OpenAI", "Power BI"],
+    "riscos_de_medicao": [
+      "Definição inconsistente de 'ponto de escopo' — travar unidade antes de medir creep",
+      "Aumento informal de escopo em reunião sem registro — HITL registra tudo",
+      "Piloto só em projeto novo sem histórico — rodar também em legado com creep conhecido",
+      "Alucinação: LLM cria exclusão sem sentido — PM valida",
+      "Efeito Hawthorne — grupo controle de 4 semanas"
+    ],
+    "fontes_completas": [
+      {"tipo": "guia", "titulo": "PMBOK 8th Ed — Escopo", "url": "https://www.pmi.org/pmbok-guide-standards"},
+      {"tipo": "guia", "titulo": "PMI Practice Standard for WBS 2nd", "url": "https://www.pmi.org/pmbok-guide-standards/practice/work-breakdown-structures-2nd-edition"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2018 (scope creep 52%)", "url": "https://www.pmi.org/learning/thought-leadership/pulse/success-in-disruptive-times-9426"},
+      {"tipo": "consultoria", "titulo": "Bloch, Blumberg, Laartz — McKinsey 2012", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value"},
+      {"tipo": "aula", "titulo": "Aula 1 IA-PPPM (BSBr)", "url": "https://bsbr.com.br/"}
+    ]
+  },
+  {
+    "processo_id": "3.2",
+    "processo_nome": "Desenvolver o Cronograma",
+    "area_conhecimento": "Cronograma",
+    "grupo_processo": "Planejamento",
+    "pilotos_primarios": ["auditor-cronograma", "detector-dependencias"],
+    "metricas": [
+      {
+        "nome": "Qualidade do cronograma (DCMA 14-point Assessment)",
+        "unidade": "score 0-14 (aprovado >= 12)",
+        "formula": "sum(checks_dcma_aprovados) / 14",
+        "baseline_mercado": {
+          "valor": "50-70% dos cronogramas de médio/grande porte falham em 3-4 checks (lags negativos, dangling tasks, missing predecessors, hard constraints em excesso)",
+          "fonte": "Deltek Acumen Fuse — Schedule Quality Benchmarks; DCMA 14-point checklist (DoD)",
+          "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen",
+          "confianca": "alta"
+        },
+        "meta_com_ia": {
+          "valor": ">=13/14 checks aprovados no baseline",
+          "fonte": "Deltek Acumen Fuse; PMI Standard for AI in PPPM 2026",
+          "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen",
+          "confianca": "alta"
+        },
+        "reducao_percentual": "80-90% dos erros de rede eliminados"
+      },
+      {
+        "nome": "Tempo de auditoria do cronograma antes do baseline",
+        "unidade": "horas de planner/PM por auditoria",
+        "formula": "sum(horas_auditoria_pre_baseline) / n_projetos",
+        "baseline_mercado": {
+          "valor": "16-40 horas para cronograma de porte médio (500-2000 atividades)",
+          "fonte": "Deltek Acumen white papers; Safran Risk",
+          "url": "https://www.safran.com/software",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "2-6 horas (auditor roda 14 checks + valida caminho crítico; planner revisa só críticos)",
+          "fonte": "Deltek Acumen Fuse; MS Project + Copilot",
+          "url": "https://www.microsoft.com/en-us/microsoft-365/blog/2024/02/28/introducing-copilot-in-project/",
+          "confianca": "media"
+        },
+        "reducao_percentual": "75-85%"
+      },
+      {
+        "nome": "Realismo do baseline (desvio esperado do cronograma)",
+        "unidade": "% desvio ((duracao_real - baseline) / baseline * 100)",
+        "formula": "((duracao_real - duracao_baseline) / duracao_baseline) * 100",
+        "baseline_mercado": {
+          "valor": "45% dos projetos grandes estouram 20-45% do prazo; Standish CHAOS ~52% time overrun",
+          "fonte": "McKinsey — Bloch et al. 2012; Standish CHAOS",
+          "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value",
+          "confianca": "alta"
+        },
+        "meta_com_ia": {
+          "valor": "Desvio médio <15% (Monte Carlo + históricos de duração calibrando baseline)",
+          "fonte": "Safran Risk / Deltek Acumen Risk; PMI Practice Standard for Scheduling 3rd ed.",
+          "url": "https://www.safran.com/software/safran-risk",
+          "confianca": "media"
+        },
+        "reducao_percentual": "50-65% do estouro típico"
+      }
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "arquivo_mspp", "descricao": "Cronograma .mpp do MS Project", "exemplo_estrutura": "ID | tarefa | duração | predecessora | tipo_dependencia (FS/FF/SS/SF) | lag | recurso | data_inicio | data_fim | % concluido | critico"},
+      {"tipo": "primavera_xer", "descricao": "Export .xer do Oracle Primavera P6", "exemplo_estrutura": "tabelas TASK, TASKPRED, PROJWBS, RSRC, CALENDAR, CONSTRAINT"},
+      {"tipo": "planilha_excel_gantt", "descricao": "Cronograma Excel/Smartsheet", "exemplo_estrutura": "id | tarefa | duração_dias | predecessora_ids | recurso | inicio | fim | folga"},
+      {"tipo": "csv_atividades", "descricao": "Export CSV DCMA-compatível", "exemplo_estrutura": "id,activity_name,duration_days,predecessors,successors,resource,start_date,finish_date,total_float,constraint_type"},
+      {"tipo": "json_api_ms_project", "descricao": "MS Project Online API (REST/OData)", "exemplo_estrutura": "{taskId, name, duration, predecessorLinks[{taskId,type,lag}], startDate, finishDate, percentComplete}"}
+    ],
+    "ferramentas_stack": ["Python (mpxj para .mpp/.xer, pandas, networkx)", "Deltek Acumen Fuse", "MS Project + Copilot", "Streamlit", "Safran Risk (Monte Carlo)", "Power BI"],
+    "riscos_de_medicao": [
+      "Gaming: planner ajusta cronograma só para passar nos 14 checks — cruzar DCMA com SPI histórico",
+      "Cronograma-vitrine: baseline aprovado é fantasia política — auditar atividades vs contrato",
+      "Hard constraints mascarando problemas — sinalizar uso excessivo de MFO/MSO",
+      "Viés de otimismo (planning fallacy — Kahneman) — calibrar com histórico",
+      "Falso senso de precisão do Monte Carlo se distribuições vierem de chute — exigir 3-point estimate declarada"
+    ],
+    "fontes_completas": [
+      {"tipo": "vendor", "titulo": "Deltek Acumen Fuse — DCMA 14-point", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen"},
+      {"tipo": "vendor", "titulo": "Safran Risk", "url": "https://www.safran.com/software/safran-risk"},
+      {"tipo": "vendor", "titulo": "Microsoft Project + Copilot", "url": "https://www.microsoft.com/en-us/microsoft-365/blog/2024/02/28/introducing-copilot-in-project/"},
+      {"tipo": "guia", "titulo": "PMI Practice Standard for Scheduling 3rd", "url": "https://www.pmi.org/pmbok-guide-standards/practice/scheduling-3rd-edition"},
+      {"tipo": "consultoria", "titulo": "Bloch, Blumberg, Laartz — McKinsey 2012", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value"},
+      {"tipo": "checklist", "titulo": "DCMA 14-point Assessment", "url": "https://www.dcma.mil/"}
+    ]
+  },
+  {
+    "processo_id": "3.3",
+    "processo_nome": "Monitorar e Controlar o Cronograma",
+    "area_conhecimento": "Cronograma",
+    "grupo_processo": "Monitoramento e Controle",
+    "pilotos_primarios": ["auditor-cronograma"],
+    "metricas": [
+      {
+        "nome": "SPI médio do portfólio",
+        "unidade": "razão EV/PV (meta >= 0,95)",
+        "formula": "SPI = Earned Value / Planned Value; agregar por média ponderada",
+        "baseline_mercado": {
+          "valor": "SPI médio 0,70-0,85 em portfólios de baixa/média maturidade (15-30% de atraso)",
+          "fonte": "PMI Pulse of the Profession 2020-2023 (série time overruns 45-52%)",
+          "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "SPI médio >=0,92 (radar antecipando slippage + auditor exigindo replan quando SPI cai <0,90 por 2 ciclos)",
+          "fonte": "PMI Standard for AI in PPPM 2026 (EVM automatizado)",
+          "url": "https://www.pmi.org/standards/ai-and-pppm",
+          "confianca": "media"
+        },
+        "reducao_percentual": "reduzir slippage em 40-60%"
+      },
+      {
+        "nome": "Lead time de detecção de slippage crítico",
+        "unidade": "dias entre 1º sinal fraco e sinalização formal",
+        "formula": "media(data_sinalizacao_formal - data_1o_sinal_fraco)",
+        "baseline_mercado": {
+          "valor": "20-45 dias — slippage só vira visível no status mensal",
+          "fonte": "Requer POC interna; PMI Pulse (baixa maturidade em early warning)",
+          "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+          "confianca": "baixa"
+        },
+        "meta_com_ia": {
+          "valor": "3-7 dias (auditor cruza baseline vs progresso semanal + LLM lê atas)",
+          "fonte": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 (antecipação de risco de aditivo em 30 dias)",
+          "url": "https://bsbr.com.br/",
+          "confianca": "media"
+        },
+        "reducao_percentual": "80-90%"
+      },
+      {
+        "nome": "Aderência de replanejamentos ao Change Control",
+        "unidade": "% replanejamentos com análise de impacto documentada",
+        "formula": "(replans_com_analise_impacto / total_replans) * 100",
+        "baseline_mercado": {
+          "valor": "40-55% em PMOs de baixa maturidade",
+          "fonte": "PMI Pulse — Change Management maturity; auditorias TCU",
+          "url": "https://portal.tcu.gov.br/",
+          "confianca": "baixa"
+        },
+        "meta_com_ia": {
+          "valor": ">=90% (assistente força template escopo/prazo/custo/qualidade antes de aceitar replan)",
+          "fonte": "PMBOK 8 — boa prática",
+          "url": "https://www.pmi.org/pmbok-guide-standards",
+          "confianca": "baixa"
+        },
+        "reducao_percentual": "+35 a +50 p.p. absolutos"
+      }
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "arquivo_mspp_baseline_vs_atual", "descricao": "Dois .mpp: baseline + atual", "exemplo_estrutura": "estrutura MS Project + Baseline_Start/Baseline_Finish"},
+      {"tipo": "csv_progress_report", "descricao": "Relatório de progresso semanal", "exemplo_estrutura": "activity_id | data_medicao | percent_complete | actual_start | actual_finish | EV | PV | AC"},
+      {"tipo": "json_api_jira_azure", "descricao": "Export sprints e velocity", "exemplo_estrutura": "{sprint_id, start_date, end_date, planned_points, completed_points, blocked_stories[]}"},
+      {"tipo": "planilha_excel_status", "descricao": "Status report semanal Excel", "exemplo_estrutura": "abas: resumo | atividades_semana | riscos_novos | pontos_atenção | plano_seguinte"},
+      {"tipo": "transcricao_status_meeting", "descricao": "Transcrição de status meeting (.txt/.vtt)", "exemplo_estrutura": "timestamp | falante | texto — LLM extrai menção a atraso/bloqueio/dependência"}
+    ],
+    "ferramentas_stack": ["Python (mpxj, pandas, plotly curvas S)", "Streamlit (dashboard EVM)", "Power BI", "n8n (webhooks alertando comitê)", "Azure/AWS (data lake histórico)"],
+    "riscos_de_medicao": [
+      "SPI/CPI cozinhados se % complete for auto-reportado — exigir critério deliverable-based",
+      "Gaming: PM re-baseline sempre que SPI cai — contar re-baselines por trimestre",
+      "Sub-relato de bloqueios em ata — cross-check com Jira status blocked",
+      "Alertas em excesso viram ruído — calibrar threshold com semáforo",
+      "Alucinação: LLM sinaliza atraso inexistente — HITL antes de escalar"
+    ],
+    "fontes_completas": [
+      {"tipo": "guia", "titulo": "PMBOK 8th Ed — Cronograma", "url": "https://www.pmi.org/pmbok-guide-standards"},
+      {"tipo": "guia", "titulo": "PMI Practice Standard for EVM 2nd", "url": "https://www.pmi.org/pmbok-guide-standards/practice/earned-value-management-2nd-edition"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2023 — Power Skills", "url": "https://www.pmi.org/learning/library/pulse-of-the-profession-2023"},
+      {"tipo": "vendor", "titulo": "Deltek Acumen Fuse", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen"},
+      {"tipo": "aula", "titulo": "Aula 1 IA-PPPM (BSBr)", "url": "https://bsbr.com.br/"},
+      {"tipo": "auditoria", "titulo": "TCU — Acórdãos sobre cronograma em obras públicas", "url": "https://portal.tcu.gov.br/"}
+    ]
+  },
+  {
+    "processo_id": "4.2",
+    "processo_nome": "Estimar Custos",
+    "area_conhecimento": "Finanças",
+    "grupo_processo": "Planejamento",
+    "pilotos_primarios": ["estimador-esforco"],
+    "metricas": [
+      {
+        "nome": "MMRE — erro médio absoluto da estimativa vs realizado",
+        "unidade": "% (Mean Magnitude of Relative Error)",
+        "formula": "MMRE = mean(|custo_estimado - custo_real| / custo_real)",
+        "baseline_mercado": {
+          "valor": "MMRE 30-100% em expert judgment não estruturado; 45% dos projetos grandes estouram 27-45% do orçamento",
+          "fonte": "Jorgensen (2004) IEEE TSE — review de 40+ estudos; McKinsey Bloch 2012",
+          "url": "https://ieeexplore.ieee.org/document/1265807",
+          "confianca": "alta"
+        },
+        "meta_com_ia": {
+          "valor": "MMRE 15-25% (modelos híbridos COCOMO II + histórico próprio + LLM decompondo features)",
+          "fonte": "Boehm — COCOMO II Model Definition Manual (USC); PMI Standard for AI in PPPM 2026",
+          "url": "http://csse.usc.edu/csse/research/COCOMOII/cocomo2000.0/CII_modelman2000.0.pdf",
+          "confianca": "media"
+        },
+        "reducao_percentual": "50-70% do erro típico"
+      },
+      {
+        "nome": "Tempo de produção de estimativa Classe 3-2 (AACE)",
+        "unidade": "horas de estimador por estimativa completa",
+        "formula": "sum(horas_estimativa_classe_alvo) / n_estimativas",
+        "baseline_mercado": {
+          "valor": "40-120 horas para estimativa Classe 3 (definitive ±10-30%) em projeto de médio porte",
+          "fonte": "AACE International — RP 18R-97",
+          "url": "https://web.aacei.org/resources/recommended-practices",
+          "confianca": "alta"
+        },
+        "meta_com_ia": {
+          "valor": "10-30 horas (LLM decompõe EAP + consulta base histórica de custos unitários)",
+          "fonte": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 (piloto estimador-esforço); MS Copilot for Project",
+          "url": "https://bsbr.com.br/",
+          "confianca": "media"
+        },
+        "reducao_percentual": "70-80%"
+      },
+      {
+        "nome": "% itens estimados com base paramétrica/histórica vs chute",
+        "unidade": "% itens com fonte histórica declarada",
+        "formula": "(itens_com_referencia_historica / total_itens_orcamento) * 100",
+        "baseline_mercado": {
+          "valor": "20-40% em empresas sem base histórica estruturada (maioria PMEs brasileiras)",
+          "fonte": "Requer POC interna; AACE Recommended Practices",
+          "url": "https://web.aacei.org/resources/recommended-practices",
+          "confianca": "baixa"
+        },
+        "meta_com_ia": {
+          "valor": ">=80% (assistente força vínculo cada linha a projeto histórico similar ou índice paramétrico)",
+          "fonte": "COCOMO II Boehm; RSMeans; SINAPI/SICRO no Brasil",
+          "url": "http://csse.usc.edu/csse/research/COCOMOII/",
+          "confianca": "media"
+        },
+        "reducao_percentual": "+40 a +60 p.p. absolutos"
+      }
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "planilha_excel_orcamento", "descricao": "Orçamento por EAP em Excel", "exemplo_estrutura": "wbs_id | item | unidade | quantidade | custo_unitario | custo_total | fonte_paramétrica | classe_AACE (1-5)"},
+      {"tipo": "csv_historico_projetos", "descricao": "Base histórica para calibrar paramétrica", "exemplo_estrutura": "projeto_id | ano | tipo | tamanho (LoC/m²/FP) | custo_real | duracao_real | complexidade (1-5)"},
+      {"tipo": "arquivo_mspp_resource_pool", "descricao": "MS Project com resource pool custeado", "exemplo_estrutura": "resources: nome | taxa_std | taxa_ot | disponibilidade%; assignments por tarefa"},
+      {"tipo": "pdf_termo_referencia", "descricao": "TR/SOW em PDF", "exemplo_estrutura": "objeto | itens contratáveis | quantitativos estimados | métrica de medição"},
+      {"tipo": "json_api_erp", "descricao": "Export ERP (SAP/TOTVS) com preços atualizados", "exemplo_estrutura": "{material_id, descricao, unidade, preco_unitario, data_atualizacao, fornecedor}"},
+      {"tipo": "sinapi_sicro_csv", "descricao": "Tabelas SINAPI (Caixa) ou SICRO (DNIT) para obras públicas", "exemplo_estrutura": "codigo | descricao | unidade | preco_material | preco_mao_obra | preco_total | uf | mes_ref"}
+    ],
+    "ferramentas_stack": ["Python (pandas, scikit-learn paramétrica)", "PuLP/OR-Tools (otimização de alocação)", "Streamlit", "Power BI (variação estimado vs real)", "Azure OpenAI (decompor EAP)", "RPA n8n (puxar SINAPI/SICRO)"],
+    "riscos_de_medicao": [
+      "Anchoring bias: estimador conhece target do cliente e ajusta — estimativa cega com 2 estimadores independentes",
+      "MMRE penaliza pouco subestimativa grande — reportar também PRED(25) e MMER",
+      "Base histórica pequena vira overfitting — exigir n >= 15 projetos similares",
+      "Alucinação: LLM inventa custo unitário — travar consulta a base auditada (SINAPI/RSMeans/ERP)",
+      "Gaming: PM infla custo real para melhorar MMRE — auditar realizado com contabilidade",
+      "Planning fallacy (Kahneman/Lovallo) — aplicar reference class forecasting"
+    ],
+    "fontes_completas": [
+      {"tipo": "paper", "titulo": "Jorgensen (2004) — Expert estimation of software effort", "url": "https://ieeexplore.ieee.org/document/1265807"},
+      {"tipo": "livro_tecnico", "titulo": "COCOMO II Model Definition Manual — Boehm et al.", "url": "http://csse.usc.edu/csse/research/COCOMOII/cocomo2000.0/CII_modelman2000.0.pdf"},
+      {"tipo": "norma", "titulo": "AACE International RP 18R-97 — Cost Estimate Classification", "url": "https://web.aacei.org/resources/recommended-practices"},
+      {"tipo": "guia", "titulo": "PMBOK 8th Ed — Custos", "url": "https://www.pmi.org/pmbok-guide-standards"},
+      {"tipo": "consultoria", "titulo": "Bloch, Blumberg, Laartz — McKinsey 2012", "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value"},
+      {"tipo": "base_publica", "titulo": "SINAPI — Caixa Econômica Federal", "url": "https://www.caixa.gov.br/poder-publico/modernizacao-gestao/sinapi/"},
+      {"tipo": "base_publica", "titulo": "SICRO — DNIT", "url": "https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/custos-e-pagamentos/sicro"},
+      {"tipo": "aula", "titulo": "Aula 1 IA-PPPM (BSBr)", "url": "https://bsbr.com.br/"}
+    ]
+  }
+]

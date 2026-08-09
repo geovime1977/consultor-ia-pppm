@@ -1,0 +1,176 @@
+{
+  "versao": "1.0",
+  "descricao": "Matriz de aderência: para cada piloto do catálogo (12), lista quais processos PMBOK 8ª Ed. o piloto endereça diretamente. Usado na aba 'Matriz cruzada' do Mapa PMBOK do consultor-ia-pppm. Cada célula é 'primaria' (piloto é a resposta principal para o processo) ou 'secundaria' (piloto contribui parcialmente).",
+  "relacoes": {
+    "assistente-status-executivo": {
+      "primaria": [
+        "1.7",
+        "5.5",
+        "5.7"
+      ],
+      "secundaria": [
+        "1.4",
+        "3.3",
+        "5.6"
+      ]
+    },
+    "radar-riscos-atrasos": {
+      "primaria": [
+        "7.2",
+        "7.3",
+        "7.6"
+      ],
+      "secundaria": [
+        "3.3",
+        "1.7",
+        "7.4"
+      ]
+    },
+    "analise-sla": {
+      "primaria": [
+        "1.5",
+        "5.5",
+        "5.7"
+      ],
+      "secundaria": [
+        "1.4",
+        "1.7"
+      ]
+    },
+    "base-licoes-aprendidas": {
+      "primaria": [
+        "1.6",
+        "1.9"
+      ],
+      "secundaria": [
+        "7.1",
+        "7.2",
+        "1.5"
+      ]
+    },
+    "priorizacao-portfolio": {
+      "primaria": [
+        "1.1",
+        "1.2",
+        "1.3"
+      ],
+      "secundaria": [
+        "4.1",
+        "6.1"
+      ]
+    },
+    "consolidador-atas": {
+      "primaria": [
+        "5.5",
+        "5.7"
+      ],
+      "secundaria": [
+        "1.4",
+        "1.6",
+        "5.6"
+      ]
+    },
+    "auditor-cronograma": {
+      "primaria": [
+        "3.2",
+        "3.3"
+      ],
+      "secundaria": [
+        "1.7",
+        "7.3",
+        "1.8"
+      ]
+    },
+    "estimador-esforco": {
+      "primaria": [
+        "4.2",
+        "6.2"
+      ],
+      "secundaria": [
+        "4.3",
+        "3.2",
+        "1.2"
+      ]
+    },
+    "detector-dependencias": {
+      "primaria": [
+        "3.2",
+        "3.3",
+        "1.2"
+      ],
+      "secundaria": [
+        "7.2",
+        "7.6"
+      ]
+    },
+    "sumarizador-discovery": {
+      "primaria": [
+        "2.2",
+        "2.3"
+      ],
+      "secundaria": [
+        "1.1",
+        "5.1",
+        "1.6"
+      ]
+    },
+    "classificador-requisitos": {
+      "primaria": [
+        "2.2",
+        "2.3",
+        "2.4"
+      ],
+      "secundaria": [
+        "1.1",
+        "1.2"
+      ]
+    },
+    "analise-satisfacao-stakeholder": {
+      "primaria": [
+        "5.4",
+        "5.6"
+      ],
+      "secundaria": [
+        "5.5",
+        "5.7",
+        "7.2"
+      ]
+    },
+    "detector-mudanca-escopo": {
+      "primaria": [
+        "2.5"
+      ],
+      "secundaria": [
+        "1.8",
+        "2.6"
+      ]
+    },
+    "previsor-fluxo-caixa": {
+      "primaria": [
+        "4.4"
+      ],
+      "secundaria": [
+        "4.3",
+        "1.7"
+      ]
+    },
+    "matcher-skills-projeto": {
+      "primaria": [
+        "6.3"
+      ],
+      "secundaria": [
+        "6.1",
+        "6.2"
+      ]
+    },
+    "monitor-utilizacao-equipe": {
+      "primaria": [
+        "6.5"
+      ],
+      "secundaria": [
+        "6.4",
+        "7.6"
+      ]
+    }
+  }
+}

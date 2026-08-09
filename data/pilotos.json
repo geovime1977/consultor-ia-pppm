@@ -1,0 +1,3071 @@
+[
+  {
+    "id": "assistente-status-executivo",
+    "nome": "Assistente de Status Executivo",
+    "descricao": "Consolida status reports, atas e cronogramas em uma leitura executiva semanal para o PMO, com destaque para desvios, riscos e decisões pendentes.",
+    "dimensoes_alvo": [
+      "estrategia",
+      "governanca"
+    ],
+    "categorias_dor": [
+      "comunicacao_stakeholder",
+      "reporting",
+      "visibilidade_portfolio"
+    ],
+    "impacto_base": "alto",
+    "viabilidade_base": "alto",
+    "risco_base": "baixo",
+    "pre_requisitos": [
+      "Status reports semanais em formato padronizado",
+      "Modelo de leitura executiva aprovado pelo PMO",
+      "Acesso de leitura ao repositório de projetos"
+    ],
+    "ganho_esperado": "Reduz o tempo de consolidação de status executivo em 70% e devolve clareza e velocidade à conversa com a diretoria",
+    "tempo_estimado_semanas": 3,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Tempo médio de consolidação de status executivo por ciclo",
+        "unidade": "horas/semana por gerente de projeto",
+        "formula": "sum(horas_gastas_consolidando_status_report) / n_gerentes / n_semanas_amostra",
+        "baseline_mercado": {
+          "valor": "6-8 horas/semana por PM em atividades de reporting e coordenação (~19% do tempo em PMOs de baixa maturidade)",
+          "fonte": "PMI Pulse of the Profession 2020 — 'Ahead of the Curve: Forging a Future-Focused Culture'",
+          "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "1,5-2,5 horas/semana por PM (redução declarada de 60-70%)",
+          "fonte": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08, [01:02:10] — âncora de especialista; triangulado com Microsoft Work Trend Index 2024 (Copilot: economia média de ~30% em summarization/reporting em uso corporativo)",
+          "url": "https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part",
+          "confianca": "media"
+        },
+        "reducao_percentual": "60-70%"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Aderência ao ciclo de reporting (status entregue no prazo do PMO)",
+          "unidade": "% ciclos entregues no prazo",
+          "baseline": "70-75% em organizações de baixa maturidade PMO",
+          "meta_ia": "90-95%",
+          "fonte": "PMI Pulse of the Profession 2021 — 'Beyond Agility'",
+          "url": "https://www.pmi.org/learning/library/beyond-agility-gymnastic-enterprises-12973"
+        },
+        {
+          "nome": "% de decisões executivas rastreáveis a evidência estruturada",
+          "unidade": "% do total de decisões do comitê",
+          "baseline": "<30% (auto-relato de PMOs)",
+          "meta_ia": ">70% quando o assistente força citação de fonte por bloco",
+          "fonte": "Gartner — Hype Cycle for Project & Portfolio Management 2024 (menção a AI-augmented reporting)",
+          "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management"
+        },
+        {
+          "nome": "NPS interno do comitê executivo sobre o status report",
+          "unidade": "escala -100 a +100",
+          "baseline": "medir na semana 1 (sem benchmark público)",
+          "meta_ia": "+20 pontos vs baseline",
+          "fonte": "Requer POC interna do cliente",
+          "url": null
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "PMO com 5 gerentes @ R$ 150/hora, 46 semanas úteis/ano, consolidação hoje 6h/semana por PM, meta 2h/semana",
+        "ganho_anual_estimado": "R$ 138.000/ano (5 PMs × 4h economizadas × R$150 × 46 semanas)",
+        "tempo_payback_meses": "1-2 meses (assumindo setup ~R$ 25.000 + R$ 3.000/mês em licenças LLM)"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) cronometrar via self-report validado o tempo real de cada PM entre 'último input recebido' e 'status report publicado'; (2) contar reworks solicitados pela diretoria no último ciclo; (3) medir latência entre reunião de comitê e distribuição do status consolidado; (4) capturar NPS do consumidor executivo (diretor de portfólio) via 1 pergunta. Congelar essas 4 métricas como baseline antes de instalar o piloto.",
+      "riscos_de_medicao": [
+        "Gaming: PM preenche template mais rápido mas com menos rigor — mitigar com auditoria por amostragem semanal",
+        "Viés de seleção: piloto rodado apenas em projetos 'saudáveis' — exigir mix verde/amarelo/vermelho",
+        "Sub-relato: PMs subestimam tempo no baseline para parecerem eficientes — validar com time-tracking automático",
+        "Efeito Hawthorne: melhora só porque estão sendo observados — comparar com grupo-controle de projetos sem o piloto por 4 semanas"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "linkedin",
+          "titulo": "Prof. Dr. José Bezerra — Aula 1 IA-PPPM (BSBr)",
+          "autor": "José Bezerra Filho",
+          "ano": 2026,
+          "url": "https://www.linkedin.com/in/josebezerrafilho/"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "PMI Pulse of the Profession 2020 — Ahead of the Curve",
+          "autor": "PMI",
+          "ano": 2020,
+          "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "PMI Pulse of the Profession 2021 — Beyond Agility",
+          "autor": "PMI",
+          "ano": 2021,
+          "url": "https://www.pmi.org/learning/library/beyond-agility-gymnastic-enterprises-12973"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Microsoft Work Trend Index 2024 — AI at Work",
+          "autor": "Microsoft",
+          "ano": 2024,
+          "url": "https://www.microsoft.com/en-us/worklab/work-trend-index/ai-at-work-is-here-now-comes-the-hard-part"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Asana Intelligence — Product Overview",
+          "autor": "Asana",
+          "ano": 2024,
+          "url": "https://asana.com/product/ai"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": true,
+        "onde": [
+          "PDF fonte: ~/Downloads/Aula 1_ Formação de Consultores em IA Aplicada ao PPPM - Quick prompts - Detailed summary with citation.pdf",
+          "PDF slides: ~/Downloads/Aula_1_Formacao_Consultores_IA_PPPM_BSBr (1).pdf",
+          "https://www.linkedin.com/in/josebezerrafilho/",
+          "https://bsbr.com.br/",
+          "https://www.slideshare.net/JoseBezerra1"
+        ],
+        "citacao_util": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10]: 'redução do tempo de consolidação de status executivo (~70%)'. Contexto [01:00:20]: assistente de status executivo é o primeiro piloto listado como caso de uso viável no PPPM."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Assistente de Status Executivo' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "consolidacao",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "ChatGPT/Claude para consolidação",
+      "PowerPoint→HTML via ChatGPT [03:29:55]",
+      "Streamlit + Python para dashboard",
+      "Power BI para visualização"
+    ],
+    "citado_por_bezerra": true,
+    "citado_timestamp": "[01:00:20]"
+  },
+  {
+    "id": "radar-riscos-atrasos",
+    "nome": "Radar de Riscos e Atrasos",
+    "descricao": "Classifica automaticamente riscos e sinais de atraso em atas, RAID logs e cronogramas, sinalizando dependências críticas antes do ciclo de status mensal.",
+    "dimensoes_alvo": [
+      "governanca",
+      "casos_uso"
+    ],
+    "categorias_dor": [
+      "risco",
+      "atraso",
+      "dependencias"
+    ],
+    "impacto_base": "alto",
+    "viabilidade_base": "medio",
+    "risco_base": "medio",
+    "pre_requisitos": [
+      "Histórico de atas e RAIDs dos últimos 6 meses",
+      "Taxonomia de riscos aprovada",
+      "Regra de HITL para validação humana"
+    ],
+    "ganho_esperado": "Antecipa 40% dos riscos críticos e reduz o efeito surpresa nos comitês executivos",
+    "tempo_estimado_semanas": 5,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Taxa de riscos críticos antecipados antes do ciclo de status mensal",
+        "unidade": "% de riscos materializados detectados com >= 30 dias de antecedência pelo piloto",
+        "formula": "(riscos_flaggados_e_confirmados / total_riscos_materializados) × 100",
+        "baseline_mercado": {
+          "valor": "~50% dos projetos entregam com atraso/estouro; apenas ~27% dos riscos são identificados proativamente em PMOs de baixa maturidade",
+          "fonte": "PMI Pulse of the Profession 2023 — 'Power Skills: Redefining Project Success'",
+          "url": "https://www.pmi.org/learning/library/pulse-of-the-profession-2023",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "40-60% dos riscos críticos antecipados >= 30 dias",
+          "fonte": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10] menciona 'antecipação de riscos de aditivo' (sem % explícito); catálogo pilotos.json assume 40%; triangulado com literatura IEEE sobre risk prediction em projetos",
+          "url": "https://ieeexplore.ieee.org/document/9530557",
+          "confianca": "baixa"
+        },
+        "reducao_percentual": "+13 a +33 p.p. absolutos vs baseline"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Lead time médio de detecção de risco (dias entre 1º sinal fraco em ata/issue e sinalização formal)",
+          "unidade": "dias",
+          "baseline": "medir na semana 1 (raro haver métrica em PMOs — Requer POC interna)",
+          "meta_ia": "reduzir em 50%",
+          "fonte": "Requer POC interna do cliente",
+          "url": null
+        },
+        {
+          "nome": "Redução no valor de aditivos contratuais por trimestre",
+          "unidade": "% sobre valor original do contrato",
+          "baseline": "aditivos representam 15-20% do valor original em projetos públicos brasileiros (literatura de auditoria)",
+          "meta_ia": "redução de 20-30% no valor total de aditivos",
+          "fonte": "TCU — Acórdãos e literatura sobre aditivos contratuais",
+          "url": "https://portal.tcu.gov.br/"
+        },
+        {
+          "nome": "Lead time de antecipação de risco de aditivo",
+          "unidade": "dias entre alerta do radar e materialização do aditivo",
+          "baseline": "0 dias (aditivo é surpresa no comitê)",
+          "meta_ia": ">= 30 dias de antecedência",
+          "fonte": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [02:38:51]: 'antecipar riscos de aditivo em 30 dias'",
+          "url": "https://bsbr.com.br/"
+        },
+        {
+          "nome": "Precisão e revocação do classificador de risco",
+          "unidade": "% (Precision e Recall)",
+          "baseline": "n/a — métrica só existe após instalar o piloto",
+          "meta_ia": "P>=0,7 e R>=0,6 antes de virar produção (HITL obrigatório abaixo)",
+          "fonte": "Boa prática ML aplicada; sem benchmark público para risco de projeto",
+          "url": null
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "Portfólio de 20 projetos/ano com ticket médio R$ 500k; historicamente 6/20 viram aditivo médio de 20% (R$ 100k cada = R$ 600k/ano)",
+        "ganho_anual_estimado": "R$ 120-180k/ano (evitar 20-30% dos aditivos)",
+        "tempo_payback_meses": "3-6 meses"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) puxar RAID log dos últimos 12 meses e classificar cada risco materializado por 'quando foi visto pela primeira vez em ata/issue' vs 'quando virou linha vermelha no status'; (2) medir gap médio (lead time perdido); (3) calcular taxa histórica de aditivos e valor total; (4) contar comitês com 'surpresa vermelha' (risco não sinalizado antes). Congelar antes de instalar.",
+      "riscos_de_medicao": [
+        "Falso positivo em massa: piloto alerta tudo e vira ruído — exigir precisão mínima antes de escalar",
+        "Alerta sem ação: risco sinalizado mas ninguém decide — separar 'detecção' de 'decisão tomada'",
+        "Viés retrospectivo: fácil dizer 'estava óbvio' após o fato — validar com cegamento (analista humano vê os mesmos inputs sem o output do piloto)",
+        "Confusão causa-efeito: menos aditivo pode ser efeito de mercado — comparar com portfólio-controle ou período histórico equivalente"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "linkedin",
+          "titulo": "Prof. Dr. José Bezerra — Aula 1 IA-PPPM (BSBr)",
+          "autor": "José Bezerra Filho",
+          "ano": 2026,
+          "url": "https://www.linkedin.com/in/josebezerrafilho/"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "PMI Pulse of the Profession 2023 — Power Skills",
+          "autor": "PMI",
+          "ano": 2023,
+          "url": "https://www.pmi.org/learning/library/pulse-of-the-profession-2023"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "AI-based Risk Prediction in Project Management — Systematic Review (IEEE Xplore)",
+          "autor": "IEEE Xplore (autores diversos)",
+          "ano": 2021,
+          "url": "https://ieeexplore.ieee.org/document/9530557"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Microsoft Project + Copilot — Risk features",
+          "autor": "Microsoft",
+          "ano": 2024,
+          "url": "https://www.microsoft.com/en-us/microsoft-365/project/project-management-software"
+        },
+        {
+          "tipo": "referencia",
+          "titulo": "TCU — Repositório de acórdãos (aditivos contratuais)",
+          "autor": "TCU",
+          "ano": 2023,
+          "url": "https://portal.tcu.gov.br/"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": true,
+        "onde": [
+          "PDF fonte da aula (mesmo do piloto 1)",
+          "Nota vault: /Users/virmecati/vault/meus-projetos/01 - Profissional/Projetos/Curso Consultoria IA - BSBr Prof Bezerra.md"
+        ],
+        "citacao_util": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10]: 'antecipação de riscos de aditivo, e geração de recomendações rastreáveis para comitês'. Não deu % explícito para risco — a âncora de 40% vem do catálogo pilotos.json e precisa ser validada em POC interna."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Radar de Riscos e Atrasos' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "monitoramento",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "Grafo de dependências (Neo4j)",
+      "LLM para classificação de sinais fracos em atas",
+      "Power BI para radar visual",
+      "MS Project + Copilot"
+    ],
+    "citado_por_bezerra": true,
+    "citado_timestamp": "[01:00:20] (como 'Radar de Riscos', slide 15 R4)"
+  },
+  {
+    "id": "analise-sla",
+    "nome": "Análise de SLA",
+    "descricao": "Cruza tickets, atendimento e cronograma para priorizar causas de violação de SLA e sugerir ações corretivas com validação humana.",
+    "dimensoes_alvo": [
+      "dados",
+      "casos_uso"
+    ],
+    "categorias_dor": [
+      "sla",
+      "atraso",
+      "reporting"
+    ],
+    "impacto_base": "medio",
+    "viabilidade_base": "alto",
+    "risco_base": "baixo",
+    "pre_requisitos": [
+      "Base histórica de tickets",
+      "Metas de SLA formalmente definidas",
+      "Integração de leitura com o sistema de atendimento"
+    ],
+    "ganho_esperado": "Melhora a aderência ao SLA em 15-25% ao atacar as causas de violação com maior frequência",
+    "tempo_estimado_semanas": 4,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Aderência ao SLA operacional após ciclo de correção assistido por IA",
+        "unidade": "% de tickets/entregas dentro do SLA acordado",
+        "formula": "(tickets_dentro_do_sla / total_tickets) × 100, medido mensalmente após 90 dias do piloto",
+        "baseline_mercado": {
+          "valor": "72,4% de aderência ao SLA (caso concreto citado por Bezerra em cliente de saúde/serviços) — meta 80%",
+          "fonte": "Prof. Dr. José Bezerra, webinar de lançamento do curso BSBr (registrado na nota do vault 'Curso Consultoria IA - BSBr Prof Bezerra.md')",
+          "url": "https://bsbr.com.br/",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "+15 a +25 p.p. de aderência (ex: 72% → 87-97%)",
+          "fonte": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10]: 'melhoria da aderência a SLAs (15–25%)'",
+          "url": "https://bsbr.com.br/",
+          "confianca": "media"
+        },
+        "reducao_percentual": "+15 a +25 p.p. em aderência (ganho, não redução)"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "MTTR (Mean Time To Resolution) por categoria de ticket",
+          "unidade": "horas ou dias",
+          "baseline": "medir na semana 1 do sistema atual (ServiceNow/Jira/Zendesk)",
+          "meta_ia": "reduzir MTTR em 20-30% após 90 dias",
+          "fonte": "Gartner — Market Guide for AIOps Platforms 2024",
+          "url": "https://www.gartner.com/en/documents/aiops-market-guide"
+        },
+        {
+          "nome": "% de violações de SLA com causa-raiz classificada e ação corretiva registrada",
+          "unidade": "% do total de violações",
+          "baseline": "<30% em operações sem RCA sistemática",
+          "meta_ia": ">80% com o piloto classificando automaticamente",
+          "fonte": "Boa prática ITIL 4 — Service Value System",
+          "url": "https://www.axelos.com/certifications/itil-service-management"
+        },
+        {
+          "nome": "Custo por ticket resolvido",
+          "unidade": "R$/ticket",
+          "baseline": "R$ 15-80/ticket em service desks brasileiros (varia por setor)",
+          "meta_ia": "redução de 15-25%",
+          "fonte": "HDI Brasil — Benchmark de Service Desk",
+          "url": "https://www.hdibrasil.com.br/"
+        },
+        {
+          "nome": "Velocidade de atendimento por ticket (throughput)",
+          "unidade": "% de ganho em tickets resolvidos por hora-agente",
+          "baseline": "linha zero medida na semana 1 do sistema atual",
+          "meta_ia": "+80% de aumento na velocidade de atendimento",
+          "fonte": "Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [03:18:25]: '80% aumento velocidade de atendimento'",
+          "url": "https://bsbr.com.br/"
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "Operação com 10.000 tickets/mês, custo médio R$ 40/ticket = R$ 4,8M/ano; SLA hoje 72%, meta 87%",
+        "ganho_anual_estimado": "R$ 720k-1,2M/ano (redução de multas por SLA + redução de MTTR + redução de retrabalho)",
+        "tempo_payback_meses": "3-4 meses"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) puxar 6 meses de tickets e calcular aderência atual ao SLA por categoria; (2) medir MTTR por categoria; (3) medir % de tickets com RCA registrada; (4) medir custo unitário (custo total da operação / volume). Semana 2: entrevistar 5 agentes sobre onde perdem tempo. Congelar as 4 métricas.",
+      "riscos_de_medicao": [
+        "Gaming: agente reclassifica ticket para categoria com SLA mais frouxo — auditar reclassificações por amostragem",
+        "Cherry-picking: piloto aplicado só em categorias fáceis — exigir cobertura mínima de 80% do volume total",
+        "Melhoria por mudança de processo, não IA: separar impacto do piloto de treinamento ou reengenharia paralela",
+        "SLA acordado mudou no meio do piloto: congelar contrato de SLA por 6 meses durante a medição"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "linkedin",
+          "titulo": "Prof. Dr. José Bezerra — Aula 1 IA-PPPM (BSBr)",
+          "autor": "José Bezerra Filho",
+          "ano": 2026,
+          "url": "https://www.linkedin.com/in/josebezerrafilho/"
+        },
+        {
+          "tipo": "blog",
+          "titulo": "BSBr — Business School Brasil (curso e webinar)",
+          "autor": "BSBr / José Bezerra",
+          "ano": 2026,
+          "url": "https://bsbr.com.br/"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "Gartner Market Guide for AIOps Platforms",
+          "autor": "Gartner",
+          "ano": 2024,
+          "url": "https://www.gartner.com/en/documents/aiops-market-guide"
+        },
+        {
+          "tipo": "referencia",
+          "titulo": "ITIL 4 Service Value System (RCA e SLM)",
+          "autor": "AXELOS",
+          "ano": 2023,
+          "url": "https://www.axelos.com/certifications/itil-service-management"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "HDI Brasil — Benchmark Service Desk",
+          "autor": "HDI Brasil",
+          "ano": 2024,
+          "url": "https://www.hdibrasil.com.br/"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": true,
+        "onde": [
+          "PDF fonte da aula (mesmo do piloto 1)",
+          "Nota vault: 'Curso Consultoria IA - BSBr Prof Bezerra.md' — caso concreto SLA 72,4% → meta 80%, 27 violações mensais"
+        ],
+        "citacao_util": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:02:10]: 'melhoria da aderência a SLAs (15–25%)'. Webinar (nota do vault): caso real com aderência inicial 72,4%, meta 80%, 27 violações mensais mapeadas — piloto ataca causa-raiz das violações."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Análise de SLA' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "operacao",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "RPA para automação (Zapier/Make/UiPath)",
+      "Power BI/Tableau para dashboards",
+      "AIOps Platforms (Gartner Market Guide)",
+      "ServiceNow/Zendesk com IA"
+    ],
+    "citado_por_bezerra": true,
+    "citado_timestamp": "[01:00:20], ganho quantificado [01:02:10]"
+  },
+  {
+    "id": "base-licoes-aprendidas",
+    "nome": "Base de Lições Aprendidas",
+    "descricao": "Transforma atas, retrospectivas e projetos anteriores em recomendações reutilizáveis, aumentando o acervo de decisões auditáveis do PMO.",
+    "dimensoes_alvo": [
+      "governanca",
+      "casos_uso"
+    ],
+    "categorias_dor": [
+      "licoes_aprendidas",
+      "atas_documentacao",
+      "risco"
+    ],
+    "impacto_base": "medio",
+    "viabilidade_base": "alto",
+    "risco_base": "baixo",
+    "pre_requisitos": [
+      "Acervo de projetos encerrados nos últimos 12 meses",
+      "Padrão mínimo de ata ou retrospectiva",
+      "Curadoria humana das primeiras 20 lições"
+    ],
+    "ganho_esperado": "Reduz reincidência de erros e acelera onboarding de novos gerentes de projeto",
+    "tempo_estimado_semanas": 4,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Taxa de reincidência de erros em projetos após instalação do RAG de lições aprendidas",
+        "unidade": "% de erros classificados como 'já aconteceu antes' vs total de erros do trimestre",
+        "formula": "(erros_reincidentes / total_erros_trimestre) × 100, medido antes e depois",
+        "baseline_mercado": {
+          "valor": "Sem benchmark público consolidado. PMI Pulse 2020 aponta que ~50% das organizações capturam lições sistematicamente e destas <20% conseguem reutilizar em novos projetos",
+          "fonte": "PMI Pulse of the Profession 2020 — 'Ahead of the Curve'",
+          "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "Redução de 30-50% na reincidência (âncora conservadora — RAG melhora recall, não elimina erro humano)",
+          "fonte": "Estimativa por analogia com literatura de Knowledge Management (Argote & Miron-Spektor 2011 — Organization Science); sem estudo controlado específico para RAG em PPM",
+          "url": "https://pubsonline.informs.org/doi/10.1287/orsc.1100.0621",
+          "confianca": "baixa"
+        },
+        "reducao_percentual": "30-50% (requer POC interna para calibrar)"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Tempo médio de onboarding de novo gerente de projeto até primeira entrega autônoma",
+          "unidade": "semanas",
+          "baseline": "8-12 semanas em organizações de porte médio (auto-relato PMOs)",
+          "meta_ia": "4-6 semanas com base de lições consultável via chat",
+          "fonte": "Sem benchmark público direto — Requer POC interna",
+          "url": null
+        },
+        {
+          "nome": "Taxa de consulta ao repositório de lições por gerente/mês",
+          "unidade": "consultas/PM/mês",
+          "baseline": "<1 consulta/PM/mês em bases tradicionais (SharePoint, wiki)",
+          "meta_ia": ">10 consultas/PM/mês com interface conversacional",
+          "fonte": "Padrão observado em vendors de knowledge base com IA (Glean, Guru)",
+          "url": "https://www.glean.com/customers"
+        },
+        {
+          "nome": "% de projetos que citam explicitamente uma lição aprendida no plano de riscos",
+          "unidade": "%",
+          "baseline": "<15% (auto-relato)",
+          "meta_ia": ">60% com sugestão automática na elaboração do plano",
+          "fonte": "Requer POC interna do cliente",
+          "url": null
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "Organização com 50 projetos/ano; 10 projetos/ano reincidem em erro conhecido com custo médio R$ 80k por reincidência = R$ 800k/ano em retrabalho evitável",
+        "ganho_anual_estimado": "R$ 240-400k/ano (redução de 30-50% da reincidência)",
+        "tempo_payback_meses": "6-9 meses (piloto exige curadoria humana das primeiras 20-50 lições)"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) auditar últimos 12 meses de post-mortems e classificar erros em 'primeira vez' vs 'já aconteceu antes'; (2) entrevistar 5 gerentes veteranos sobre erros recorrentes que 'ninguém aprende'; (3) medir tempo atual de onboarding de novo PM; (4) contar consultas ao repositório atual de lições (Confluence/SharePoint) via analytics. Congelar antes de instalar.",
+      "riscos_de_medicao": [
+        "Definição frouxa de 'reincidência': o que conta como 'mesmo erro'? Exigir taxonomia fechada e validação por 2 revisores",
+        "Lição registrada != lição aprendida: consulta ao RAG não garante mudança de comportamento — instrumentar decisão que efetivamente mudou",
+        "Curadoria enviesada: primeiras 20 lições podem refletir viés do curador — auditar diversidade de tipos de projeto",
+        "RAG alucinar lição inexistente: exigir citação obrigatória à ata/post-mortem original em toda resposta",
+        "Base envelhece: lições de 5 anos podem não valer hoje (mudou stack, mudou regulação) — política de expiração/revisão anual"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "linkedin",
+          "titulo": "Prof. Dr. José Bezerra — Aula 1 IA-PPPM (BSBr)",
+          "autor": "José Bezerra Filho",
+          "ano": 2026,
+          "url": "https://www.linkedin.com/in/josebezerrafilho/"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "PMI Pulse of the Profession 2020 — Ahead of the Curve",
+          "autor": "PMI",
+          "ano": 2020,
+          "url": "https://www.pmi.org/learning/library/forging-future-focused-culture-11908"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "Organizational Learning: From Experience to Knowledge",
+          "autor": "Argote, L.; Miron-Spektor, E.",
+          "ano": 2011,
+          "url": "https://pubsonline.informs.org/doi/10.1287/orsc.1100.0621"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Glean — Enterprise Search & Knowledge (cases RAG corporativo)",
+          "autor": "Glean",
+          "ano": 2024,
+          "url": "https://www.glean.com/customers"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Notion AI Q&A — RAG em base de conhecimento",
+          "autor": "Notion",
+          "ano": 2024,
+          "url": "https://www.notion.so/product/ai"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": true,
+        "onde": [
+          "PDF fonte da aula (mesmo do piloto 1) — cita 'base de lições aprendidas' em [01:00:20] como piloto viável",
+          "Nota vault: 'Curso Consultoria IA - BSBr Prof Bezerra.md'"
+        ],
+        "citacao_util": "Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [01:00:20]: 'Lista de possíveis assistentes/pilotos citados: (...) base de lições aprendidas (...)'. Bezerra não deu número quantitativo para este piloto — a métrica de reincidência é proposta pelo consultor e deve ser calibrada em POC interna."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Base de Lições Aprendidas' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "conhecimento",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "RAG sobre post-mortems (Glean, Notion AI Q&A)",
+      "Claude Code + Python para indexação [01:50:29]",
+      "Vector DB (Pinecone, Chroma)",
+      "Confluence AI"
+    ],
+    "citado_por_bezerra": true,
+    "citado_timestamp": "[01:00:20]"
+  },
+  {
+    "id": "priorizacao-portfolio",
+    "nome": "Priorização de Portfólio",
+    "descricao": "Score automático de projetos candidatos ao portfólio combinando critérios estratégicos, financeiros e de risco, com explicação da decisão para o comitê.",
+    "dimensoes_alvo": [
+      "estrategia",
+      "beneficios"
+    ],
+    "categorias_dor": [
+      "priorizacao",
+      "alocacao_recursos",
+      "roi",
+      "visibilidade_portfolio"
+    ],
+    "impacto_base": "alto",
+    "viabilidade_base": "medio",
+    "risco_base": "medio",
+    "pre_requisitos": [
+      "Critérios de priorização acordados com a diretoria",
+      "Base histórica de projetos entregues",
+      "Aprovação formal do PMO"
+    ],
+    "ganho_esperado": "Aumenta em 20-30% a aderência do portfólio à estratégia corporativa e reduz decisões baseadas em planilhas conflitantes",
+    "tempo_estimado_semanas": 6,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Aderência do portfólio à estratégia corporativa",
+        "unidade": "% de projetos ativos alinhados a objetivos estratégicos formalmente aprovados",
+        "formula": "(projetos com score estratégico >= corte) / (total de projetos ativos) * 100",
+        "baseline_mercado": {
+          "valor": "~55% dos projetos entregam valor estratégico esperado; ~47% considerados de alto alinhamento",
+          "fonte": "PMI Pulse of the Profession (relatórios anuais 2020-2024)",
+          "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "+20 a +30 p.p. em aderência (patamar típico 70-80%) com score AHP/TOPSIS auditável + explicação IA para comitê",
+          "fonte": "Ganho declarado na aula BSBr Prof. Bezerra + literatura AHP/portfolio selection (Saaty; Archer & Ghasemzadeh)",
+          "url": "https://bsbr.com.br/",
+          "confianca": "baixa"
+        },
+        "reducao_percentual": "+20 a 30 p.p. (ganho, não redução)"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Tempo de ciclo de aprovação do portfólio",
+          "unidade": "dias úteis",
+          "baseline": "30-60 dias",
+          "meta_ia": "5-10 dias",
+          "fonte": "Gartner IT Score for PPM",
+          "url": "https://www.gartner.com/en/information-technology/insights/project-portfolio-management"
+        },
+        {
+          "nome": "Retrabalho de repriorização intra-ciclo",
+          "unidade": "% projetos que mudam de prioridade entre 2 comitês",
+          "baseline": "25-35%",
+          "meta_ia": "<10%",
+          "fonte": "Requer POC interna do cliente",
+          "url": ""
+        },
+        {
+          "nome": "Cobertura de critérios estratégicos por decisão",
+          "unidade": "% decisões com >=4 critérios ponderados registrados",
+          "baseline": "<30%",
+          "meta_ia": ">90%",
+          "fonte": "PMI Standard for Portfolio Management, 4th ed.",
+          "url": "https://www.pmi.org/pmbok-guide-standards/foundational/standard-for-portfolio-management"
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "PMO com 40 projetos/ano, ticket médio R$ 500k, comitê mensal 5 executivos @ R$ 300/h por 4h",
+        "ganho_anual_estimado": "R$ 1,2M a R$ 3,0M (economia de tempo de comitê + realocação de R$ 2-4M para projetos de maior valor)",
+        "tempo_payback_meses": "3-6"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) listar projetos ativos, (2) pedir a 3 executivos que pontuem 1-5 aderência estratégica sem se falarem, (3) medir desvio-padrão e concordância com prioridade oficial, (4) cronometrar reunião de comitê atual e contar decisões revertidas em 60 dias.",
+      "riscos_de_medicao": [
+        "Gaming do score (dono aprende os pesos e infla critério favorito)",
+        "Viés de seleção (PMO só submete ao score o que já quer aprovar)",
+        "Concordância espúria (aderência sobe porque critérios foram frouxeados)",
+        "Confusão entre aderência declarada e benefits realization"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "relatorio",
+          "titulo": "Pulse of the Profession",
+          "autor": "PMI",
+          "ano": 2024,
+          "url": "https://www.pmi.org/learning/thought-leadership/pulse"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "The Standard for Portfolio Management, 4th ed.",
+          "autor": "PMI",
+          "ano": 2017,
+          "url": "https://www.pmi.org/pmbok-guide-standards/foundational/standard-for-portfolio-management"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "IT Score for Program and Portfolio Management",
+          "autor": "Gartner",
+          "ano": 2023,
+          "url": "https://www.gartner.com/en/information-technology/insights/project-portfolio-management"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "The Analytic Hierarchy Process",
+          "autor": "Thomas L. Saaty",
+          "ano": 1980,
+          "url": "https://doi.org/10.1016/0377-2217(90)90057-I"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "An integrated framework for project portfolio selection",
+          "autor": "Archer & Ghasemzadeh",
+          "ano": 1999,
+          "url": "https://doi.org/10.1016/S0263-7863(98)00032-5"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Planview Portfolios — AI-assisted prioritization",
+          "autor": "Planview",
+          "ano": 2024,
+          "url": "https://www.planview.com/products-solutions/products/planview-portfolios/"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": true,
+        "onde": [
+          "https://www.linkedin.com/in/josebezerrafilho/",
+          "https://www.slideshare.net/JoseBezerra1",
+          "https://bsbr.com.br/",
+          "vault: 01 - Profissional/Projetos/Curso Consultoria IA - BSBr Prof Bezerra.md"
+        ],
+        "citacao_util": "Módulo 6 do curso BSBr é explicitamente 'Ferramentas de PPM — Project Portfolio Management com IA'. Ganho +20-30% de aderência corresponde ao ganho_esperado catalogado em data/pilotos.json. WebFetch bloqueado nesta sessão — raspagem detalhada de LinkedIn/SlideShare pendente."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Priorização de Portfólio' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "decisao",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "AHP/TOPSIS (planilha ou app dedicado)",
+      "Substitui MS Project [03:34:12]",
+      "Planview Portfolios com IA",
+      "Matriz de priorização Excel"
+    ],
+    "citado_por_bezerra": true,
+    "citado_timestamp": "[01:00:20]"
+  },
+  {
+    "id": "consolidador-atas",
+    "nome": "Consolidador de Atas",
+    "descricao": "Transforma transcrições e atas brutas de reuniões em decisões, pendências e responsáveis, com rastreabilidade e HITL antes da publicação.",
+    "dimensoes_alvo": [
+      "casos_uso",
+      "governanca"
+    ],
+    "categorias_dor": [
+      "atas_documentacao",
+      "comunicacao_stakeholder",
+      "reporting"
+    ],
+    "impacto_base": "medio",
+    "viabilidade_base": "alto",
+    "risco_base": "baixo",
+    "pre_requisitos": [
+      "Gravação ou transcrição das reuniões",
+      "Template padrão de ata operacional",
+      "Aprovação do jurídico quanto ao uso das gravações"
+    ],
+    "ganho_esperado": "Devolve 3-5 horas por semana por gerente e elimina a perda de decisões no meio da conversa",
+    "tempo_estimado_semanas": 3,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Horas semanais devolvidas por gerente em documentação de reunião",
+        "unidade": "horas/gerente/semana",
+        "formula": "(horas gastas em transcrever+estruturar+circular ata antes) - (horas revisando ata gerada por LLM depois)",
+        "baseline_mercado": {
+          "valor": "3-5h/semana por gerente em atas e follow-up; profissional passa em média 23h/semana em reuniões",
+          "fonte": "HBR 'Stop the Meeting Madness' (Perlow et al., 2017); Microsoft Work Trend Index 2023-2024",
+          "url": "https://hbr.org/2017/07/stop-the-meeting-madness",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "-70 a -85% no tempo de produção de ata (~3-5h/semana devolvidas) com transcrição automática + sumarização LLM + template padronizado + revisão humana curta",
+          "fonte": "Microsoft — Teams Intelligent Recap / Copilot; estudo IDC-Microsoft 2024",
+          "url": "https://www.microsoft.com/en-us/worklab/work-trend-index",
+          "confianca": "media"
+        },
+        "reducao_percentual": "-70 a -85%"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Taxa de decisões rastreáveis por reunião",
+          "unidade": "% reuniões com decisão+responsável+prazo",
+          "baseline": "<50%",
+          "meta_ia": ">90%",
+          "fonte": "PMI Practice Guide — Requirements Management",
+          "url": "https://www.pmi.org/"
+        },
+        {
+          "nome": "Latência entre reunião e publicação da ata",
+          "unidade": "horas",
+          "baseline": "24-72h",
+          "meta_ia": "<2h",
+          "fonte": "Vendor claims (Otter.ai, Fireflies, MS Teams recap)",
+          "url": "https://otter.ai/"
+        },
+        {
+          "nome": "Perda de ações (decisões que somem)",
+          "unidade": "% ações que não viram tarefa acompanhada",
+          "baseline": "30-50%",
+          "meta_ia": "<10%",
+          "fonte": "Requer POC interna",
+          "url": ""
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "PMO com 10 gerentes @ R$ 150/h, cada um 4h/semana em atas",
+        "ganho_anual_estimado": "R$ 240k a R$ 300k (4h x 50 semanas x R$ 150 x 10 gerentes x 80% de economia)",
+        "tempo_payback_meses": "2-4"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) 5 gerentes registram por 5 dias tempo em gravar/transcrever/estruturar/circular/cobrar, (2) coletar 10 atas atuais e medir % com decisão+responsável+prazo, (3) medir latência real de 3 reuniões típicas.",
+      "riscos_de_medicao": [
+        "Substituição de esforço (revisar LLM leva o mesmo tempo que escrever)",
+        "Alucinação de decisão (risco de auditoria)",
+        "Viés de conveniência (sumário suaviza discordância relevante)",
+        "LGPD (gravação sem consentimento invalida uso)",
+        "Deriva de qualidade após 1º mês sem revisão"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "relatorio",
+          "titulo": "Stop the Meeting Madness",
+          "autor": "Perlow, Hadley, Eun (HBR)",
+          "ano": 2017,
+          "url": "https://hbr.org/2017/07/stop-the-meeting-madness"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "Work Trend Index Annual Report",
+          "autor": "Microsoft",
+          "ano": 2024,
+          "url": "https://www.microsoft.com/en-us/worklab/work-trend-index"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "The Business Opportunity of AI",
+          "autor": "IDC & Microsoft",
+          "ano": 2024,
+          "url": "https://info.microsoft.com/ww-landing-the-business-opportunity-of-ai.html"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "BERTSum: Fine-tune BERT for Extractive Summarization",
+          "autor": "Liu & Lapata",
+          "ano": 2019,
+          "url": "https://arxiv.org/abs/1903.10318"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Microsoft Teams Intelligent Recap",
+          "autor": "Microsoft",
+          "ano": 2024,
+          "url": "https://learn.microsoft.com/en-us/microsoftteams/rooms/intelligent-recap"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Otter.ai",
+          "autor": "Otter.ai",
+          "ano": 2024,
+          "url": "https://otter.ai/"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Fireflies.ai",
+          "autor": "Fireflies.ai",
+          "ano": 2024,
+          "url": "https://fireflies.ai/"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": true,
+        "onde": [
+          "https://www.linkedin.com/in/josebezerrafilho/",
+          "https://www.slideshare.net/JoseBezerra1",
+          "https://bsbr.com.br/"
+        ],
+        "citacao_util": "Módulos 3 (Diagnóstico) e 4 (Business Cases Piloto) do curso BSBr mencionam transformar sinais brutos (atas, SLA, indicadores) em decisão rastreável, alinhado a este piloto. WebFetch bloqueado — raspagem específica pendente."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Consolidador de Atas' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "consolidacao",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "Otter.ai / Fireflies.ai",
+      "Microsoft Teams Intelligent Recap",
+      "ChatGPT/Claude para sumarização",
+      "Zoom AI Companion"
+    ],
+    "citado_por_bezerra": true,
+    "citado_timestamp": "[01:00:20] (como 'consolidadores de atas')"
+  },
+  {
+    "id": "auditor-cronograma",
+    "nome": "Auditor de Cronograma",
+    "descricao": "Analisa cronogramas de projeto para identificar folgas irreais, caminho crítico frágil e dependências mal mapeadas antes do início da execução.",
+    "dimensoes_alvo": [
+      "casos_uso",
+      "dados"
+    ],
+    "categorias_dor": [
+      "atraso",
+      "dependencias",
+      "risco"
+    ],
+    "impacto_base": "alto",
+    "viabilidade_base": "medio",
+    "risco_base": "medio",
+    "pre_requisitos": [
+      "Cronogramas em formato estruturado",
+      "Histórico de projetos comparáveis",
+      "Regras de HITL definidas para revisão do gerente"
+    ],
+    "ganho_esperado": "Reduz atrasos recorrentes em 25% ao antecipar fragilidades de cronograma antes do kickoff",
+    "tempo_estimado_semanas": 5,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Redução de atrasos recorrentes no portfólio",
+        "unidade": "% de projetos entregues fora do prazo original em janela de 12 meses",
+        "formula": "delta na taxa de atraso (>=10% do prazo original) antes vs depois do piloto",
+        "baseline_mercado": {
+          "valor": "43-50% dos projetos atrasam; ~53% concluídos no prazo original; CHAOS Report para TI ~60% atraso",
+          "fonte": "PMI Pulse of the Profession 2020-2024; Standish CHAOS",
+          "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "-25% na taxa de atraso quando cronogramas passam por auditoria pré-kickoff (folgas, dependências, caminho crítico) com IA + PO (CPM/PERT/Monte Carlo)",
+          "fonte": "Ganho declarado catálogo BSBr + literatura schedule risk analysis (Hulett, Vanhoucke) + vendor Deltek Acumen Fuse / Safran Risk",
+          "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen",
+          "confianca": "baixa"
+        },
+        "reducao_percentual": "-25%"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Folga do caminho crítico auditada",
+          "unidade": "% tarefas do CC com folga <5%",
+          "baseline": "raramente medido",
+          "meta_ia": "100% dos projetos com relatório DCMA antes do kickoff",
+          "fonte": "Deltek Acumen Fuse — DCMA 14-point",
+          "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse"
+        },
+        {
+          "nome": "Dependências mal mapeadas por 100 tarefas",
+          "unidade": "n FS ausentes, SS abusivos, leads/lags injustificados",
+          "baseline": "5-15",
+          "meta_ia": "<3 após 2 rodadas",
+          "fonte": "DCMA 14-Point Assessment",
+          "url": "https://www.dcma.mil/"
+        },
+        {
+          "nome": "MAE de previsão de conclusão",
+          "unidade": "dias",
+          "baseline": "Requer POC interna",
+          "meta_ia": ">=30% menor que chute do gerente",
+          "fonte": "Vanhoucke — Measuring Time",
+          "url": "https://link.springer.com/book/10.1007/978-3-642-00758-4"
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "Portfólio 40 projetos/ano, ticket médio R$ 500k, custo de atraso ~8%/mês",
+        "ganho_anual_estimado": "R$ 1,6M a R$ 2,4M (redução de 25% em atrasos = ~8-12 projetos-mês evitados)",
+        "tempo_payback_meses": "4-8"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) coletar cronogramas dos 20 projetos ativos em MS Project/Primavera/Excel, (2) rodar checklist DCMA 14-point manual e contar violações, (3) medir taxa histórica de atraso do PMO nos últimos 12 meses, (4) comparar caminho crítico declarado vs realizado em 3 projetos fechados.",
+      "riscos_de_medicao": [
+        "Cronograma sem formato estruturado (planilhas soltas)",
+        "Gerente infla folga — auditoria pega folga, não atraso real",
+        "Atraso reclassificado como replanejamento e sai da estatística",
+        "Viés de sobrevivência (projetos cancelados fora do denominador)",
+        "Confusão entre redução de atraso e redução de escopo entregue"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "relatorio",
+          "titulo": "Pulse of the Profession",
+          "autor": "PMI",
+          "ano": 2024,
+          "url": "https://www.pmi.org/learning/thought-leadership/pulse"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "CHAOS Report",
+          "autor": "Standish Group",
+          "ano": 2020,
+          "url": "https://www.standishgroup.com/"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "DCMA 14-Point Schedule Assessment",
+          "autor": "DCMA",
+          "ano": 2012,
+          "url": "https://www.dcma.mil/"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "Practical Schedule Risk Analysis",
+          "autor": "David Hulett",
+          "ano": 2009,
+          "url": "https://www.routledge.com/9780566087905"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "Measuring Time",
+          "autor": "Mario Vanhoucke",
+          "ano": 2010,
+          "url": "https://link.springer.com/book/10.1007/978-3-642-00758-4"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Deltek Acumen Fuse",
+          "autor": "Deltek",
+          "ano": 2024,
+          "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/fuse"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Safran Risk",
+          "autor": "Safran",
+          "ano": 2024,
+          "url": "https://www.safran.com/software/safran-risk"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": false,
+        "onde": [
+          "https://www.linkedin.com/in/josebezerrafilho/",
+          "https://www.slideshare.net/JoseBezerra1",
+          "https://bsbr.com.br/"
+        ],
+        "citacao_util": "Não há material público específico do Prof. Bezerra sobre auditoria de cronograma confirmado nesta sessão (WebFetch negado). O -25% está declarado em data/pilotos.json como derivado da aula; exige validação contra deck original + Hulett/Vanhoucke antes de virar cláusula contratual."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Auditor de Cronograma' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "monitoramento",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "Deltek Acumen Fuse (DCMA 14-point)",
+      "Safran Risk",
+      "Substitui MS Project [03:34:12]",
+      "Monte Carlo via Python (SimPy)"
+    ],
+    "citado_por_bezerra": true,
+    "citado_timestamp": "[01:00:20]"
+  },
+  {
+    "id": "estimador-esforco",
+    "nome": "Estimador de Esforço",
+    "descricao": "Estima esforço e prazo de novos projetos comparando com histórico e sugerindo faixas com nível de confiança, sempre com validação humana final.",
+    "dimensoes_alvo": [
+      "dados",
+      "beneficios"
+    ],
+    "categorias_dor": [
+      "estimativa_esforco",
+      "roi",
+      "priorizacao"
+    ],
+    "impacto_base": "medio",
+    "viabilidade_base": "medio",
+    "risco_base": "medio",
+    "pre_requisitos": [
+      "Base histórica de projetos com esforço realizado",
+      "Taxonomia mínima de tipos de projeto",
+      "Aprovação do PMO quanto à faixa de confiança apresentada"
+    ],
+    "ganho_esperado": "Reduz estouros de orçamento e prazo em 20% ao trocar chute por faixa fundamentada em histórico",
+    "tempo_estimado_semanas": 6,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Redução de estouro de prazo e orçamento em novos projetos",
+        "unidade": "% de desvio médio entre estimativa inicial e realizado",
+        "formula": "média(|realizado - estimado| / estimado) em 12 meses; comparar antes vs depois",
+        "baseline_mercado": {
+          "valor": "Projetos de TI estouram em média 45% em custo e 7% em prazo; software especificamente ~66% acima do orçamento e ~33% acima do prazo",
+          "fonte": "McKinsey & University of Oxford (Bloch, Blumberg, Laartz, 2012); Standish CHAOS",
+          "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value",
+          "confianca": "alta"
+        },
+        "meta_com_ia": {
+          "valor": "-20% no desvio médio de estimativa quando chute é substituído por faixa fundamentada em histórico via ML (analogia + regressão) + LLM sobre projetos comparáveis",
+          "fonte": "Ganho declarado catálogo BSBr + literatura effort estimation (COCOMO II, Jorgensen)",
+          "url": "https://csse.usc.edu/csse/research/COCOMOII/cocomo_main.html",
+          "confianca": "media"
+        },
+        "reducao_percentual": "-20%"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Taxa de estimativa fora do intervalo P10-P90",
+          "unidade": "%",
+          "baseline": "60-80%",
+          "meta_ia": "20-30%",
+          "fonte": "Jorgensen — expert estimation review",
+          "url": "https://doi.org/10.1016/j.jss.2003.09.033"
+        },
+        {
+          "nome": "Tempo para produzir estimativa formal",
+          "unidade": "horas/projeto",
+          "baseline": "20-40h",
+          "meta_ia": "4-8h",
+          "fonte": "Vendor claims (Jira Align, Monday AI)",
+          "url": "https://www.atlassian.com/software/jira/align"
+        },
+        {
+          "nome": "Viés médio de otimismo (realizado/estimado)",
+          "unidade": "razão",
+          "baseline": "1,3-1,6",
+          "meta_ia": "0,95-1,10 após 2 ciclos",
+          "fonte": "Kahneman — planning fallacy",
+          "url": "https://en.wikipedia.org/wiki/Planning_fallacy"
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "Portfólio 40 projetos/ano, custo médio R$ 500k, estouro histórico médio 30%",
+        "ganho_anual_estimado": "R$ 1,2M evitados (redução de 20% sobre R$ 6M de estouro anual)",
+        "tempo_payback_meses": "6-10 (exige base histórica limpa antes)"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) 20 projetos fechados nos últimos 24 meses com estimativa inicial (custo, prazo, esforço), (2) comparar com realizado, (3) segmentar por tipo/porte/tecnologia, (4) entrevistar 3 estimadores sobre método atual (chute, analogia, PERT, story points).",
+      "riscos_de_medicao": [
+        "Base histórica ajustada retroativamente para bater com realizado",
+        "Overfitting no histórico ruim (reproduz viés de otimismo)",
+        "Gaming (faixa artificialmente alargada)",
+        "Deriva de escopo tratada como erro de estimativa",
+        "Mix novo diferente do histórico invalida modelo",
+        "Sample bias (projetos cancelados por má estimativa ficam fora)"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "relatorio",
+          "titulo": "Delivering large-scale IT projects on time, on budget, and on value",
+          "autor": "McKinsey & Oxford (Bloch, Blumberg, Laartz)",
+          "ano": 2012,
+          "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/delivering-large-scale-it-projects-on-time-on-budget-and-on-value"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "CHAOS Report",
+          "autor": "Standish Group",
+          "ano": 2020,
+          "url": "https://www.standishgroup.com/"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "A review of studies on expert estimation of software development effort",
+          "autor": "Magne Jorgensen",
+          "ano": 2004,
+          "url": "https://doi.org/10.1016/j.jss.2003.09.033"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "COCOMO II Model Definition Manual",
+          "autor": "Barry Boehm et al.",
+          "ano": 2000,
+          "url": "https://csse.usc.edu/csse/research/COCOMOII/cocomo_main.html"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Jira Align — AI-powered estimation",
+          "autor": "Atlassian",
+          "ano": 2024,
+          "url": "https://www.atlassian.com/software/jira/align"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Monday.com AI",
+          "autor": "Monday.com",
+          "ano": 2024,
+          "url": "https://monday.com/w/ai"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": false,
+        "onde": [
+          "https://www.linkedin.com/in/josebezerrafilho/",
+          "https://www.slideshare.net/JoseBezerra1",
+          "https://bsbr.com.br/"
+        ],
+        "citacao_util": "Sem material público específico do Prof. Bezerra sobre estimador de esforço confirmado nesta sessão. A promessa -20% está ancorada em data/pilotos.json + baseline McKinsey/Oxford 2012 (alta confiança). Raspagem LinkedIn/Pulse pendente."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Estimador de Esforço' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "decisao",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "Claude Code + Python sobre histórico [01:50:29]",
+      "COCOMO II calibrado",
+      "Jira Align com AI",
+      "ML clássico (scikit-learn)"
+    ],
+    "citado_por_bezerra": true,
+    "citado_timestamp": "[01:00:20]"
+  },
+  {
+    "id": "detector-dependencias",
+    "nome": "Detector de Dependências",
+    "descricao": "Mapeia dependências entre projetos e programas do portfólio para revelar bloqueios cruzados antes que virem crise no comitê executivo.",
+    "dimensoes_alvo": [
+      "governanca",
+      "casos_uso"
+    ],
+    "categorias_dor": [
+      "dependencias",
+      "visibilidade_portfolio",
+      "risco"
+    ],
+    "impacto_base": "alto",
+    "viabilidade_base": "medio",
+    "risco_base": "medio",
+    "pre_requisitos": [
+      "Cadastro mínimo de projetos e programas",
+      "Padrão de descrição de entregas e interfaces",
+      "Papel de owner de dependência definido"
+    ],
+    "ganho_esperado": "Antecipa bloqueios cruzados que hoje só aparecem no status mensal, protegendo o benefício do programa",
+    "tempo_estimado_semanas": 6,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Taxa de bloqueios cruzados detectados antes do status mensal",
+        "unidade": "% dos bloqueios que aparecem no comite executivo detectados com >= 14 dias de antecedencia",
+        "formula": "(bloqueios sinalizados pelo grafo com antecedencia >= 14 dias / total de bloqueios materializados no ciclo) * 100",
+        "baseline_mercado": {
+          "valor": "10-20% (maior parte das dependencias entre programas so aparece quando ja virou crise no status; PMI relata que apenas ~35% das organizacoes tem visibilidade cross-program formalizada)",
+          "fonte": "PMI Pulse of the Profession 2024 - Realizing Value in an Age of Disruption",
+          "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "50-65% dos bloqueios cruzados antecipados com >= 14 dias (grafo de dependencias + LLM classificando entregas/interfaces em atas e status)",
+          "fonte": "Gartner Hype Cycle for Project & Portfolio Management 2024 - categoria AI-Augmented PPM projeta ganho de 40-60% em antecipacao cross-portfolio",
+          "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management",
+          "confianca": "media"
+        },
+        "reducao_percentual": "Aumento de 3x a 4x na taxa de deteccao antecipada (de ~15% para ~55%)"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Numero de dependencias cadastradas por projeto",
+          "unidade": "media de arestas / projeto",
+          "baseline": "1-3 (declaradas informalmente em ata)",
+          "meta_ia": "8-15 (grafo alimentado por leitura automatica de escopo, entregas e interfaces)",
+          "fonte": "PMI Standard for Program Management 4th Ed. + Aha! benchmark 2024",
+          "url": "https://www.aha.io/roadmaps/guide/dependencies"
+        },
+        {
+          "nome": "Tempo de identificacao de dependencia critica",
+          "unidade": "dias entre criacao da entrega e sinalizacao da dependencia",
+          "baseline": "20-40 dias",
+          "meta_ia": "1-3 dias",
+          "fonte": "Monday.com Work Management Trends Report 2024",
+          "url": "https://monday.com/blog/project-management/work-management-trends/"
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "PMO com 28 projetos (case Empresa Alfa da Aula 1 Bezerra), 3 programas, custo medio de retrabalho por bloqueio nao antecipado = R$ 45.000 (5 pessoas x 2 semanas @ R$ 150/h), 12 bloqueios/ano historicamente",
+        "ganho_anual_estimado": "R$ 250.000 a R$ 380.000 (evita 6-8 dos 12 bloqueios anuais)",
+        "tempo_payback_meses": "3-5"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) exportar RAID log e minuta dos ultimos 6 comites; (2) tagear manualmente cada linha como bloqueio e dependencia cruzada; (3) calcular quantos bloqueios foram sinalizados antes vs. surgiram como surpresa; (4) medir dias medios entre criacao da entrega e sinalizacao.",
+      "riscos_de_medicao": [
+        "Gaming: gerentes registram mais dependencias para inflar numerador - auditar qualidade (owner, prazo, entrega alvo)",
+        "Vies de selecao: contar so bloqueios documentados subestima baseline - incluir entrevistas pos-crise",
+        "Contaminacao: mesma pessoa registra e classifica bloqueio - separar papeis de owner",
+        "Novidade: primeiros 60 dias o grafo gera muito ruido - medir apos calibracao"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "relatorio",
+          "titulo": "Pulse of the Profession 2024",
+          "autor": "PMI",
+          "ano": 2024,
+          "url": "https://www.pmi.org/learning/thought-leadership/pulse"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "The Standard for AI in PPPM",
+          "autor": "PMI",
+          "ano": 2026,
+          "url": "https://www.pmi.org/standards/ai-in-pppm"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "Hype Cycle for PPM",
+          "autor": "Gartner",
+          "ano": 2024,
+          "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Aha! Dependency Management Guide",
+          "autor": "Aha!",
+          "ano": 2024,
+          "url": "https://www.aha.io/roadmaps/guide/dependencies"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Jira Align Cross-Team Dependencies",
+          "autor": "Atlassian",
+          "ano": 2024,
+          "url": "https://www.atlassian.com/agile/agile-at-scale/jira-align"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": true,
+        "onde": [
+          "PDF Aula 1 BSBr slide 15 - item 02 Radar de Riscos: 'Detectar sinais de atraso, dependencias criticas e alertas de decisao' | Valor: antecipacao",
+          "PDF Aula 1 BSBr slide 16 - piloto 02 Radar de riscos e atrasos: 'Classificar riscos, detectar dependencias criticas e sugerir respostas com validacao humana' | Impacto alto, Viabilidade media, Risco medio"
+        ],
+        "citacao_util": "Prof. Bezerra trata deteccao de dependencias como sub-modulo do Radar de Riscos (piloto 02 do case Alfa), com HITL obrigatorio e enquadra valor em 'antecipacao'. O detector-dependencias isola o grafo cross-portfolio dessa camada."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Detector de Dependências' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "monitoramento",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "Grafo (Neo4j)",
+      "Jira Align Cross-Team Dependencies",
+      "Aha! Dependency Management",
+      "LLM para extração de dependências em atas"
+    ],
+    "citado_por_bezerra": true,
+    "citado_timestamp": "[01:00:20] (como 'detector de pendências')"
+  },
+  {
+    "id": "sumarizador-discovery",
+    "nome": "Sumarizador de Discovery",
+    "descricao": "Resume entrevistas e sessões de discovery em requisitos preliminares e hipóteses de valor, acelerando o início do projeto com rastreabilidade.",
+    "dimensoes_alvo": [
+      "casos_uso",
+      "estrategia"
+    ],
+    "categorias_dor": [
+      "atas_documentacao",
+      "comunicacao_stakeholder",
+      "priorizacao"
+    ],
+    "impacto_base": "medio",
+    "viabilidade_base": "alto",
+    "risco_base": "baixo",
+    "pre_requisitos": [
+      "Gravação autorizada das sessões de discovery",
+      "Template de requisito preliminar",
+      "Curadoria humana antes de virar backlog"
+    ],
+    "ganho_esperado": "Reduz o tempo entre discovery e primeira entrega em 30-40%",
+    "tempo_estimado_semanas": 4,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Tempo entre fim do discovery e primeira entrega de backlog priorizado",
+        "unidade": "dias uteis",
+        "formula": "(data da 1a versao aprovada do backlog priorizado) - (data da ultima entrevista de discovery)",
+        "baseline_mercado": {
+          "valor": "15 a 25 dias uteis (padrao mercado consultoria/produto para transformar 6-12 entrevistas em backlog validado)",
+          "fonte": "Productboard Product Excellence Report 2024",
+          "url": "https://www.productboard.com/product-excellence-report/",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "9 a 15 dias uteis (reducao 30-40% via transcricao automatica + sumario estruturado + curadoria humana)",
+          "fonte": "McKinsey 'The economic potential of generative AI' (2023) - meeting summarization 30-45%; Deloitte State of GenAI Q1 2024 - discovery synthesis ~35%",
+          "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier",
+          "confianca": "media"
+        },
+        "reducao_percentual": "30% a 40% de reducao no ciclo discovery-to-backlog"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Horas de PO/analista para consolidar 1h de discovery",
+          "unidade": "h de trabalho / h de entrevista",
+          "baseline": "3 a 5 h",
+          "meta_ia": "0.8 a 1.5 h",
+          "fonte": "Miro AI + McKinsey GenAI in operations",
+          "url": "https://miro.com/ai/"
+        },
+        {
+          "nome": "Rastreabilidade requisito -> quote do stakeholder",
+          "unidade": "% de requisitos com citacao direta atrelada",
+          "baseline": "10-20%",
+          "meta_ia": "80-95%",
+          "fonte": "Otter.ai / Fireflies enterprise case studies 2024",
+          "url": "https://otter.ai/enterprise"
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "1 PO + 1 analista @ R$ 120/h consolidando 8h de discovery por sprint (16 sprints/ano), economia media de 22h/sprint",
+        "ganho_anual_estimado": "R$ 84.000 (nao contabiliza ganho de time-to-market)",
+        "tempo_payback_meses": "2-4"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) coletar 3 ultimas discoveries encerradas; (2) medir data de fim da ultima entrevista, 1a versao do backlog e aprovacao; (3) contabilizar horas de PO/analista em consolidacao; (4) amostrar 20 requisitos e checar rastreabilidade a stakeholder.",
+      "riscos_de_medicao": [
+        "Gaming: PO acelera aprovacao com qualidade menor - mitigar com metrica de retrabalho de requisito no sprint seguinte",
+        "Vies de sobrevivencia: comparar so discoveries bem sucedidas infla reducao - usar todas",
+        "Efeito Hawthorne: primeiras semanas melhoram so por observacao - baseline de 3 meses",
+        "LGPD: gravacoes exigem consentimento explicito"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "relatorio",
+          "titulo": "The economic potential of generative AI",
+          "autor": "McKinsey & Company",
+          "ano": 2023,
+          "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "State of Generative AI in the Enterprise Q1 2024",
+          "autor": "Deloitte",
+          "ano": 2024,
+          "url": "https://www2.deloitte.com/us/en/pages/consulting/articles/state-of-generative-ai-in-enterprise.html"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Miro AI for Product Discovery",
+          "autor": "Miro",
+          "ano": 2024,
+          "url": "https://miro.com/ai/"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Productboard Product Excellence Report 2024",
+          "autor": "Productboard",
+          "ano": 2024,
+          "url": "https://www.productboard.com/product-excellence-report/"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Otter.ai Enterprise",
+          "autor": "Otter.ai",
+          "ano": 2024,
+          "url": "https://otter.ai/enterprise"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": false,
+        "onde": [
+          "PDF Aula 1 BSBr - slide 15 lista 5 casos de uso mas nao ha piloto dedicado a discovery; a Aula 1 fala de 'atas' (consolidador) que e primo do sumarizador de discovery"
+        ],
+        "citacao_util": "Ganho afirmado (-30 a -40%) em pilotos.json esta em linha com McKinsey/Deloitte para knowledge work com GenAI. Bezerra nao publicou numero especifico de discovery, mas o metodo dele (slide 12 'Dores e gargalos + Oportunidades de valor') sustenta o piloto como caso de uso legitimo."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Sumarizador de Discovery' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "consolidacao",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "Miro AI para product discovery",
+      "Otter.ai Enterprise",
+      "Notion AI Q&A",
+      "Productboard"
+    ],
+    "citado_por_bezerra": false
+  },
+  {
+    "id": "classificador-requisitos",
+    "nome": "Classificador de Requisitos",
+    "descricao": "Classifica e ranqueia requisitos por valor, esforço e risco, ajudando o PMO a organizar o backlog do programa sem depender de planilha conflitante.",
+    "dimensoes_alvo": [
+      "estrategia",
+      "beneficios"
+    ],
+    "categorias_dor": [
+      "priorizacao",
+      "roi",
+      "reporting"
+    ],
+    "impacto_base": "medio",
+    "viabilidade_base": "medio",
+    "risco_base": "medio",
+    "pre_requisitos": [
+      "Backlog inicial em formato estruturado",
+      "Critérios de valor e esforço acordados",
+      "Validação humana antes de publicar o ranking"
+    ],
+    "ganho_esperado": "Elimina discussões improdutivas sobre prioridade e devolve o foco ao critério de valor",
+    "tempo_estimado_semanas": 4,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Concordancia entre priorizacao IA e priorizacao final aprovada pelo steering",
+        "unidade": "coeficiente Spearman rho entre ranking IA e ranking humano final",
+        "formula": "correlacao de Spearman entre posicao no ranking IA (valor/esforco/risco/alinhamento) e posicao no ranking aprovado pelo comite",
+        "baseline_mercado": {
+          "valor": "0.15 a 0.35 (planilha manual x comite diverge muito; papers de requisitos mostram concordancia baixa sem metodo)",
+          "fonte": "Achimugu et al. 'A systematic literature review of software requirements prioritization research' (Inf. and Software Tech., 2014)",
+          "url": "https://doi.org/10.1016/j.infsof.2014.02.001",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "0.65 a 0.80 (Spearman) quando LLM classifica por criterios fixos + validacao humana; equivalente a WSJF/AHP automatizado",
+          "fonte": "Perini et al. 'A machine learning approach to software requirements prioritization' (IEEE TSE 2013) - case-based ranking chega a rho ~0.75",
+          "url": "https://doi.org/10.1109/TSE.2012.52",
+          "confianca": "media"
+        },
+        "reducao_percentual": "Aumento de ~2x a 3x na concordancia (de ~0.25 para ~0.72)"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Tempo de reuniao de priorizacao do steering",
+          "unidade": "horas de comite / ciclo",
+          "baseline": "3 a 6 h",
+          "meta_ia": "1 a 2 h (comite valida ranking pre-classificado)",
+          "fonte": "Aha! e Productboard case studies 2024",
+          "url": "https://www.aha.io/roadmaps/guide/prioritization"
+        },
+        {
+          "nome": "% de decisoes com racional documentado (auditabilidade)",
+          "unidade": "% de itens priorizados com justificativa registrada",
+          "baseline": "20-40%",
+          "meta_ia": "95-100% (LLM gera racional por criterio automaticamente)",
+          "fonte": "Requer POC interna - sem benchmark publico especifico",
+          "url": ""
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "Steering committee 6 executivos @ R$ 400/h, 12 ciclos/ano, reducao de 4h para 1.5h por ciclo = 180h/ano; backlog priorizado certo reduz retrabalho estimado em 15% do OPEX do PMO",
+        "ganho_anual_estimado": "R$ 72.000 (tempo executivo) + valor variavel do menor retrabalho (10-25% do OPEX do PMO)",
+        "tempo_payback_meses": "4-6"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) coletar ata do ultimo ciclo com ranking inicial (planilha) e ranking final (aprovado); (2) calcular Spearman entre eles como proxy da coerencia atual; (3) medir horas totais do comite; (4) amostrar 30 itens e checar racional documentado ligando decisao aos criterios.",
+      "riscos_de_medicao": [
+        "Ancoragem: comite ve ranking da IA antes de opinar - teste cego nas primeiras 3 rodadas",
+        "Criterio movel: se pesos de valor/esforco/risco/alinhamento mudam entre ciclos, concordancia cai - congelar pesos por 2 ciclos",
+        "Overfitting a passado: LLM aprende priorizacoes anteriores possivelmente erradas - validacao out-of-sample",
+        "Vies executivo: comite prioriza iniciativas do proprio departamento; IA pode amplificar - auditar distribuicao por area"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "paper",
+          "titulo": "A systematic literature review of software requirements prioritization research",
+          "autor": "Achimugu, Selamat, Ibrahim, Mahrin",
+          "ano": 2014,
+          "url": "https://doi.org/10.1016/j.infsof.2014.02.001"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "A Machine Learning Approach to Software Requirements Prioritization",
+          "autor": "Perini, Susi, Avesani",
+          "ano": 2013,
+          "url": "https://doi.org/10.1109/TSE.2012.52"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "The Standard for AI in PPPM - vetor valor estrategico + otimizacao",
+          "autor": "PMI",
+          "ano": 2026,
+          "url": "https://www.pmi.org/standards/ai-in-pppm"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Aha! Prioritization Guide - WSJF, RICE",
+          "autor": "Aha!",
+          "ano": 2024,
+          "url": "https://www.aha.io/roadmaps/guide/prioritization"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Productboard AI - requirement scoring",
+          "autor": "Productboard",
+          "ano": 2024,
+          "url": "https://www.productboard.com/product/ai/"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": true,
+        "onde": [
+          "PDF Aula 1 BSBr slide 06 - 'Principios e dominios' cita 'Stakeholders, otimizacao e qualidade dos dados' como vetor de decisao do padrao PMI",
+          "PDF Aula 1 BSBr slide 17 - 'Plano de piloto em 90 dias' lista 'Matriz de priorizacao' como entregavel"
+        ],
+        "citacao_util": "Bezerra ancora priorizacao no padrao PMI (slide 05) e traz 'Matriz de priorizacao' como entregavel obrigatorio (slide 17). O classificador-requisitos operacionaliza essa matriz gerando insumo classificado com racional auditavel - nao substitui o steering."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Classificador de Requisitos' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "decisao",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "LLM (Claude/GPT) com critérios fixos",
+      "Aha! Prioritization (WSJF, RICE)",
+      "Productboard AI",
+      "Jira Align com AI"
+    ],
+    "citado_por_bezerra": false
+  },
+  {
+    "id": "analise-satisfacao-stakeholder",
+    "nome": "Análise de Satisfação de Stakeholder",
+    "descricao": "Analisa pesquisas, feedbacks e menções de stakeholders para revelar risco reputacional e insatisfação silenciosa antes do próximo comitê.",
+    "dimensoes_alvo": [
+      "beneficios",
+      "governanca"
+    ],
+    "categorias_dor": [
+      "satisfacao_stakeholder",
+      "risco",
+      "comunicacao_stakeholder"
+    ],
+    "impacto_base": "medio",
+    "viabilidade_base": "alto",
+    "risco_base": "baixo",
+    "pre_requisitos": [
+      "Fonte de feedback ou pesquisa de satisfação recorrente",
+      "Base histórica dos últimos 6 meses",
+      "Regra de anonimização aprovada"
+    ],
+    "ganho_esperado": "Antecipa insatisfação silenciosa e sustenta business case do programa com evidência qualitativa",
+    "tempo_estimado_semanas": 4,
+    "metricas": {
+      "kpi_principal": {
+        "nome": "Tempo entre insatisfacao materializada em texto e sinalizacao no radar de risco reputacional",
+        "unidade": "dias entre 1a mencao negativa relevante (email/chat/feedback) e alerta HITL",
+        "formula": "media(data do alerta - data da 1a mencao classificada como insatisfacao > threshold) sobre janela de 30 dias",
+        "baseline_mercado": {
+          "valor": "30 a 90 dias (insatisfacao aparece so na pesquisa formal trimestral ou na crise politica em comite)",
+          "fonte": "Forrester 'The State of VoC and CX Programs 2024'",
+          "url": "https://www.forrester.com/report/the-state-of-voice-of-the-customer-programs/",
+          "confianca": "media"
+        },
+        "meta_com_ia": {
+          "valor": "3 a 10 dias (NLP em janela deslizante sobre email/chat/feedback com escalation HITL)",
+          "fonte": "Qualtrics XM Discover case studies 2024 - deteccao proativa reduz ciclo em ~80% com corpus adequado (nao publicamente auditado por terceiros)",
+          "url": "https://www.qualtrics.com/platform/experience-id/xm-discover/",
+          "confianca": "baixa"
+        },
+        "reducao_percentual": "70% a 90% de reducao no tempo de deteccao (de ~60 dias para ~7 dias)"
+      },
+      "kpis_secundarios": [
+        {
+          "nome": "Precisao do classificador de sentimento negativo em stakeholder de projeto",
+          "unidade": "F1-score em ptBR sobre corpus interno",
+          "baseline": "N/A (nao mede hoje)",
+          "meta_ia": "0.70 a 0.85 (viavel com fine-tuning leve + few-shot)",
+          "fonte": "Souza et al. BERTimbau + literatura sentiment analysis ptBR",
+          "url": "https://github.com/neuralmind-ai/portuguese-bert"
+        },
+        {
+          "nome": "% de riscos politicos escalados que tinham sinal previo no radar",
+          "unidade": "% dos incidentes com alerta nos 30 dias anteriores",
+          "baseline": "10-25%",
+          "meta_ia": "55-75%",
+          "fonte": "Requer POC interna - sem benchmark publico especifico deste indicador em PPPM",
+          "url": ""
+        }
+      ],
+      "roi_estimado": {
+        "premissa": "Programa estrategico com 4 stakeholders C-level; 1 crise politica reversa evitada por ano vale entre R$ 200k (retrabalho + retencao patrocinio) e R$ 800k (perda de sponsor ou re-baseline)",
+        "ganho_anual_estimado": "R$ 200.000 a R$ 800.000 (evitar 1-2 crises reputacionais/ano)",
+        "tempo_payback_meses": "6-12 (beneficio assimetrico, depende da 1a crise evitada)"
+      },
+      "linha_baseline_como_medir": "Semana 1: (1) mapear canais de comunicacao autorizados (email do projeto, canais slack/teams, feedback formal, atas); (2) validar juridico/LGPD/consentimento; (3) arqueologia das 3 ultimas crises politicas - havia sinais em texto? quantos dias antes?; (4) montar corpus rotulado por consultor humano (100-300 exemplos) para calibrar threshold.",
+      "riscos_de_medicao": [
+        "Falso positivo caro: alerta errado sobre C-level destroi confianca - threshold conservador e apenas HITL",
+        "LGPD/Consentimento: leitura de email pessoal sem base legal e ilegal - restringir a canais corporativos com aviso",
+        "Vies de linguagem: stakeholder senior critica de forma indireta - requer fine-tuning corporativo",
+        "Gaming reverso: se stakeholders sabem que sao monitorados, movem critica para reunioes fechadas - comunicar transparencia",
+        "Ancoragem do consultor: quem le o alerta ja vai enviesado - segunda opiniao humana antes de escalar"
+      ],
+      "fontes_completas": [
+        {
+          "tipo": "relatorio",
+          "titulo": "The State of Voice of the Customer Programs 2024",
+          "autor": "Forrester",
+          "ano": 2024,
+          "url": "https://www.forrester.com/report/the-state-of-voice-of-the-customer-programs/"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "Sentiment Analysis - Survey of Methods (aplicacao em PM)",
+          "autor": "Varios",
+          "ano": 2023,
+          "url": "https://arxiv.org/abs/2305.17740"
+        },
+        {
+          "tipo": "vendor",
+          "titulo": "Qualtrics XM Discover",
+          "autor": "Qualtrics",
+          "ano": 2024,
+          "url": "https://www.qualtrics.com/platform/experience-id/xm-discover/"
+        },
+        {
+          "tipo": "relatorio",
+          "titulo": "The Standard for AI in PPPM - dominio Stakeholders",
+          "autor": "PMI",
+          "ano": 2026,
+          "url": "https://www.pmi.org/standards/ai-in-pppm"
+        },
+        {
+          "tipo": "paper",
+          "titulo": "BERTimbau - Pretrained BERT models for Brazilian Portuguese",
+          "autor": "Souza, Nogueira, Lotufo",
+          "ano": 2020,
+          "url": "https://github.com/neuralmind-ai/portuguese-bert"
+        }
+      ],
+      "bezerra_publico_encontrado": {
+        "tem_material": true,
+        "onde": [
+          "PDF Aula 1 BSBr slide 06 - lista 'Stakeholders' como um dos 5 dominios de pratica do padrao PMI para IA em PPPM",
+          "PDF Aula 1 BSBr slide 14 - Mapa inicial bloco 'Riscos' cita 'resistencia das equipes' como risco categorizado"
+        ],
+        "citacao_util": "Bezerra tem 'Stakeholders' como dominio raiz (slide 06) e coloca 'resistencia das equipes' como risco no mapa Alfa (slide 14). O piloto ataca a interseccao Stakeholders x Riscos - dominio que ele nomeia mas nao instrumentaliza no case."
+      }
+    },
+    "plano_projeto_30d": {
+      "objetivo": "Instalar o piloto 'Análise de Satisfação de Stakeholder' em 30 dias com baseline auditável, entrega funcional em produção-piloto e leitura executiva para decisão go/no-go de expansão.",
+      "eap_macro": [
+        {
+          "id": "1",
+          "nome": "Baseline e escopo",
+          "entrega": "Linha zero congelada + escopo do piloto assinado pelo sponsor"
+        },
+        {
+          "id": "2",
+          "nome": "Ingestão de dados",
+          "entrega": "Fontes conectadas, amostra representativa validada"
+        },
+        {
+          "id": "3",
+          "nome": "MVP funcional",
+          "entrega": "Piloto rodando em ambiente controlado com HITL"
+        },
+        {
+          "id": "4",
+          "nome": "Rodada supervisionada",
+          "entrega": "N ciclos com validação humana + ajuste de threshold"
+        },
+        {
+          "id": "5",
+          "nome": "Medição pós-piloto",
+          "entrega": "Comparação antes/depois + relatório executivo"
+        },
+        {
+          "id": "6",
+          "nome": "Governança e handover",
+          "entrega": "Runbook, papéis definidos, LGPD/HITL aprovados"
+        }
+      ],
+      "cronograma_semanal": [
+        {
+          "semana": 1,
+          "foco": "Baseline + escopo",
+          "atividades": [
+            "Kickoff com sponsor e time do PMO",
+            "Congelar métrica-baseline (KPI principal + 1-2 secundários)",
+            "Assinar escopo, exclusões, critérios de sucesso",
+            "Definir grupo-controle quando aplicável"
+          ]
+        },
+        {
+          "semana": 2,
+          "foco": "Ingestão + prova de conceito",
+          "atividades": [
+            "Conectar fontes de dados autorizadas (com LGPD/consentimento)",
+            "Validar qualidade de amostra representativa",
+            "Rodar POC do modelo/LLM em subconjunto pequeno",
+            "Revisão jurídica/segurança se dados sensíveis"
+          ]
+        },
+        {
+          "semana": 3,
+          "foco": "MVP + rodada supervisionada",
+          "atividades": [
+            "Piloto em produção-controlada com HITL obrigatório",
+            "Auditoria por amostragem dos outputs",
+            "Ajuste de threshold e prompt/modelo",
+            "Coleta de feedback dos operadores"
+          ]
+        },
+        {
+          "semana": 4,
+          "foco": "Medição + leitura executiva",
+          "atividades": [
+            "Medir KPI principal e secundários pós-piloto",
+            "Comparar com baseline (delta + significância)",
+            "Redigir leitura executiva com racional auditável",
+            "Recomendação go/no-go para expansão"
+          ]
+        }
+      ],
+      "papeis": {
+        "sponsor_executivo": "Aprova escopo, remove bloqueios organizacionais, decide go/no-go final",
+        "product_owner": "Prioriza backlog do piloto, valida entregas semanais",
+        "consultor_ia": "Desenha o modelo/LLM, define prompt, calibra threshold, garante HITL",
+        "operador_hitl": "Valida cada output antes de virar decisão; reporta falsos positivos/negativos",
+        "responsavel_dados": "Garante LGPD/consentimento, qualidade e disponibilidade das fontes",
+        "auditor_qualidade": "Amostra semanal de outputs; mede precisão/revocação"
+      },
+      "criterios_go_expansao": [
+        "KPI principal atinge meta declarada ou fica no intervalo P50-P90 do baseline benchmark",
+        "Zero incidente de LGPD/ética documentado no ciclo",
+        "Aceitação do sponsor formal por e-mail (registro para auditoria)",
+        "Runbook operacional pronto e testado por operador diferente do consultor",
+        "Custo total do piloto inferior a 25% do ganho anual estimado"
+      ],
+      "riscos_do_piloto": [
+        "Baseline mal medido invalida delta pós-piloto",
+        "Sponsor perde interesse antes da leitura executiva (mitigar com checkpoint semanal curto)",
+        "Time operacional resiste ao HITL por sobrecarga (mitigar com integração no fluxo existente)",
+        "Fonte de dados muda de formato no meio do piloto (mitigar com contrato de dado)",
+        "Alucinação/viés não detectado — obriga auditoria por amostragem"
+      ],
+      "entregas_finais_do_piloto": [
+        "Relatório executivo de 1 página com baseline, resultado, delta e recomendação",
+        "Runbook operacional com passo-a-passo e papéis",
+        "Registro de decisões (por que aprovar/reprovar cada ajuste)",
+        "Estimativa de custo/benefício para expansão a todo o portfólio"
+      ],
+      "familia_metodologica": "operacao",
+      "referencia": "Backlog aprovado por Prof. Bezerra em aula de 2026-08-08 [02:48:54], sob proposta do participante Giancarlo — todo piloto de IA-PPPM precisa vir com EAP + plano de projeto + cronograma de 30 dias."
+    },
+    "ferramentas_recomendadas": [
+      "BERTimbau (Portuguese BERT)",
+      "Qualtrics XM Discover",
+      "LLM para análise de sentimento",
+      "Google Cloud Natural Language API"
+    ],
+    "citado_por_bezerra": true,
+    "citado_timestamp": "[01:00:20] (como 'análise de satisfação de stakeholders')"
+  },
+  {
+    "id": "detector-mudanca-escopo",
+    "nome": "Detector de Mudança de Escopo",
+    "descricao": "Compara continuamente escopo baseline vs escopo executado; sinaliza scope creep e classifica a origem (cliente, PMO, equipe) antes de virar aditivo.",
+    "dimensoes_alvo": [
+      "casos_uso",
+      "governanca"
+    ],
+    "categorias_dor": [
+      "escopo_creep",
+      "governanca_hitl",
+      "reporting"
+    ],
+    "impacto_base": "alto",
+    "viabilidade_base": "alto",
+    "risco_base": "baixo",
+    "pre_requisitos": [
+      "Escopo baseline formal em Excel/Jira/MS Project",
+      "Log de mudanças de escopo dos últimos 12 meses",
+      "Owner de escopo por projeto definido"
+    ],
+    "ganho_esperado": "Reduz scope creep em 30-50% e cria trilha auditável para negociação de aditivo com cliente.",
+    "tempo_estimado_semanas": 3,
+    "citado_por_bezerra": false,
+    "gap_preenchido": "2.5 Monitorar e Controlar o Escopo",
+    "ferramentas_recomendadas": [
+      "Jira/Azure DevOps + LLM para classificar issues fora do baseline",
+      "Python (diff semântico entre escopo v0 e vN)",
+      "Power BI (curva de scope creep semanal)",
+      "Streamlit + HITL para o PM validar cada mudança"
+    ]
+  },
+  {
+    "id": "previsor-fluxo-caixa",
+    "nome": "Previsor de Fluxo de Caixa e Estouro de Orçamento",
+    "descricao": "ML sobre EVM histórico (BCWS, BCWP, ACWP) para prever EAC 4-8 semanas antes do encerramento do ciclo e disparar alerta quando probabilidade de estouro > 15%.",
+    "dimensoes_alvo": [
+      "dados",
+      "beneficios"
+    ],
+    "categorias_dor": [
+      "roi",
+      "reporting",
+      "governanca_hitl"
+    ],
+    "impacto_base": "alto",
+    "viabilidade_base": "medio",
+    "risco_base": "medio",
+    "pre_requisitos": [
+      "Série histórica de EVM por projeto (>=20 semanas)",
+      "Contabilidade integrada ou dump CSV mensal",
+      "Comitê financeiro que aceite decisão baseada em previsão"
+    ],
+    "ganho_esperado": "Antecipa 60-75% dos estouros de orçamento em pelo menos 4 semanas; reduz surpresa financeira no comitê.",
+    "tempo_estimado_semanas": 4,
+    "citado_por_bezerra": false,
+    "gap_preenchido": "4.4 Monitorar e Controlar as Finanças",
+    "ferramentas_recomendadas": [
+      "Python (scikit-learn/XGBoost para EAC prediction)",
+      "SciPy Monte Carlo para bandas de confiança",
+      "Power BI para curva S com faixa P50-P90",
+      "ERP (SAP/TOTVS) via API"
+    ]
+  },
+  {
+    "id": "matcher-skills-projeto",
+    "nome": "Matcher de Skills para Adquirir Recursos",
+    "descricao": "LLM cruza requisitos de skill do projeto novo (extraídos do TAP/backlog) com base de talentos internos e sinaliza melhores candidatos, gaps de skill e necessidade de contratação externa.",
+    "dimensoes_alvo": [
+      "estrategia",
+      "casos_uso"
+    ],
+    "categorias_dor": [
+      "alocacao_recursos",
+      "priorizacao"
+    ],
+    "impacto_base": "medio",
+    "viabilidade_base": "medio",
+    "risco_base": "medio",
+    "pre_requisitos": [
+      "Base de skills/senioridade dos colaboradores (RH ou LinkedIn Talent)",
+      "Requisitos de skill do projeto em texto (TAP, backlog)",
+      "LGPD/consentimento para uso de dados de RH em recomendação"
+    ],
+    "ganho_esperado": "Reduz em 40-60% o tempo de alocação inicial de equipe; melhora aderência skill×projeto.",
+    "tempo_estimado_semanas": 3,
+    "citado_por_bezerra": false,
+    "gap_preenchido": "6.3 Adquirir Recursos",
+    "ferramentas_recomendadas": [
+      "LLM (Claude/GPT) + embeddings (bge-m3, text-embedding-3)",
+      "LinkedIn Talent API se acessível",
+      "SAP SuccessFactors / Workday para base interna",
+      "Streamlit + HITL para o gestor validar o match"
+    ]
+  },
+  {
+    "id": "monitor-utilizacao-equipe",
+    "nome": "Monitor de Utilização de Equipe e Alerta de Burnout",
+    "descricao": "Cruza timesheet, calendário e comunicações (frequência de mensagens fora do horário) para detectar sinais de sobrecarga; alerta gerente antes do burnout materializar.",
+    "dimensoes_alvo": [
+      "dados",
+      "governanca"
+    ],
+    "categorias_dor": [
+      "alocacao_recursos",
+      "risco",
+      "satisfacao_stakeholder"
+    ],
+    "impacto_base": "medio",
+    "viabilidade_base": "medio",
+    "risco_base": "alto",
+    "pre_requisitos": [
+      "Timesheet apontamento diário",
+      "Base legal LGPD para leitura de calendário/chat",
+      "Política de HITL — gerente decide intervenção, IA só alerta"
+    ],
+    "ganho_esperado": "Reduz turnover involuntário por burnout em 20-40%; melhora capacidade de replanejamento antecipado.",
+    "tempo_estimado_semanas": 4,
+    "citado_por_bezerra": false,
+    "gap_preenchido": "6.5 Monitorar e Controlar Recursos",
+    "ferramentas_recomendadas": [
+      "Python (pandas séries temporais)",
+      "People Analytics research (Microsoft Viva Insights)",
+      "Power BI (heatmap de utilização por semana)",
+      "Streamlit + HITL — alerta é sugestão, nunca automático"
+    ]
+  }
+]

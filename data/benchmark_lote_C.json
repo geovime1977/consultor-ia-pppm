@@ -1,0 +1,208 @@
+[
+  {
+    "id": "detector-dependencias",
+    "kpi_principal": {
+      "nome": "Taxa de bloqueios cruzados detectados antes do status mensal",
+      "unidade": "% dos bloqueios que aparecem no comite executivo detectados com >= 14 dias de antecedencia",
+      "formula": "(bloqueios sinalizados pelo grafo com antecedencia >= 14 dias / total de bloqueios materializados no ciclo) * 100",
+      "baseline_mercado": {
+        "valor": "10-20% (maior parte das dependencias entre programas so aparece quando ja virou crise no status; PMI relata que apenas ~35% das organizacoes tem visibilidade cross-program formalizada)",
+        "fonte": "PMI Pulse of the Profession 2024 - Realizing Value in an Age of Disruption",
+        "url": "https://www.pmi.org/learning/thought-leadership/pulse",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "50-65% dos bloqueios cruzados antecipados com >= 14 dias (grafo de dependencias + LLM classificando entregas/interfaces em atas e status)",
+        "fonte": "Gartner Hype Cycle for Project & Portfolio Management 2024 - categoria AI-Augmented PPM projeta ganho de 40-60% em antecipacao cross-portfolio",
+        "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management",
+        "confianca": "media"
+      },
+      "reducao_percentual": "Aumento de 3x a 4x na taxa de deteccao antecipada (de ~15% para ~55%)"
+    },
+    "kpis_secundarios": [
+      {"nome": "Numero de dependencias cadastradas por projeto", "unidade": "media de arestas / projeto", "baseline": "1-3 (declaradas informalmente em ata)", "meta_ia": "8-15 (grafo alimentado por leitura automatica de escopo, entregas e interfaces)", "fonte": "PMI Standard for Program Management 4th Ed. + Aha! benchmark 2024", "url": "https://www.aha.io/roadmaps/guide/dependencies"},
+      {"nome": "Tempo de identificacao de dependencia critica", "unidade": "dias entre criacao da entrega e sinalizacao da dependencia", "baseline": "20-40 dias", "meta_ia": "1-3 dias", "fonte": "Monday.com Work Management Trends Report 2024", "url": "https://monday.com/blog/project-management/work-management-trends/"}
+    ],
+    "roi_estimado": {
+      "premissa": "PMO com 28 projetos (case Empresa Alfa da Aula 1 Bezerra), 3 programas, custo medio de retrabalho por bloqueio nao antecipado = R$ 45.000 (5 pessoas x 2 semanas @ R$ 150/h), 12 bloqueios/ano historicamente",
+      "ganho_anual_estimado": "R$ 250.000 a R$ 380.000 (evita 6-8 dos 12 bloqueios anuais)",
+      "tempo_payback_meses": "3-5"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) exportar RAID log e minuta dos ultimos 6 comites; (2) tagear manualmente cada linha como bloqueio e dependencia cruzada; (3) calcular quantos bloqueios foram sinalizados antes vs. surgiram como surpresa; (4) medir dias medios entre criacao da entrega e sinalizacao.",
+    "riscos_de_medicao": [
+      "Gaming: gerentes registram mais dependencias para inflar numerador - auditar qualidade (owner, prazo, entrega alvo)",
+      "Vies de selecao: contar so bloqueios documentados subestima baseline - incluir entrevistas pos-crise",
+      "Contaminacao: mesma pessoa registra e classifica bloqueio - separar papeis de owner",
+      "Novidade: primeiros 60 dias o grafo gera muito ruido - medir apos calibracao"
+    ],
+    "fontes_completas": [
+      {"tipo": "relatorio", "titulo": "Pulse of the Profession 2024", "autor": "PMI", "ano": 2024, "url": "https://www.pmi.org/learning/thought-leadership/pulse"},
+      {"tipo": "relatorio", "titulo": "The Standard for AI in PPPM", "autor": "PMI", "ano": 2026, "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "relatorio", "titulo": "Hype Cycle for PPM", "autor": "Gartner", "ano": 2024, "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management"},
+      {"tipo": "vendor", "titulo": "Aha! Dependency Management Guide", "autor": "Aha!", "ano": 2024, "url": "https://www.aha.io/roadmaps/guide/dependencies"},
+      {"tipo": "vendor", "titulo": "Jira Align Cross-Team Dependencies", "autor": "Atlassian", "ano": 2024, "url": "https://www.atlassian.com/agile/agile-at-scale/jira-align"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": true,
+      "onde": [
+        "PDF Aula 1 BSBr slide 15 - item 02 Radar de Riscos: 'Detectar sinais de atraso, dependencias criticas e alertas de decisao' | Valor: antecipacao",
+        "PDF Aula 1 BSBr slide 16 - piloto 02 Radar de riscos e atrasos: 'Classificar riscos, detectar dependencias criticas e sugerir respostas com validacao humana' | Impacto alto, Viabilidade media, Risco medio"
+      ],
+      "citacao_util": "Prof. Bezerra trata deteccao de dependencias como sub-modulo do Radar de Riscos (piloto 02 do case Alfa), com HITL obrigatorio e enquadra valor em 'antecipacao'. O detector-dependencias isola o grafo cross-portfolio dessa camada."
+    }
+  },
+  {
+    "id": "sumarizador-discovery",
+    "kpi_principal": {
+      "nome": "Tempo entre fim do discovery e primeira entrega de backlog priorizado",
+      "unidade": "dias uteis",
+      "formula": "(data da 1a versao aprovada do backlog priorizado) - (data da ultima entrevista de discovery)",
+      "baseline_mercado": {
+        "valor": "15 a 25 dias uteis (padrao mercado consultoria/produto para transformar 6-12 entrevistas em backlog validado)",
+        "fonte": "Productboard Product Excellence Report 2024",
+        "url": "https://www.productboard.com/product-excellence-report/",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "9 a 15 dias uteis (reducao 30-40% via transcricao automatica + sumario estruturado + curadoria humana)",
+        "fonte": "McKinsey 'The economic potential of generative AI' (2023) - meeting summarization 30-45%; Deloitte State of GenAI Q1 2024 - discovery synthesis ~35%",
+        "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier",
+        "confianca": "media"
+      },
+      "reducao_percentual": "30% a 40% de reducao no ciclo discovery-to-backlog"
+    },
+    "kpis_secundarios": [
+      {"nome": "Horas de PO/analista para consolidar 1h de discovery", "unidade": "h de trabalho / h de entrevista", "baseline": "3 a 5 h", "meta_ia": "0.8 a 1.5 h", "fonte": "Miro AI + McKinsey GenAI in operations", "url": "https://miro.com/ai/"},
+      {"nome": "Rastreabilidade requisito -> quote do stakeholder", "unidade": "% de requisitos com citacao direta atrelada", "baseline": "10-20%", "meta_ia": "80-95%", "fonte": "Otter.ai / Fireflies enterprise case studies 2024", "url": "https://otter.ai/enterprise"}
+    ],
+    "roi_estimado": {
+      "premissa": "1 PO + 1 analista @ R$ 120/h consolidando 8h de discovery por sprint (16 sprints/ano), economia media de 22h/sprint",
+      "ganho_anual_estimado": "R$ 84.000 (nao contabiliza ganho de time-to-market)",
+      "tempo_payback_meses": "2-4"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) coletar 3 ultimas discoveries encerradas; (2) medir data de fim da ultima entrevista, 1a versao do backlog e aprovacao; (3) contabilizar horas de PO/analista em consolidacao; (4) amostrar 20 requisitos e checar rastreabilidade a stakeholder.",
+    "riscos_de_medicao": [
+      "Gaming: PO acelera aprovacao com qualidade menor - mitigar com metrica de retrabalho de requisito no sprint seguinte",
+      "Vies de sobrevivencia: comparar so discoveries bem sucedidas infla reducao - usar todas",
+      "Efeito Hawthorne: primeiras semanas melhoram so por observacao - baseline de 3 meses",
+      "LGPD: gravacoes exigem consentimento explicito"
+    ],
+    "fontes_completas": [
+      {"tipo": "relatorio", "titulo": "The economic potential of generative AI", "autor": "McKinsey & Company", "ano": 2023, "url": "https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier"},
+      {"tipo": "relatorio", "titulo": "State of Generative AI in the Enterprise Q1 2024", "autor": "Deloitte", "ano": 2024, "url": "https://www2.deloitte.com/us/en/pages/consulting/articles/state-of-generative-ai-in-enterprise.html"},
+      {"tipo": "vendor", "titulo": "Miro AI for Product Discovery", "autor": "Miro", "ano": 2024, "url": "https://miro.com/ai/"},
+      {"tipo": "vendor", "titulo": "Productboard Product Excellence Report 2024", "autor": "Productboard", "ano": 2024, "url": "https://www.productboard.com/product-excellence-report/"},
+      {"tipo": "vendor", "titulo": "Otter.ai Enterprise", "autor": "Otter.ai", "ano": 2024, "url": "https://otter.ai/enterprise"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": false,
+      "onde": ["PDF Aula 1 BSBr - slide 15 lista 5 casos de uso mas nao ha piloto dedicado a discovery; a Aula 1 fala de 'atas' (consolidador) que e primo do sumarizador de discovery"],
+      "citacao_util": "Ganho afirmado (-30 a -40%) em pilotos.json esta em linha com McKinsey/Deloitte para knowledge work com GenAI. Bezerra nao publicou numero especifico de discovery, mas o metodo dele (slide 12 'Dores e gargalos + Oportunidades de valor') sustenta o piloto como caso de uso legitimo."
+    }
+  },
+  {
+    "id": "classificador-requisitos",
+    "kpi_principal": {
+      "nome": "Concordancia entre priorizacao IA e priorizacao final aprovada pelo steering",
+      "unidade": "coeficiente Spearman rho entre ranking IA e ranking humano final",
+      "formula": "correlacao de Spearman entre posicao no ranking IA (valor/esforco/risco/alinhamento) e posicao no ranking aprovado pelo comite",
+      "baseline_mercado": {
+        "valor": "0.15 a 0.35 (planilha manual x comite diverge muito; papers de requisitos mostram concordancia baixa sem metodo)",
+        "fonte": "Achimugu et al. 'A systematic literature review of software requirements prioritization research' (Inf. and Software Tech., 2014)",
+        "url": "https://doi.org/10.1016/j.infsof.2014.02.001",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "0.65 a 0.80 (Spearman) quando LLM classifica por criterios fixos + validacao humana; equivalente a WSJF/AHP automatizado",
+        "fonte": "Perini et al. 'A machine learning approach to software requirements prioritization' (IEEE TSE 2013) - case-based ranking chega a rho ~0.75",
+        "url": "https://doi.org/10.1109/TSE.2012.52",
+        "confianca": "media"
+      },
+      "reducao_percentual": "Aumento de ~2x a 3x na concordancia (de ~0.25 para ~0.72)"
+    },
+    "kpis_secundarios": [
+      {"nome": "Tempo de reuniao de priorizacao do steering", "unidade": "horas de comite / ciclo", "baseline": "3 a 6 h", "meta_ia": "1 a 2 h (comite valida ranking pre-classificado)", "fonte": "Aha! e Productboard case studies 2024", "url": "https://www.aha.io/roadmaps/guide/prioritization"},
+      {"nome": "% de decisoes com racional documentado (auditabilidade)", "unidade": "% de itens priorizados com justificativa registrada", "baseline": "20-40%", "meta_ia": "95-100% (LLM gera racional por criterio automaticamente)", "fonte": "Requer POC interna - sem benchmark publico especifico", "url": ""}
+    ],
+    "roi_estimado": {
+      "premissa": "Steering committee 6 executivos @ R$ 400/h, 12 ciclos/ano, reducao de 4h para 1.5h por ciclo = 180h/ano; backlog priorizado certo reduz retrabalho estimado em 15% do OPEX do PMO",
+      "ganho_anual_estimado": "R$ 72.000 (tempo executivo) + valor variavel do menor retrabalho (10-25% do OPEX do PMO)",
+      "tempo_payback_meses": "4-6"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) coletar ata do ultimo ciclo com ranking inicial (planilha) e ranking final (aprovado); (2) calcular Spearman entre eles como proxy da coerencia atual; (3) medir horas totais do comite; (4) amostrar 30 itens e checar racional documentado ligando decisao aos criterios.",
+    "riscos_de_medicao": [
+      "Ancoragem: comite ve ranking da IA antes de opinar - teste cego nas primeiras 3 rodadas",
+      "Criterio movel: se pesos de valor/esforco/risco/alinhamento mudam entre ciclos, concordancia cai - congelar pesos por 2 ciclos",
+      "Overfitting a passado: LLM aprende priorizacoes anteriores possivelmente erradas - validacao out-of-sample",
+      "Vies executivo: comite prioriza iniciativas do proprio departamento; IA pode amplificar - auditar distribuicao por area"
+    ],
+    "fontes_completas": [
+      {"tipo": "paper", "titulo": "A systematic literature review of software requirements prioritization research", "autor": "Achimugu, Selamat, Ibrahim, Mahrin", "ano": 2014, "url": "https://doi.org/10.1016/j.infsof.2014.02.001"},
+      {"tipo": "paper", "titulo": "A Machine Learning Approach to Software Requirements Prioritization", "autor": "Perini, Susi, Avesani", "ano": 2013, "url": "https://doi.org/10.1109/TSE.2012.52"},
+      {"tipo": "relatorio", "titulo": "The Standard for AI in PPPM - vetor valor estrategico + otimizacao", "autor": "PMI", "ano": 2026, "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "vendor", "titulo": "Aha! Prioritization Guide - WSJF, RICE", "autor": "Aha!", "ano": 2024, "url": "https://www.aha.io/roadmaps/guide/prioritization"},
+      {"tipo": "vendor", "titulo": "Productboard AI - requirement scoring", "autor": "Productboard", "ano": 2024, "url": "https://www.productboard.com/product/ai/"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": true,
+      "onde": [
+        "PDF Aula 1 BSBr slide 06 - 'Principios e dominios' cita 'Stakeholders, otimizacao e qualidade dos dados' como vetor de decisao do padrao PMI",
+        "PDF Aula 1 BSBr slide 17 - 'Plano de piloto em 90 dias' lista 'Matriz de priorizacao' como entregavel"
+      ],
+      "citacao_util": "Bezerra ancora priorizacao no padrao PMI (slide 05) e traz 'Matriz de priorizacao' como entregavel obrigatorio (slide 17). O classificador-requisitos operacionaliza essa matriz gerando insumo classificado com racional auditavel - nao substitui o steering."
+    }
+  },
+  {
+    "id": "analise-satisfacao-stakeholder",
+    "kpi_principal": {
+      "nome": "Tempo entre insatisfacao materializada em texto e sinalizacao no radar de risco reputacional",
+      "unidade": "dias entre 1a mencao negativa relevante (email/chat/feedback) e alerta HITL",
+      "formula": "media(data do alerta - data da 1a mencao classificada como insatisfacao > threshold) sobre janela de 30 dias",
+      "baseline_mercado": {
+        "valor": "30 a 90 dias (insatisfacao aparece so na pesquisa formal trimestral ou na crise politica em comite)",
+        "fonte": "Forrester 'The State of VoC and CX Programs 2024'",
+        "url": "https://www.forrester.com/report/the-state-of-voice-of-the-customer-programs/",
+        "confianca": "media"
+      },
+      "meta_com_ia": {
+        "valor": "3 a 10 dias (NLP em janela deslizante sobre email/chat/feedback com escalation HITL)",
+        "fonte": "Qualtrics XM Discover case studies 2024 - deteccao proativa reduz ciclo em ~80% com corpus adequado (nao publicamente auditado por terceiros)",
+        "url": "https://www.qualtrics.com/platform/experience-id/xm-discover/",
+        "confianca": "baixa"
+      },
+      "reducao_percentual": "70% a 90% de reducao no tempo de deteccao (de ~60 dias para ~7 dias)"
+    },
+    "kpis_secundarios": [
+      {"nome": "Precisao do classificador de sentimento negativo em stakeholder de projeto", "unidade": "F1-score em ptBR sobre corpus interno", "baseline": "N/A (nao mede hoje)", "meta_ia": "0.70 a 0.85 (viavel com fine-tuning leve + few-shot)", "fonte": "Souza et al. BERTimbau + literatura sentiment analysis ptBR", "url": "https://github.com/neuralmind-ai/portuguese-bert"},
+      {"nome": "% de riscos politicos escalados que tinham sinal previo no radar", "unidade": "% dos incidentes com alerta nos 30 dias anteriores", "baseline": "10-25%", "meta_ia": "55-75%", "fonte": "Requer POC interna - sem benchmark publico especifico deste indicador em PPPM", "url": ""}
+    ],
+    "roi_estimado": {
+      "premissa": "Programa estrategico com 4 stakeholders C-level; 1 crise politica reversa evitada por ano vale entre R$ 200k (retrabalho + retencao patrocinio) e R$ 800k (perda de sponsor ou re-baseline)",
+      "ganho_anual_estimado": "R$ 200.000 a R$ 800.000 (evitar 1-2 crises reputacionais/ano)",
+      "tempo_payback_meses": "6-12 (beneficio assimetrico, depende da 1a crise evitada)"
+    },
+    "linha_baseline_como_medir": "Semana 1: (1) mapear canais de comunicacao autorizados (email do projeto, canais slack/teams, feedback formal, atas); (2) validar juridico/LGPD/consentimento; (3) arqueologia das 3 ultimas crises politicas - havia sinais em texto? quantos dias antes?; (4) montar corpus rotulado por consultor humano (100-300 exemplos) para calibrar threshold.",
+    "riscos_de_medicao": [
+      "Falso positivo caro: alerta errado sobre C-level destroi confianca - threshold conservador e apenas HITL",
+      "LGPD/Consentimento: leitura de email pessoal sem base legal e ilegal - restringir a canais corporativos com aviso",
+      "Vies de linguagem: stakeholder senior critica de forma indireta - requer fine-tuning corporativo",
+      "Gaming reverso: se stakeholders sabem que sao monitorados, movem critica para reunioes fechadas - comunicar transparencia",
+      "Ancoragem do consultor: quem le o alerta ja vai enviesado - segunda opiniao humana antes de escalar"
+    ],
+    "fontes_completas": [
+      {"tipo": "relatorio", "titulo": "The State of Voice of the Customer Programs 2024", "autor": "Forrester", "ano": 2024, "url": "https://www.forrester.com/report/the-state-of-voice-of-the-customer-programs/"},
+      {"tipo": "paper", "titulo": "Sentiment Analysis - Survey of Methods (aplicacao em PM)", "autor": "Varios", "ano": 2023, "url": "https://arxiv.org/abs/2305.17740"},
+      {"tipo": "vendor", "titulo": "Qualtrics XM Discover", "autor": "Qualtrics", "ano": 2024, "url": "https://www.qualtrics.com/platform/experience-id/xm-discover/"},
+      {"tipo": "relatorio", "titulo": "The Standard for AI in PPPM - dominio Stakeholders", "autor": "PMI", "ano": 2026, "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "paper", "titulo": "BERTimbau - Pretrained BERT models for Brazilian Portuguese", "autor": "Souza, Nogueira, Lotufo", "ano": 2020, "url": "https://github.com/neuralmind-ai/portuguese-bert"}
+    ],
+    "bezerra_publico_encontrado": {
+      "tem_material": true,
+      "onde": [
+        "PDF Aula 1 BSBr slide 06 - lista 'Stakeholders' como um dos 5 dominios de pratica do padrao PMI para IA em PPPM",
+        "PDF Aula 1 BSBr slide 14 - Mapa inicial bloco 'Riscos' cita 'resistencia das equipes' como risco categorizado"
+      ],
+      "citacao_util": "Bezerra tem 'Stakeholders' como dominio raiz (slide 06) e coloca 'resistencia das equipes' como risco no mapa Alfa (slide 14). O piloto ataca a interseccao Stakeholders x Riscos - dominio que ele nomeia mas nao instrumentaliza no case."
+    }
+  }
+]

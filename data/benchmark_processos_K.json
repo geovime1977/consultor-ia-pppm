@@ -1,0 +1,211 @@
+[
+  {
+    "processo_id": "6.4",
+    "processo_nome": "Liderar a Equipe",
+    "area": "Recursos",
+    "grupo": "Execução",
+    "pilotos_primarios": [],
+    "justificativa_ausencia_piloto": "Liderar a Equipe é processo eminentemente humano (Power Skills PMI). Assistentes conversacionais (BetterUp, Torch) e sentiment analysis podem apoiar o líder, mas o processo permanece humano.",
+    "metricas": [
+      {"nome": "Índice de engajamento da equipe (eNPS ou pulse survey)", "unidade": "eNPS (-100 a +100) ou % favorável", "formula": "eNPS = %promotores - %detratores", "baseline_mercado": {"valor": "eNPS médio global 12-20; Gallup Q12: 23% engajamento global e 33% nos EUA 2023-2024", "fonte": "Gallup State of the Global Workplace 2024", "url": "https://www.gallup.com/workplace/349484/state-of-the-global-workplace.aspx", "confianca": "alta"}, "meta_com_ia": {"valor": "eNPS +30 a +45 / pulse 75-85% (líder apoiado por sentiment + coaching AI + feedback contínuo)", "fonte": "BetterUp 'Connection Crisis' 2023 + Josh Bersin 2024", "url": "https://www.betterup.com/blog/the-connection-crisis", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~1.5-2x (correlacional, não causal isolado)"},
+      {"nome": "Turnover voluntário da equipe do projeto em 12 meses", "unidade": "% saídas voluntárias / headcount médio", "formula": "(saídas voluntárias no período / headcount médio) * 100", "baseline_mercado": {"valor": "13% a 24% ao ano (global 2023-2024; tech BR 20-30% pré-crise, 10-15% pós)", "fonte": "LinkedIn Workforce Report 2024 + PwC Global Workforce Hopes and Fears 2024", "url": "https://www.pwc.com/gx/en/issues/workforce/hopes-and-fears.html", "confianca": "alta"}, "meta_com_ia": {"valor": "5% a 12% (early-warning de disengagement + coaching estruturado + 1:1 assistido)", "fonte": "Deloitte Global Human Capital Trends 2024 + McKinsey Great Attrition 2023", "url": "https://www.deloitte.com/global/en/issues/work/content/human-capital-trends.html", "confianca": "media"}, "reducao_percentual": "40% a 60%"},
+      {"nome": "Tempo médio de resolução de conflito interno da equipe", "unidade": "dias entre escalation e resolução", "formula": "média(data_resolução - data_escalation) por trimestre", "baseline_mercado": {"valor": "15 a 45 dias (CPP: ~2.8h/semana perdidas em conflito)", "fonte": "CPP Global Human Capital Report — Workplace Conflict", "url": "https://img.en25.com/Web/CPP/Conflict_report.pdf", "confianca": "media"}, "meta_com_ia": {"valor": "3 a 10 dias (sentiment detecta atrito antes de escalation + facilitação estruturada)", "fonte": "MIT Sloan 'AI-Augmented Team Leadership' 2023 + Microsoft Viva Insights", "url": "https://sloanreview.mit.edu/article/how-ai-changes-the-role-of-middle-managers/", "confianca": "baixa"}, "reducao_percentual": "70% a 85%"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "pulse_survey_json_csv", "descricao": "Respostas de pulse survey (Officevibe, Culture Amp, Peakon)", "exemplo_estrutura": "respondent_id_anon | data | item_id | escala_1_5 | comentario_livre | dimensao"},
+      {"tipo": "chat_teams_slack_json", "descricao": "Export de canal para sentiment analysis AGREGADO (LGPD estrita — nunca individual)", "exemplo_estrutura": "array: {ts, channel, thread_id, msg_hash, sentiment_score, reactions_count} — sem texto identificável"},
+      {"tipo": "onenone_notas_md", "descricao": "Notas de 1:1 entre líder e liderado", "exemplo_estrutura": "cabeçalho: líder, liderado, data; temas, compromissos, evolução do PDI, feedbacks"},
+      {"tipo": "hris_headcount_csv", "descricao": "Base HRIS (Gupy, Kenoby, SAP SF) com headcount, saídas, motivo", "exemplo_estrutura": "colaborador_id_anon | projeto | senioridade | data_entrada | data_saida | tipo_saida | motivo_codificado"},
+      {"tipo": "avaliacao_360_xlsx", "descricao": "Avaliação 360º do líder (agregada, nunca individual)", "exemplo_estrutura": "líder_id | competência | score_medio_time | n_respondentes | percentil_org"}
+    ],
+    "ferramentas_stack": ["Python (pandas para agregação anônima)", "Streamlit (dashboard do líder — NUNCA individual)", "Culture Amp / Officevibe / Peakon (pulse)", "Microsoft Viva Insights", "BetterUp / Torch (coaching AI complementar)", "Power BI (visão RH)"],
+    "riscos_de_medicao": [
+      "LGPD/PL 2338 forte: dados HR e sentiment são categoria sensível — anonimização agregada obrigatória (min 5 respondentes por corte), DPIA formal",
+      "Efeito Big Brother: sentiment em chat pode virar vigilância — política clara, opt-in, sem análise individual",
+      "Correlação vs causalidade: engajamento sobe por macro, não pelo piloto — usar grupo-controle",
+      "Gaming: líder pede time para responder pulse positivo — auditar padrão temporal suspeito",
+      "Efeito Hawthorne: decai após 90 dias",
+      "Vieses NLP: ptBR tem 5-15% menos acurácia que EN — validar com BERTimbau + HITL",
+      "Substituição perigosa: líder delega feedback difícil ao coach AI — degradação de vínculo (contra Power Skills)"
+    ],
+    "fontes_completas": [
+      {"tipo": "standard", "titulo": "The Standard for AI in PPPM — Team Leadership", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "relatorio", "titulo": "PMI Pulse 2023 — Power Skills", "url": "https://www.pmi.org/learning/thought-leadership/pulse/power-skills-redefining-project-success"},
+      {"tipo": "relatorio", "titulo": "Gallup State of the Global Workplace 2024", "url": "https://www.gallup.com/workplace/349484/state-of-the-global-workplace.aspx"},
+      {"tipo": "relatorio", "titulo": "Deloitte Global Human Capital Trends 2024", "url": "https://www.deloitte.com/global/en/issues/work/content/human-capital-trends.html"},
+      {"tipo": "relatorio", "titulo": "PwC Workforce Hopes and Fears 2024", "url": "https://www.pwc.com/gx/en/issues/workforce/hopes-and-fears.html"},
+      {"tipo": "relatorio", "titulo": "McKinsey Great Attrition 2023", "url": "https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/the-great-attrition-is-making-hiring-harder-are-you-searching-the-right-talent-pools"},
+      {"tipo": "relatorio", "titulo": "BetterUp Connection Crisis 2023", "url": "https://www.betterup.com/blog/the-connection-crisis"},
+      {"tipo": "relatorio", "titulo": "CPP Global Human Capital Report", "url": "https://img.en25.com/Web/CPP/Conflict_report.pdf"},
+      {"tipo": "artigo", "titulo": "MIT Sloan — AI and Middle Managers", "url": "https://sloanreview.mit.edu/article/how-ai-changes-the-role-of-middle-managers/"},
+      {"tipo": "regulacao", "titulo": "LGPD + PL 2338/2023 (Marco IA)", "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"}
+    ]
+  },
+  {
+    "processo_id": "6.5",
+    "processo_nome": "Monitorar e Controlar Recursos",
+    "area": "Recursos",
+    "grupo": "Monitoramento e Controle",
+    "pilotos_primarios": ["monitor-utilizacao-equipe"],
+    "metricas": [
+      {"nome": "Utilização média da equipe vs. capacidade teórica", "unidade": "% (horas apontadas / horas disponíveis)", "formula": "(horas produtivas apontadas / horas úteis disponíveis) * 100 por recurso/semana", "baseline_mercado": {"valor": "faixa saudável 70-85%; média real 55-75% em consultorias/agências", "fonte": "SPI Research 'Professional Services Maturity Benchmark 2024'", "url": "https://spiresearch.com/benchmarking/", "confianca": "media"}, "meta_com_ia": {"valor": "utilização estável 72-82% + variância intra-time -40 a -60% (redistribuição via ML)", "fonte": "Deltek Vantagepoint + Kantata 2024", "url": "https://www.deltek.com/en/products/professional-services/vantagepoint", "confianca": "baixa"}, "reducao_percentual": "Utilização 10-15% mais alta E variância -40 a -60%"},
+      {"nome": "Prevalência de burnout autodeclarado (proxy: >55h/semana crônico >4 semanas)", "unidade": "% da equipe em zona de risco", "formula": "(colaboradores com sinal de risco no trimestre / headcount) * 100", "baseline_mercado": {"valor": "42% dos trabalhadores globais reportam burnout; 59% em tech (Microsoft 2024); pré-pandemia ~28%", "fonte": "Microsoft Work Trend Index 2024 + Gallup Wellbeing 2023", "url": "https://www.microsoft.com/en-us/worklab/work-trend-index", "confianca": "alta"}, "meta_com_ia": {"valor": "redução para 15-25% (early-warning + intervenção + rebalanceamento)", "fonte": "Deloitte Workplace Burnout Survey + Josh Bersin 2024", "url": "https://www.deloitte.com/us/en/insights/topics/talent/employee-burnout.html", "confianca": "baixa"}, "reducao_percentual": "40% a 60%"},
+      {"nome": "Antecedência da previsão de gargalo de recurso crítico", "unidade": "semanas entre alerta e materialização", "formula": "média(data_gargalo_materializado - data_alerta_HITL)", "baseline_mercado": {"valor": "0 a 2 semanas (reativo — capacity planning manual mensal)", "fonte": "PMI Talent Gap Report 2021 + Wellingtone 2023", "url": "https://www.pmi.org/learning/careers/talent-gap-2021", "confianca": "media"}, "meta_com_ia": {"valor": "4 a 8 semanas (ML sobre pipeline + skill matrix + disponibilidade)", "fonte": "Kantata / Deltek Vantagepoint + Anaplan Workforce Planning", "url": "https://www.kantata.com/resources", "confianca": "baixa"}, "reducao_percentual": "Antecipação ganha 4-8 semanas — janela viável para realocação"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "timesheet_csv_xlsx", "descricao": "Apontamentos por recurso × projeto × atividade (fonte primária)", "exemplo_estrutura": "data | recurso_id_anon | projeto | atividade | horas | tipo | tag_esforco (normal/hora_extra)"},
+      {"tipo": "calendario_ics_api", "descricao": "Calendário Outlook/Google para densidade de reunião (agregado)", "exemplo_estrutura": "{recurso_id, data, minutos_reuniao, n_reunioes, minutos_focus_time, minutos_pos_expediente}"},
+      {"tipo": "sinais_dev_api_json", "descricao": "Cadência commits/PRs via Jira/ADO/GitHub API", "exemplo_estrutura": "{recurso_id, semana, commits, PRs_abertos, PRs_revisados, cycle_time_medio}"},
+      {"tipo": "chat_metadata_agregado_json", "descricao": "SOMENTE metadados agregados (LGPD: nunca conteúdo)", "exemplo_estrutura": "{recurso_id_anon, semana, msgs_enviadas_bin, msgs_pos_20h_bin, resposta_media_min, dias_ativos}"},
+      {"tipo": "hris_capacity_csv", "descricao": "FTE, férias, licenças, disponibilidade contratada", "exemplo_estrutura": "recurso_id | senioridade | skills | FTE | ferias_planejadas | data_disponivel_ate | custo_hora"},
+      {"tipo": "pulse_wellbeing_json", "descricao": "Pulse com dimensão wellbeing/carga (validação HITL)", "exemplo_estrutura": "respondent_anon | data | q_carga_1_5 | q_wellbeing_1_5 | q_energia_1_5"}
+    ],
+    "ferramentas_stack": ["Python (pandas, scikit-learn — Random Forest, XGBoost)", "Streamlit (dashboard do gerente com semáforo)", "Deltek Vantagepoint / Kantata (capacity planning)", "Microsoft Viva Insights", "Anaplan (workforce planning)", "Power BI", "n8n / Power Automate"],
+    "riscos_de_medicao": [
+      "LGPD CRÍTICO: burnout tangencia dado de saúde (categoria sensível); DPIA obrigatória, consentimento explícito, retenção curta",
+      "Efeito Big Brother: colaborador esconde carga real — comunicar propósito de bem-estar, não punitivo",
+      "Falso positivo epidêmico: 'msgs após 20h' têm alta variância pessoal — calibrar por baseline individual + HITL",
+      "Gaming: gerente esconde dado — auditar consistência timesheet vs calendário vs commits",
+      "Desigualdade de fontes: time comercial não tem commit — pipelines segmentados por função",
+      "Preconceito algorítmico: pode penalizar mães ou PCDs — auditoria de fairness obrigatória",
+      "Substituição perigosa: gerente delega leitura ao dashboard — degradação do vínculo (contra 6.4)",
+      "Deriva de modelo: retreinar trimestralmente"
+    ],
+    "fontes_completas": [
+      {"tipo": "standard", "titulo": "The Standard for AI in PPPM — Resource M&C", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "relatorio", "titulo": "Microsoft Work Trend Index 2024", "url": "https://www.microsoft.com/en-us/worklab/work-trend-index"},
+      {"tipo": "relatorio", "titulo": "Deloitte Workplace Burnout Survey", "url": "https://www.deloitte.com/us/en/insights/topics/talent/employee-burnout.html"},
+      {"tipo": "relatorio", "titulo": "Gallup Wellbeing at Work 2023", "url": "https://www.gallup.com/workplace/336275/wellbeing-work.aspx"},
+      {"tipo": "relatorio", "titulo": "PMI Talent Gap Report 2021", "url": "https://www.pmi.org/learning/careers/talent-gap-2021"},
+      {"tipo": "relatorio", "titulo": "SPI Research 2024", "url": "https://spiresearch.com/benchmarking/"},
+      {"tipo": "vendor", "titulo": "Deltek Vantagepoint", "url": "https://www.deltek.com/en/products/professional-services/vantagepoint"},
+      {"tipo": "vendor", "titulo": "Kantata (Mavenlink)", "url": "https://www.kantata.com/resources"},
+      {"tipo": "vendor", "titulo": "Anaplan Workforce Planning", "url": "https://www.anaplan.com/solutions/workforce-planning/"},
+      {"tipo": "vendor", "titulo": "Microsoft Viva Insights", "url": "https://www.microsoft.com/en-us/microsoft-viva/insights"},
+      {"tipo": "regulacao", "titulo": "LGPD + Enunciados TST sobre monitoramento", "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"}
+    ]
+  },
+  {
+    "processo_id": "7.1",
+    "processo_nome": "Planejar o Gerenciamento de Riscos",
+    "area": "Riscos",
+    "grupo": "Planejamento",
+    "pilotos_primarios": [],
+    "justificativa_ausencia_piloto": "7.1 é processo de governança: define metodologia, papéis, matriz P×I, tolerâncias, ciclos. Não é atividade recorrente — é setup. Piloto radar-riscos-atrasos aciona a partir de 7.2 em diante.",
+    "metricas": [
+      {"nome": "Aderência da metodologia definida à Practice Standard PMI e ATOM", "unidade": "% de itens obrigatórios cobertos", "formula": "(itens do checklist PMI+ATOM presentes / total do checklist) * 100", "baseline_mercado": {"valor": "40% a 65% (planos herdados de projetos anteriores)", "fonte": "Hillson & Simon ATOM + PMI Practice Standard for Risk", "url": "https://www.pmi.org/standards/risk-management", "confianca": "media"}, "meta_com_ia": {"valor": "85% a 98% (LLM valida contra checklist + sugere seções faltantes)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~1.7x na completude"},
+      {"nome": "Tempo de ciclo para produzir plano de gerenciamento de riscos aprovado", "unidade": "dias úteis", "formula": "média(data_aprovacao - data_kickoff)", "baseline_mercado": {"valor": "10 a 30 dias úteis (workshop + rounds de revisão)", "fonte": "Wellingtone State of PM 2023 + APM BoK 7th", "url": "https://wellingtone.co.uk/wp-content/uploads/2023/06/The-State-of-Project-Management-2023.pdf", "confianca": "media"}, "meta_com_ia": {"valor": "2 a 7 dias úteis (template pré-preenchido por LLM + revisão HITL)", "fonte": "Gartner Hype Cycle for PPM 2024 + McKinsey State of AI 2024", "url": "https://www.gartner.com/en/documents/hype-cycle-for-project-and-portfolio-management", "confianca": "baixa"}, "reducao_percentual": "70% a 85%"},
+      {"nome": "Calibração da matriz P×I usando histórico organizacional", "unidade": "% de células calibradas com dados reais", "formula": "(células com prob_histórica + impacto_$ documentado / total de células) * 100", "baseline_mercado": {"valor": "0% a 20% (matriz herdada de template PMI sem calibração local)", "fonte": "Budzier & Flyvbjerg 'Outliers in PM' (2013)", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2229175", "confianca": "media"}, "meta_com_ia": {"valor": "60% a 85% (ML sobre base de riscos materializados)", "fonte": "Deltek Acumen Risk + Predict! Risk Controller 2024", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/risk", "confianca": "baixa"}, "reducao_percentual": "Passa de matriz decorativa (~10%) para auditável (~75%)"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "template_plano_riscos_docx", "descricao": "Template corporativo (ou PMI/ATOM em branco)", "exemplo_estrutura": "metodologia, papéis, escala P×I, categorias (RBS), ciclo de reavaliação, tolerâncias, reporting"},
+      {"tipo": "historico_riscos_materializados_csv", "descricao": "Base histórica para calibrar matriz P×I", "exemplo_estrutura": "id_risco | projeto | categoria | prob_estimada | materializou (0/1) | impacto_$ | data_evento | setor"},
+      {"tipo": "raid_log_projetos_anteriores_xlsx", "descricao": "RAID de projetos anteriores similares", "exemplo_estrutura": "id | descrição | categoria | prob | impacto | severidade | plano_resposta | efetividade_plano"},
+      {"tipo": "contexto_projeto_docx_md", "descricao": "Contexto: setor, porte, complexidade, restrições, patrocinador", "exemplo_estrutura": "sobre o projeto, patrocínio, escopo, prazo, orçamento, dependências, apetite a risco"},
+      {"tipo": "rbs_estrutura_analitica_risco_json", "descricao": "Estrutura Analítica de Riscos (RBS) corporativa", "exemplo_estrutura": "árvore: {nivel_1, nivel_2, nivel_3, exemplos_por_folha}"},
+      {"tipo": "politica_apetite_risco_pdf", "descricao": "Política corporativa de apetite e tolerância", "exemplo_estrutura": "categorias × tolerância × limite financeiro/prazo por severidade"}
+    ],
+    "ferramentas_stack": ["Streamlit (assistente wizard)", "Azure OpenAI / AWS Bedrock", "Python (pandas para análise histórica)", "Deltek Acumen Risk (calibração de matriz)", "Predict! Risk Controller", "Power BI"],
+    "riscos_de_medicao": [
+      "Plano decorativo: aderência formal ao checklist sem uso prático — auditar em 7.6 se guia decisões",
+      "Calibração falsa: usar histórico ruim — validar com especialistas antes de publicar",
+      "Sobreajuste ao setor: matriz óleo&gás não serve para SaaS — segmentar por vertical",
+      "Ancoragem no template PMI — variar prompts e comparar com ATOM/APM",
+      "LGPD: histórico pode ter dados de fornecedores/clientes — anonimizar antes do treino",
+      "Cerimônia sem substância: gastar 3 dias no plano e abandonar — medir uso ativo primeiros 60 dias"
+    ],
+    "fontes_completas": [
+      {"tipo": "standard", "titulo": "PMI Practice Standard for Project Risk Management", "url": "https://www.pmi.org/standards/risk-management"},
+      {"tipo": "standard", "titulo": "PMI Standard for AI in PPPM 2026 — Risk Planning", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "livro", "titulo": "Practical Project Risk Management ATOM (Hillson & Simon)", "url": "https://www.pmi.org/learning/library/atom-methodology-effective-approach-project-risk-6790"},
+      {"tipo": "livro", "titulo": "APM Body of Knowledge 7th Edition — Risk", "url": "https://www.apm.org.uk/body-of-knowledge/"},
+      {"tipo": "paper", "titulo": "Budzier & Flyvbjerg — Outliers in PM 2013", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2229175"},
+      {"tipo": "relatorio", "titulo": "Wellingtone 2023", "url": "https://wellingtone.co.uk/wp-content/uploads/2023/06/The-State-of-Project-Management-2023.pdf"},
+      {"tipo": "vendor", "titulo": "Deltek Acumen Risk", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/risk"},
+      {"tipo": "vendor", "titulo": "Predict! Risk Controller", "url": "https://www.riskdecisions.com/predict-risk-controller"}
+    ]
+  },
+  {
+    "processo_id": "7.4",
+    "processo_nome": "Planejar Respostas aos Riscos",
+    "area": "Riscos",
+    "grupo": "Planejamento",
+    "pilotos_primarios": ["radar-riscos-atrasos"],
+    "metricas": [
+      {"nome": "Percentual de riscos com estratégia de resposta explícita e viável", "unidade": "% dos riscos altos/médios com estratégia formal (evitar/transferir/mitigar/aceitar/explorar)", "formula": "(riscos altos+médios com estratégia + owner + reserva / total altos+médios) * 100", "baseline_mercado": {"valor": "35% a 55% (planos superficiais 'monitorar' sem estratégia ATOM)", "fonte": "Hillson & Simon ATOM + PMI Practice Standard for Risk", "url": "https://www.pmi.org/learning/library/atom-methodology-effective-approach-project-risk-6790", "confianca": "media"}, "meta_com_ia": {"valor": "80% a 95% (LLM sugere estratégias por categoria + HITL valida)", "fonte": "Deltek Acumen Risk + Predict! Risk Controller 2024", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/risk", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~2x (~45% → ~87%)"},
+      {"nome": "Custo da reserva de contingência calibrada vs. reserva por regra de bolso", "unidade": "% do custo total do projeto", "formula": "reserva_contingencia / custo_baseline * 100", "baseline_mercado": {"valor": "5% a 15% (regra de bolso 10% padrão sem calibração real)", "fonte": "AACE RP 40R-08 + Flyvbjerg 'How Big Things Get Done' (2023)", "url": "https://web.aacei.org/resources/publications/recommended-practices", "confianca": "media"}, "meta_com_ia": {"valor": "calibrada por Monte Carlo em P50/P80 — 8-22% variando por classe (revela subprovisionamento)", "fonte": "Palisade @RISK + Safran Risk case studies + Flyvbjerg RCF", "url": "https://www.palisade.com/risk/", "confianca": "media"}, "reducao_percentual": "Diferença de +30% a +80% em relação à regra de bolso — normalmente PARA CIMA"},
+      {"nome": "Tempo de ciclo para produzir plano de resposta consolidado por risco", "unidade": "horas de trabalho analista + comitê por risco significativo", "formula": "média(horas do analista + horas do comitê) por risco alto/médio", "baseline_mercado": {"valor": "4 a 12 horas por risco (brainstorm manual + validação em comitê)", "fonte": "PMI Practice Standard for Risk + Wellingtone 2023", "url": "https://www.pmi.org/standards/risk-management", "confianca": "baixa"}, "meta_com_ia": {"valor": "0.5 a 2 horas por risco (LLM propõe 3 estratégias com prós/contras + custo + owner sugerido)", "fonte": "PMI Standard for AI in PPPM 2026 + Deltek Acumen Risk workflows", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "75% a 90%"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "raid_log_analisado_json_xlsx", "descricao": "RAID log já qualificado no 7.3 (P×I, Monte Carlo, severidade)", "exemplo_estrutura": "id | descrição | categoria | prob | impacto | severidade | P50_impacto_$ | P80_impacto_$ | plano_resposta_atual"},
+      {"tipo": "base_respostas_historicas_csv", "descricao": "Biblioteca corporativa de respostas eficazes por categoria", "exemplo_estrutura": "categoria_risco | estrategia | acao_especifica | custo_medio | efetividade_medida (%) | contexto_setor"},
+      {"tipo": "orcamento_reservas_xlsx", "descricao": "Orçamento com estrutura de reservas (contingência + gerencial)", "exemplo_estrutura": "pacote | custo_baseline | reserva_contingencia_$ | reserva_gerencial_$ | metodologia_calculo"},
+      {"tipo": "premissas_restricoes_docx", "descricao": "Premissas e restrições (LLM usa para propor respostas viáveis)", "exemplo_estrutura": "premissas técnicas, prazos inflexíveis, restrições contratuais, apetite a risco"},
+      {"tipo": "matriz_skills_orcamento_json", "descricao": "Matriz de skills + orçamento discricionário para atribuir owners", "exemplo_estrutura": "recurso | skills | disponibilidade | custo_hora | teto_orcamento_discricionario"},
+      {"tipo": "contratos_seguros_pdf", "descricao": "Contratos e apólices (transferência já cobre parte?)", "exemplo_estrutura": "cláusulas de responsabilidade, penalidades, seguros contratados, limites de cobertura"}
+    ],
+    "ferramentas_stack": ["Python + LangChain (RAG sobre biblioteca)", "Streamlit (cartão de resposta com HITL)", "Deltek Acumen Risk", "Palisade @RISK / Safran Risk (Monte Carlo)", "Azure OpenAI (LLM ptBR)", "Power BI", "Predict! Risk Controller"],
+    "riscos_de_medicao": [
+      "Respostas genéricas: LLM sugere 'monitorar' para tudo — forçar diversidade por categoria",
+      "Owner nominal sem accountability — exigir aceite formal + prazo",
+      "Reserva de contingência viés otimista: comitê corta calibrada — auditar delta calibrada vs aprovada",
+      "Double-counting: mesmo risco com mitigação e contingência somando 2x — validar exclusividade",
+      "Estratégia inviável: LLM propõe transferir sem cotação de seguro — HITL comercial obrigatório",
+      "Deriva ATOM: perder rigor metodológico — auditar aderência trimestral",
+      "LGPD: base histórica pode ter dados de fornecedores — anonimizar"
+    ],
+    "fontes_completas": [
+      {"tipo": "standard", "titulo": "PMI Practice Standard for Project Risk Management", "url": "https://www.pmi.org/standards/risk-management"},
+      {"tipo": "standard", "titulo": "PMI Standard for AI in PPPM 2026 — Risk Response", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "livro", "titulo": "ATOM Methodology (Hillson & Simon)", "url": "https://www.pmi.org/learning/library/atom-methodology-effective-approach-project-risk-6790"},
+      {"tipo": "livro", "titulo": "How Big Things Get Done (Flyvbjerg & Gardner 2023)", "url": "https://sites.google.com/view/bentflyvbjerg/publications"},
+      {"tipo": "standard", "titulo": "AACE International RP 40R-08 Contingency Estimating", "url": "https://web.aacei.org/resources/publications/recommended-practices"},
+      {"tipo": "vendor", "titulo": "Palisade @RISK", "url": "https://www.palisade.com/risk/"},
+      {"tipo": "vendor", "titulo": "Safran Risk", "url": "https://www.safran.com/software/safran-risk"},
+      {"tipo": "vendor", "titulo": "Deltek Acumen Risk", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/risk"},
+      {"tipo": "vendor", "titulo": "Predict! Risk Controller", "url": "https://www.riskdecisions.com/predict-risk-controller"}
+    ]
+  },
+  {
+    "processo_id": "7.5",
+    "processo_nome": "Implementar Respostas aos Riscos",
+    "area": "Riscos",
+    "grupo": "Execução",
+    "pilotos_primarios": ["radar-riscos-atrasos"],
+    "metricas": [
+      {"nome": "Percentual de respostas planejadas efetivamente executadas no prazo", "unidade": "% ações de resposta com evidência de execução no prazo", "formula": "(ações concluídas até prazo com evidência / total planejadas ativas) * 100", "baseline_mercado": {"valor": "35% a 55% (planos ficam no papel; ATOM: gap de execução é maior fonte de risco secundário)", "fonte": "Hillson & Simon ATOM + PMI Pulse 2023", "url": "https://www.pmi.org/learning/library/atom-methodology-effective-approach-project-risk-6790", "confianca": "media"}, "meta_com_ia": {"valor": "75% a 92% (workflow automatizado + lembrete + escalation + auditoria evidência)", "fonte": "Deltek Acumen Risk + n8n/Power Automate + Predict!", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/risk", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~1.8x (~45% → ~83%)"},
+      {"nome": "Efetividade das respostas — redução real da severidade pós-implementação", "unidade": "% de redução na severidade média (P×I ou impacto $) dos riscos tratados", "formula": "(severidade_pre - severidade_pos) / severidade_pre * 100 (60-90 dias após)", "baseline_mercado": {"valor": "10% a 30% (sem medição formal — ATOM: <40% das organizações mede efetividade)", "fonte": "Hillson 'Effective Opportunity Management' + PMI Practice Standard", "url": "https://www.pmi.org/standards/risk-management", "confianca": "baixa"}, "meta_com_ia": {"valor": "40% a 70% (medição sistemática pré/pós + aprendizado realimenta biblioteca)", "fonte": "PMI Standard for AI in PPPM 2026 + Deltek Acumen Risk", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~2x a 2.5x na efetividade"},
+      {"nome": "Emergência de riscos secundários e residuais tratados", "unidade": "% de riscos secundários/residuais catalogados e endereçados", "formula": "(riscos secundários/residuais com registro + plano / total identificados) * 100", "baseline_mercado": {"valor": "20% a 40% (equipes tratam risco original e esquecem secundários)", "fonte": "PMI Practice Standard for Risk + Hillson ATOM", "url": "https://www.pmi.org/standards/risk-management", "confianca": "media"}, "meta_com_ia": {"valor": "75% a 90% (LLM propõe 'quais secundários esta resposta introduz?' automaticamente)", "fonte": "PMI Standard for AI in PPPM 2026", "url": "https://www.pmi.org/standards/ai-in-pppm", "confianca": "baixa"}, "reducao_percentual": "Aumento de ~2.5x"}
+    ],
+    "formatos_entrada_dados": [
+      {"tipo": "raid_log_planos_resposta_json_xlsx", "descricao": "RAID log com planos aprovados no 7.4 e status", "exemplo_estrutura": "id_risco | resposta_planejada | owner | prazo | status | evidencia_link | data_inicio | data_conclusao"},
+      {"tipo": "tarefas_workflow_api_json", "descricao": "Tarefas espelhadas como issues em Jira/ADO/ClickUp", "exemplo_estrutura": "{issue_key, risco_id_pai, owner, prazo, status, comentarios[], anexos[]}"},
+      {"tipo": "evidencias_execucao_pdf_imagem", "descricao": "Evidências anexadas (foto, contrato, apólice, PR mergeado, ata)", "exemplo_estrutura": "{risco_id, tipo_evidencia, arquivo, data_upload, validado_por, hash_arquivo}"},
+      {"tipo": "monte_carlo_pre_pos_json", "descricao": "Simulação Monte Carlo pré e pós-implementação", "exemplo_estrutura": "{risco_id, P50_pre, P80_pre, P50_pos, P80_pos, delta_reducao_%, data_medicao}"},
+      {"tipo": "logs_riscos_materializados_csv", "descricao": "Log de riscos que materializaram apesar do plano", "exemplo_estrutura": "risco_id | plano_executado (0/1) | materializou (0/1) | impacto_real_$ | causa_raiz_falha_plano"},
+      {"tipo": "biblioteca_respostas_efetividade_csv", "descricao": "Base histórica de respostas × efetividade (retroalimenta 7.4)", "exemplo_estrutura": "estrategia | acao_especifica | contexto_setor | efetividade_% | custo_real_$ | tempo_execucao_dias"}
+    ],
+    "ferramentas_stack": ["Python (pandas para tracking)", "Streamlit (kanban HITL com evidências)", "n8n / Power Automate (esteira de atribuição + lembrete + escalation)", "Jira / Azure DevOps", "Deltek Acumen Risk (medição pré/pós)", "Palisade @RISK (Monte Carlo)", "Power BI (dashboard efetividade)"],
+    "riscos_de_medicao": [
+      "Gaming: owner marca 'concluído' sem evidência — exigir upload + validação HITL",
+      "Efetividade teatral: severidade cai no papel mas risco continua real — auditar materializados vs plano",
+      "Riscos secundários ignorados: LLM proativo em propor 'quais secundários?'",
+      "Reserva de contingência consumida sem controle — governança por severidade",
+      "Fadiga de execução: excesso de ações — priorizar por severidade × custo × prazo",
+      "Deriva de aprendizado: retroalimentar trimestralmente com HITL",
+      "LGPD: evidências podem ter dados pessoais — política de retenção",
+      "Substituição de julgamento: HITL obrigatório em respostas de custo > threshold"
+    ],
+    "fontes_completas": [
+      {"tipo": "standard", "titulo": "PMI Practice Standard for Project Risk Management", "url": "https://www.pmi.org/standards/risk-management"},
+      {"tipo": "standard", "titulo": "PMI Standard for AI in PPPM 2026 — Implement Risk Responses", "url": "https://www.pmi.org/standards/ai-in-pppm"},
+      {"tipo": "livro", "titulo": "ATOM Methodology (Hillson & Simon)", "url": "https://www.pmi.org/learning/library/atom-methodology-effective-approach-project-risk-6790"},
+      {"tipo": "livro", "titulo": "Effective Opportunity Management (Hillson)", "url": "https://www.routledge.com/Effective-Opportunity-Management-for-Projects-Exploiting-Positive-Risk/Hillson/p/book/9780824748081"},
+      {"tipo": "vendor", "titulo": "Deltek Acumen Risk", "url": "https://www.deltek.com/en/products/project-and-portfolio-management/acumen/risk"},
+      {"tipo": "vendor", "titulo": "Safran Risk", "url": "https://www.safran.com/software/safran-risk"},
+      {"tipo": "vendor", "titulo": "Palisade @RISK", "url": "https://www.palisade.com/risk/"},
+      {"tipo": "vendor", "titulo": "Predict! Risk Controller", "url": "https://www.riskdecisions.com/predict-risk-controller"},
+      {"tipo": "regulacao", "titulo": "LGPD Lei 13.709/2018", "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"}
+    ]
+  }
+]

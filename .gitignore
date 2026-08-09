@@ -1,0 +1,25 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+.env
+.env.local
+
+output/
+*.pdf
+!docs/*.pdf
+!pacote-entrega/*.pdf
+pacote-entrega/diag-ia-pppm.zip
+
+.DS_Store
+.idea/
+.vscode/
+
+# Backups temporários
+data/*.bak.*
