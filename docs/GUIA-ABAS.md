@@ -16,6 +16,7 @@ Este documento é a referência oficial das abas do app. Publicado junto com o r
 | 8 | Comparar | Aula 1 | Radar + heatmap Plotly cruzando projetos cadastrados (portfólio) |
 | **9** | **Priorização (Aula 2)** | **Aula 2** | Score executivo 30/20/20/15/15 + matriz Impacto×Viabilidade + 5 erros embutidos + top 3 |
 | **10** | **Governança + HITL (Aula 2)** | **Aula 2** | Checklist segurança + rastro 5 passos + nível HITL puxado do impacto |
+| **11** | **Auto-preencher (upload)** | Extra | Upload de PDF/DOCX/TXT com auto-preenchimento sugerido de contexto, mapa e casos via IA (OpenAI, opcional) ou heurística determinística (fallback) |
 
 ## Aula 2 tem duas abas, não uma
 

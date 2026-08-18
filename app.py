@@ -15,6 +15,7 @@ from src import (
     projetos,
     recomendador,
     state,
+    upload_ui,
 )
 from src.config import MOSTRAR_PO_UI
 from src.diagnostico import DIMENSOES, rotulo_dimensao
@@ -74,6 +75,7 @@ tabs = st.tabs(
         "8. Comparar",
         "9. Priorização (Aula 2)",
         "10. Governança + HITL (Aula 2)",
+        "11. Auto-preencher (upload)",
     ]
 )
 
@@ -195,3 +197,6 @@ with tabs[8]:
 
 with tabs[9]:
     governanca_ui.render()
+
+with tabs[10]:
+    upload_ui.render()
