@@ -8,20 +8,47 @@ from src import priorizacao_ui, upload_documento
 
 
 def _painel_status_chave() -> None:
-    if upload_documento.api_key_disponivel():
-        st.success(
-            "🔑 Chave OpenAI detectada — as sugestões vão ser feitas por IA "
-            "(modelo `gpt-4o-mini`, baixo custo)."
+    with st.container(border=True):
+        st.markdown("### 🔑 Chave de IA (Groq — grátis)")
+        st.caption(
+            "Cada aluno usa a **própria chave** — não sobrecarrega o app e não "
+            "custa nada. **[Criar chave grátis em console.groq.com/keys ↗](https://console.groq.com/keys)** "
+            "(30 seg, só precisa de e-mail). "
+            "A chave fica só na sua sessão do navegador; para não digitar toda "
+            "vez, marque a opção de salvar no JSON de projeto (aba Projetos)."
         )
-    else:
-        st.warning(
-            "⚠️ **Sem chave OpenAI configurada.** O upload ainda funciona, "
-            "mas as sugestões usam apenas heurísticas simples (regex + keywords). "
-            "Para ativar a IA:\n\n"
-            "1. Peça ao dono do app (ou você) configurar `OPENAI_API_KEY` "
-            "em **Settings → Secrets** do Streamlit Cloud.\n"
-            "2. Ou defina a variável de ambiente `OPENAI_API_KEY` se rodando local."
+        chave_atual = st.session_state.get(upload_documento.STATE_KEY_GROQ, "")
+        nova = st.text_input(
+            "Sua chave Groq (começa com `gsk_...`)",
+            value=chave_atual,
+            type="password",
+            key="groq_key_input",
+            placeholder="gsk_...",
+            help="Chave grátis do Groq. Nunca sai da sua sessão do navegador."
         )
+        col_a, col_b = st.columns(2)
+        if col_a.button("💾 Usar essa chave nesta sessão", use_container_width=True):
+            st.session_state[upload_documento.STATE_KEY_GROQ] = (nova or "").strip()
+            if st.session_state[upload_documento.STATE_KEY_GROQ]:
+                st.success("Chave salva na sessão. Vai ser usada nos próximos uploads.")
+            else:
+                st.info("Chave removida. Uploads voltam a usar só heurística.")
+            st.rerun()
+        if col_b.button("🗑 Esquecer chave", use_container_width=True):
+            st.session_state.pop(upload_documento.STATE_KEY_GROQ, None)
+            st.rerun()
+
+        if upload_documento.api_key_disponivel():
+            st.success(
+                "🟢 IA ativa (Groq · `llama-3.3-70b-versatile`) — sugestões "
+                "ricas incluindo casos de uso da Aula 2."
+            )
+        else:
+            st.warning(
+                "🟡 Sem chave — o upload ainda funciona, mas as sugestões usam "
+                "apenas heurísticas simples (regex + keywords) e não geram "
+                "casos de uso da Aula 2."
+            )
 
 
 def _preview_sugestoes(sugestoes: dict) -> None:

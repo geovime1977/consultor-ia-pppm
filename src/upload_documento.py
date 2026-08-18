@@ -2,7 +2,8 @@
 
 Suporta PDF, DOCX e TXT. Duas branches:
 
-- Com OPENAI_API_KEY configurada: usa LLM para extrair contexto rico,
+- Com chave Groq (BYOK — cada aluno cadastra a sua em console.groq.com):
+  usa Llama 3.3 70B via API compatível OpenAI para extrair contexto rico,
   dor, dados, riscos, valor e casos de uso da Aula 2.
 - Sem chave: fallback heurístico determinístico (regex + keywords) que
   extrai o que consegue e devolve o texto bruto para o aluno colar
@@ -22,7 +23,9 @@ from typing import Any
 from src.priorizacao import CRITERIO_IDS, CasoDeUso
 
 MAX_CHARS_LLM = 12000
-MODEL_DEFAULT = "gpt-4o-mini"
+MODEL_DEFAULT = "llama-3.3-70b-versatile"
+GROQ_BASE_URL = "https://api.groq.com/openai/v1"
+STATE_KEY_GROQ = "groq_api_key"
 
 
 class ErroExtracao(Exception):
@@ -69,28 +72,30 @@ def _extrair_docx(dados: bytes) -> str:
 
 
 def api_key_disponivel() -> bool:
-    """Verifica se há OPENAI_API_KEY em env var ou em st.secrets."""
-    if os.getenv("OPENAI_API_KEY"):
-        return True
-    try:
-        import streamlit as st
-
-        if hasattr(st, "secrets") and "OPENAI_API_KEY" in st.secrets:
-            return True
-    except Exception:
-        pass
-    return False
+    """Verifica se há chave Groq (env var GROQ_API_KEY, st.secrets ou
+    session_state do aluno)."""
+    return _resolver_api_key() is not None
 
 
 def _resolver_api_key() -> str | None:
-    key = os.getenv("OPENAI_API_KEY")
+    """Resolve a chave Groq em ordem: session_state (BYOK do aluno) → env
+    var → st.secrets. Retorna None se nenhuma fonte tem chave."""
+    try:
+        import streamlit as st
+
+        key = (st.session_state.get(STATE_KEY_GROQ) or "").strip()
+        if key:
+            return key
+    except Exception:
+        pass
+    key = os.getenv("GROQ_API_KEY")
     if key:
         return key
     try:
         import streamlit as st
 
-        if hasattr(st, "secrets") and "OPENAI_API_KEY" in st.secrets:
-            return st.secrets["OPENAI_API_KEY"]
+        if hasattr(st, "secrets") and "GROQ_API_KEY" in st.secrets:
+            return st.secrets["GROQ_API_KEY"]
     except Exception:
         pass
     return None
@@ -141,7 +146,7 @@ SCHEMA_JSON = """{
 
 
 def sugerir_via_llm(texto: str, api_key: str | None = None, model: str = MODEL_DEFAULT) -> dict:
-    """Chama a OpenAI e devolve sugestões estruturadas.
+    """Chama o Groq (via SDK OpenAI-compatível) e devolve sugestões estruturadas.
 
     Levanta ErroExtracao se a chamada falhar ou o JSON de retorno for inválido.
     """
@@ -149,8 +154,8 @@ def sugerir_via_llm(texto: str, api_key: str | None = None, model: str = MODEL_D
 
     key = api_key or _resolver_api_key()
     if not key:
-        raise ErroExtracao("OPENAI_API_KEY não configurada.")
-    client = OpenAI(api_key=key)
+        raise ErroExtracao("Chave Groq não configurada.")
+    client = OpenAI(api_key=key, base_url=GROQ_BASE_URL)
     conteudo = texto[:MAX_CHARS_LLM]
     prompt_user = (
         f"Schema esperado (JSON):\n{SCHEMA_JSON}\n\n"
@@ -171,7 +176,7 @@ def sugerir_via_llm(texto: str, api_key: str | None = None, model: str = MODEL_D
     except json.JSONDecodeError as e:
         raise ErroExtracao(f"LLM devolveu JSON inválido: {e}") from e
     except Exception as e:
-        raise ErroExtracao(f"Falha na chamada LLM: {e}") from e
+        raise ErroExtracao(f"Falha na chamada LLM (Groq): {e}") from e
 
 
 def heuristica_fallback(texto: str) -> dict:
@@ -221,11 +226,11 @@ def _primeira_ocorrencia_apos(t: str, keywords: list[str]) -> str:
     return ""
 
 
-def sugerir(texto: str) -> dict:
-    """Dispatch: LLM se disponível, senão heurística."""
-    if api_key_disponivel():
+def sugerir(texto: str, api_key: str | None = None) -> dict:
+    """Dispatch: LLM (Groq) se chave disponível, senão heurística."""
+    if api_key or api_key_disponivel():
         try:
-            return sugerir_via_llm(texto)
+            return sugerir_via_llm(texto, api_key=api_key)
         except ErroExtracao:
             return heuristica_fallback(texto)
     return heuristica_fallback(texto)

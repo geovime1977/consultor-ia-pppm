@@ -21,7 +21,7 @@ SCHEMA = "consultor-ia-pppm/projeto"
 VERSAO_SCHEMA = "1.0"
 
 
-def exportar(estado: dict) -> dict:
+def exportar(estado: dict, incluir_chave_groq: bool = False) -> dict:
     """Serializa o estado completo em dict pronto para virar JSON.
 
     `estado` é um dicionário com chaves opcionais:
@@ -29,6 +29,7 @@ def exportar(estado: dict) -> dict:
       - aula2_casos: list[CasoDeUso]
       - aula2_gov_respostas: dict[caso_id, dict[bloco_id, bool]]
       - aula2_gov_rastro: dict[caso_id, Rastro]
+      - groq_api_key: str (só vai pro JSON se incluir_chave_groq=True)
     """
     casos_serializados = []
     for c in estado.get("aula2_casos", []) or []:
@@ -38,7 +39,7 @@ def exportar(estado: dict) -> dict:
     rastro_serializado: dict[str, dict] = {}
     for cid, r in (estado.get("aula2_gov_rastro", {}) or {}).items():
         rastro_serializado[cid] = asdict(r) if isinstance(r, Rastro) else dict(r)
-    return {
+    saida = {
         "schema": SCHEMA,
         "versao": VERSAO_SCHEMA,
         "exportado_em": datetime.now().isoformat(timespec="seconds"),
@@ -56,10 +57,18 @@ def exportar(estado: dict) -> dict:
             },
         },
     }
+    if incluir_chave_groq:
+        chave = (estado.get("groq_api_key") or "").strip()
+        if chave:
+            saida["preferencias"] = {"groq_api_key": chave}
+    return saida
 
 
-def exportar_json(estado: dict, indent: int = 2) -> str:
-    return json.dumps(exportar(estado), indent=indent, ensure_ascii=False, default=str)
+def exportar_json(estado: dict, indent: int = 2, incluir_chave_groq: bool = False) -> str:
+    return json.dumps(
+        exportar(estado, incluir_chave_groq=incluir_chave_groq),
+        indent=indent, ensure_ascii=False, default=str,
+    )
 
 
 class ErroImportacao(ValueError):
@@ -120,6 +129,9 @@ def importar(dados: dict) -> dict:
             registro=r.get("registro", ""),
         )
 
+    prefs = dados.get("preferencias") or {}
+    chave_groq = (prefs.get("groq_api_key") or "").strip()
+
     return {
         "contexto": dict(aula1.get("contexto") or {}),
         "diagnostico": dict(aula1.get("diagnostico") or {}),
@@ -128,6 +140,7 @@ def importar(dados: dict) -> dict:
         "aula2_casos": casos,
         "aula2_gov_respostas": dict(gov.get("respostas") or {}),
         "aula2_gov_rastro": rastros,
+        "groq_api_key": chave_groq,
     }
 
 

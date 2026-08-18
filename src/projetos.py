@@ -40,6 +40,17 @@ def _bloco_import_export() -> None:  # noqa: D401 - documented via docstring
         col_exp, col_imp = st.columns(2)
         with col_exp:
             st.markdown("**📤 Exportar sessão atual**")
+            tem_chave_groq = bool((st.session_state.get("groq_api_key") or "").strip())
+            incluir_chave = st.checkbox(
+                "Incluir minha chave Groq no JSON (⚠ trate esse arquivo como senha)",
+                value=False,
+                key="proj_export_incluir_groq",
+                disabled=not tem_chave_groq,
+                help="Se marcar, na próxima vez que importar o JSON a IA já vem ativa "
+                     "sem precisar colar a chave de novo. Não compartilhe o arquivo — "
+                     "quem tiver ele consome o crédito grátis da sua conta Groq."
+                     + ("" if tem_chave_groq else " (Cadastre a chave na aba Auto-preencher antes.)"),
+            )
             estado = {
                 "contexto": st.session_state.get("contexto", {}),
                 "diagnostico": st.session_state.get("diagnostico", {}),
@@ -48,8 +59,9 @@ def _bloco_import_export() -> None:  # noqa: D401 - documented via docstring
                 "aula2_casos": st.session_state.get("aula2_casos", []),
                 "aula2_gov_respostas": st.session_state.get("aula2_gov_respostas", {}),
                 "aula2_gov_rastro": st.session_state.get("aula2_gov_rastro", {}),
+                "groq_api_key": st.session_state.get("groq_api_key", ""),
             }
-            payload = import_export.exportar_json(estado)
+            payload = import_export.exportar_json(estado, incluir_chave_groq=incluir_chave)
             empresa = (st.session_state.get("contexto", {}) or {}).get("empresa") or "meu-projeto"
             slug = "".join(c if c.isalnum() else "-" for c in empresa.lower()).strip("-") or "projeto"
             st.download_button(
@@ -71,13 +83,17 @@ def _bloco_import_export() -> None:  # noqa: D401 - documented via docstring
                 try:
                     texto = arquivo.read().decode("utf-8")
                     novo = import_export.importar_json(texto)
+                    chave_importada = (novo.pop("groq_api_key", "") or "").strip()
                     for k, v in novo.items():
                         st.session_state[k] = v
+                    if chave_importada:
+                        st.session_state["groq_api_key"] = chave_importada
                     st.success(
                         "✅ Projeto importado com sucesso!\n\n"
                         + import_export.resumo_importacao(novo)
+                        + ("\nChave Groq restaurada — IA ativa." if chave_importada else "")
                     )
-                    st.info("Abra as abas 2, 3, 4, 9 e 10 para ver os dados carregados.")
+                    st.info("Abra as abas do fluxo consultivo e da Aula 2 para ver os dados carregados.")
                 except import_export.ErroImportacao as e:
                     st.error(f"❌ Falha na importação: {e}")
 

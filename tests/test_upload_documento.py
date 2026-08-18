@@ -108,7 +108,7 @@ def test_sugestoes_gera_id_se_ausente():
 
 
 def test_api_key_disponivel_env():
-    with patch.dict(os.environ, {"OPENAI_API_KEY": "sk-fake"}):
+    with patch.dict(os.environ, {"GROQ_API_KEY": "gsk-fake"}):
         assert api_key_disponivel() is True
 
 
