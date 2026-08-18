@@ -435,6 +435,20 @@ def gerar_pdf(dados: dict, output_path: str) -> str:
     _renderizar_modelo_comercial(story, styles)
     story.append(PageBreak())
 
+    aula2 = dados.get("aula2") or {}
+    casos_aula2 = aula2.get("casos") or []
+    if casos_aula2:
+        from src import pdf_export_aula2
+        pdf_export_aula2.renderizar_secao_priorizacao(story, casos_aula2, styles)
+        pdf_export_aula2.renderizar_secao_governanca(
+            story,
+            casos_aula2,
+            aula2.get("gov_respostas") or {},
+            aula2.get("gov_rastro") or {},
+            styles,
+        )
+        story.append(PageBreak())
+
     story.append(Paragraph("7. Próximos Passos", styles["H1"]))
     passos = [
         "Validar viabilidade técnica com TI e revisar os pré-requisitos de dados.",

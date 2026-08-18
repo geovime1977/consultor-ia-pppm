@@ -63,4 +63,9 @@ def get_all_data() -> dict:
         "diagnostico": dict(st.session_state.get("diagnostico", {})),
         "mapa": dict(st.session_state.get("mapa", {})),
         "pilotos_selecionados": list(st.session_state.get("pilotos_selecionados", [])),
+        "aula2": {
+            "casos": list(st.session_state.get("aula2_casos", []) or []),
+            "gov_respostas": dict(st.session_state.get("aula2_gov_respostas", {}) or {}),
+            "gov_rastro": dict(st.session_state.get("aula2_gov_rastro", {}) or {}),
+        },
     }

@@ -233,3 +233,46 @@ def render() -> None:
             "🤝 **Próximo passo** — para cada caso: definir onde haverá validação humana "
             "(HITL) e o registro de rastreabilidade. Ver aba de Governança."
         )
+
+    st.markdown("---")
+    st.markdown("### 📄 Exportar priorização em PDF")
+    st.caption(
+        "Gera um PDF com esta priorização, alertas dos 5 erros e — se você preencher "
+        "a aba 10 — a governança/HITL de cada caso. Se quiser o relatório completo "
+        "com contexto, diagnóstico e mapa da Aula 1, use a **aba 6 · Exportar PDF**."
+    )
+    if st.button("📥 Gerar PDF da priorização", type="primary", use_container_width=True):
+        from pathlib import Path
+        from src import pdf_export
+        output_dir = Path(__file__).resolve().parent.parent / "output"
+        output_dir.mkdir(exist_ok=True)
+        ctx = st.session_state.get("contexto") or {}
+        dados = {
+            "contexto": {
+                "nome": ctx.get("nome") or "Aluno",
+                "empresa": ctx.get("empresa") or "—",
+                "porte": ctx.get("porte") or "—",
+                "cargo": ctx.get("cargo") or "—",
+                "n_projetos": ctx.get("n_projetos", 0),
+                "pmo_ativo": ctx.get("pmo_ativo", False),
+            },
+            "diagnostico": st.session_state.get("diagnostico") or {},
+            "mapa": st.session_state.get("mapa") or {},
+            "pilotos_selecionados": st.session_state.get("pilotos_selecionados") or [],
+            "aula2": {
+                "casos": st.session_state[STATE_KEY],
+                "gov_respostas": st.session_state.get("aula2_gov_respostas") or {},
+                "gov_rastro": st.session_state.get("aula2_gov_rastro") or {},
+            },
+        }
+        tmp = output_dir / "aula2_priorizacao_temp.pdf"
+        caminho = pdf_export.gerar_pdf(dados, str(tmp))
+        with open(caminho, "rb") as f:
+            st.download_button(
+                "⬇️ Baixar PDF",
+                data=f.read(),
+                file_name=Path(caminho).name,
+                mime="application/pdf",
+                use_container_width=True,
+            )
+        st.success(f"PDF gerado com sucesso.")

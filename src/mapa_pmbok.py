@@ -367,23 +367,39 @@ def _renderizar_pilotos_didatico(pilotos: list[dict]) -> None:
 
             st.success(f"**Ganho esperado:** {p.get('ganho_esperado', '—')}")
 
-            if p.get("metricas"):
+            metricas = p.get("metricas")
+            if isinstance(metricas, dict) and metricas.get("kpi_principal"):
                 st.markdown("**📊 KPI benchmark auditável**")
-                for m in p["metricas"]:
+                kpi_principal = metricas["kpi_principal"]
+                lista_kpis = [kpi_principal] + list(metricas.get("kpis_secundarios") or [])
+                for m in lista_kpis:
+                    if not isinstance(m, dict):
+                        continue
                     with st.container(border=True):
                         st.markdown(f"**{m.get('nome', 'KPI')}** — unidade: `{m.get('unidade', '')}`")
-                        base = m.get("baseline_mercado", {})
-                        meta = m.get("meta_com_ia", {})
-                        st.markdown(
-                            f"- Baseline mercado: {base.get('valor', '—')}  \n"
-                            f"  *Fonte: {base.get('fonte', '—')}*"
-                        )
-                        st.markdown(
-                            f"- Meta com IA: {meta.get('valor', '—')}  \n"
-                            f"  *Fonte: {meta.get('fonte', '—')}*"
-                        )
+                        base = m.get("baseline_mercado", {}) or {}
+                        meta = m.get("meta_com_ia", {}) or {}
+                        if base:
+                            st.markdown(
+                                f"- Baseline mercado: {base.get('valor', '—')}  \n"
+                                f"  *Fonte: {base.get('fonte', '—')}*"
+                            )
+                        if meta:
+                            st.markdown(
+                                f"- Meta com IA: {meta.get('valor', '—')}  \n"
+                                f"  *Fonte: {meta.get('fonte', '—')}*"
+                            )
                         if m.get("reducao_percentual"):
                             st.markdown(f"- 🏁 **Ganho:** {m['reducao_percentual']}")
+                if metricas.get("roi_estimado"):
+                    roi = metricas["roi_estimado"]
+                    if isinstance(roi, dict):
+                        st.markdown(
+                            f"**💰 ROI estimado:** {roi.get('valor', '—')} "
+                            f"— *{roi.get('descricao', '')}*"
+                        )
+                    else:
+                        st.markdown(f"**💰 ROI estimado:** {roi}")
 
             if p.get("plano_projeto_30d"):
                 with st.expander("📅 Plano de 30 dias (EAP + cronograma)"):
