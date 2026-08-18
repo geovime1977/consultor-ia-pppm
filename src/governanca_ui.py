@@ -149,3 +149,32 @@ def render() -> None:
     c1, c2 = st.columns(2)
     c1.metric("Casos com governança pronta", f"{pronto}/{total}")
     c2.metric("Casos pendentes", f"{total - pronto}/{total}", delta_color="inverse")
+
+    st.markdown("---")
+    st.markdown("### 📄 Exportar PDF completo (Aula 1 + Aula 2)")
+    st.caption(
+        "Gera o mapa consultivo completo — contexto, diagnóstico, mapa 5 blocos, pilotos, "
+        "priorização e governança/HITL de cada caso. Se quiser só a Aula 1, use a **aba 6**."
+    )
+    if st.button(
+        "📚 Gerar PDF completo (Aula 1 + Aula 2)",
+        type="primary",
+        use_container_width=True,
+        key="pdf_full_from_gov",
+    ):
+        from pathlib import Path
+        from src import pdf_export, state as _state
+        output_dir = Path(__file__).resolve().parent.parent / "output"
+        output_dir.mkdir(exist_ok=True)
+        tmp = output_dir / "mapa_completo_temp.pdf"
+        caminho = pdf_export.gerar_pdf(_state.get_all_data(), str(tmp))
+        with open(caminho, "rb") as f:
+            st.download_button(
+                "⬇️ Baixar PDF completo",
+                data=f.read(),
+                file_name=Path(caminho).name,
+                mime="application/pdf",
+                use_container_width=True,
+                key="dl_full_from_gov",
+            )
+        st.success("PDF completo gerado.")

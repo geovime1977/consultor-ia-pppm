@@ -86,6 +86,34 @@ def scoring_piloto(piloto: dict, nivel: int, categorias_dor: list[str]) -> dict:
     return {"impacto": impacto, "viabilidade": viabilidade, "risco": risco}
 
 
+def computar_score_bruto(
+    piloto: dict, diagnostico: dict, mapa: dict, gargalo: str | None = None
+) -> int:
+    if gargalo is None:
+        gargalo = _identificar_gargalo_local(diagnostico)
+    total = sum(int(diagnostico.get(k, 0) or 0) for k in diagnostico)
+    nivel = niveis.get_nivel(total)["numero"]
+    categorias_dor = extrair_categorias_dor(mapa.get("dor", ""))
+
+    score = 0
+    if gargalo in piloto["dimensoes_alvo"]:
+        score += 10
+    for dim in piloto["dimensoes_alvo"]:
+        if dim == gargalo:
+            continue
+        if int(diagnostico.get(dim, 0) or 0) <= 3:
+            score += 3
+    intersecao = set(piloto["categorias_dor"]) & set(categorias_dor)
+    score += len(intersecao) * 5
+    if nivel <= 2 and piloto["viabilidade_base"] == "alto":
+        score += 4
+    if nivel >= 4 and piloto["impacto_base"] == "alto":
+        score += 4
+    if nivel <= 2 and piloto["risco_base"] == "alto":
+        score -= 5
+    return score
+
+
 def recomendar(diagnostico: dict, mapa: dict, top_n: int = 3) -> list[dict]:
     catalogo = carregar_catalogo()
     gargalo = _identificar_gargalo_local(diagnostico)
@@ -96,28 +124,7 @@ def recomendar(diagnostico: dict, mapa: dict, top_n: int = 3) -> list[dict]:
 
     candidatos: list[tuple[dict, int]] = []
     for piloto in catalogo:
-        score = 0
-
-        if gargalo in piloto["dimensoes_alvo"]:
-            score += 10
-
-        for dim in piloto["dimensoes_alvo"]:
-            if dim == gargalo:
-                continue
-            if int(diagnostico.get(dim, 0) or 0) <= 3:
-                score += 3
-
-        intersecao = set(piloto["categorias_dor"]) & set(categorias_dor)
-        score += len(intersecao) * 5
-
-        if nivel <= 2 and piloto["viabilidade_base"] == "alto":
-            score += 4
-        if nivel >= 4 and piloto["impacto_base"] == "alto":
-            score += 4
-
-        if nivel <= 2 and piloto["risco_base"] == "alto":
-            score -= 5
-
+        score = computar_score_bruto(piloto, diagnostico, mapa, gargalo)
         if score > 0:
             candidatos.append((piloto, score))
 

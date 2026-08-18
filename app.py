@@ -110,13 +110,15 @@ with tabs[4]:
             )
 
         def _enriquecer(piloto: dict) -> dict:
-            total = sum(int(st.session_state["diagnostico"].get(k, 0) or 0) for k, _, _ in DIMENSOES)
+            diag = st.session_state["diagnostico"]
+            mapa_atual = st.session_state["mapa"]
+            total = sum(int(diag.get(k, 0) or 0) for k, _, _ in DIMENSOES)
             from src import niveis as niveis_mod
             nivel_num = niveis_mod.get_nivel(total)["numero"]
-            categorias = recomendador.extrair_categorias_dor(st.session_state["mapa"].get("dor", ""))
+            categorias = recomendador.extrair_categorias_dor(mapa_atual.get("dor", ""))
             entry = dict(piloto)
             entry["scoring"] = recomendador.scoring_piloto(piloto, nivel_num, categorias)
-            entry.setdefault("score_bruto", 0)
+            entry["score_bruto"] = recomendador.computar_score_bruto(piloto, diag, mapa_atual)
             return entry
 
         if not st.session_state.get("pilotos_selecionados"):
@@ -189,11 +191,25 @@ with tabs[5]:
     if not state.is_step_complete(4):
         st.warning("Gere os pilotos recomendados na aba 5 antes de exportar.")
     else:
-        st.markdown("**Preview do que vai no PDF:**")
         ctx = st.session_state["contexto"]
+        n_casos_a2 = len(st.session_state.get("aula2_casos") or [])
+        st.markdown("**Preview do que vai no PDF:**")
         st.write(f"**Participante:** {ctx.get('nome')} — {ctx.get('cargo')}")
         st.write(f"**Empresa:** {ctx.get('empresa')} ({ctx.get('porte')})")
         st.write(f"**Nº de pilotos recomendados:** {len(st.session_state['pilotos_selecionados'])}")
+        st.markdown(
+            "**Aula 1 sempre inclui:** Capa · Contexto · Diagnóstico · Mapa 5 Blocos · "
+            "Pilotos · Cases · Modelo Comercial."
+        )
+        if n_casos_a2:
+            st.markdown(
+                f"**Aula 2 disponível:** {n_casos_a2} caso(s) prontos para as seções "
+                "*Priorização* e *Governança + HITL* no PDF completo."
+            )
+        else:
+            st.caption(
+                "Aula 2 vazia — cadastre casos na aba 9 para habilitar o PDF completo."
+            )
 
         with st.expander("Ver leitura executiva do diagnóstico"):
             st.write(diagnostico.leitura_executiva(st.session_state["diagnostico"]))
@@ -202,19 +218,45 @@ with tabs[5]:
             gargalo = diagnostico.identificar_gargalo(st.session_state["diagnostico"])
             st.info(rotulo_dimensao(gargalo))
 
-        if st.button("Gerar PDF", type="primary"):
+        col_a1, col_full = st.columns(2)
+
+        if col_a1.button("📄 Gerar PDF — só Aula 1", type="secondary", use_container_width=True):
             output_dir = Path(__file__).resolve().parent / "output"
             output_dir.mkdir(exist_ok=True)
-            tmp_path = output_dir / "mapa_temp.pdf"
-            caminho = pdf_export.gerar_pdf(state.get_all_data(), str(tmp_path))
+            tmp_path = output_dir / "mapa_aula1_temp.pdf"
+            dados = state.get_all_data()
+            dados["aula2"] = {"casos": [], "gov_respostas": {}, "gov_rastro": {}}
+            caminho = pdf_export.gerar_pdf(dados, str(tmp_path))
             with open(caminho, "rb") as f:
                 st.download_button(
-                    "Baixar PDF",
+                    "⬇️ Baixar PDF Aula 1",
                     data=f.read(),
                     file_name=Path(caminho).name,
                     mime="application/pdf",
+                    use_container_width=True,
                 )
-            st.success(f"PDF gerado em: {caminho}")
+            st.success(f"PDF Aula 1 gerado em: {caminho}")
+
+        if col_full.button(
+            "📚 Gerar PDF completo (Aula 1 + Aula 2)",
+            type="primary",
+            use_container_width=True,
+            disabled=(n_casos_a2 == 0),
+            help="Requer pelo menos 1 caso cadastrado na aba 9 (Priorização)."
+        ):
+            output_dir = Path(__file__).resolve().parent / "output"
+            output_dir.mkdir(exist_ok=True)
+            tmp_path = output_dir / "mapa_completo_temp.pdf"
+            caminho = pdf_export.gerar_pdf(state.get_all_data(), str(tmp_path))
+            with open(caminho, "rb") as f:
+                st.download_button(
+                    "⬇️ Baixar PDF completo",
+                    data=f.read(),
+                    file_name=Path(caminho).name,
+                    mime="application/pdf",
+                    use_container_width=True,
+                )
+            st.success(f"PDF completo gerado em: {caminho}")
 
 with tabs[6]:
     projetos.render()
