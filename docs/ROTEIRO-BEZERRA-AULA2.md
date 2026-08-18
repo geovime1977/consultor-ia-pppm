@@ -2,7 +2,7 @@
 
 **Formato:** reunião 1:1 (Zoom/Meet), 7–8 min, com demo ao vivo do app.
 **Objetivo:** validar que a extensão Aula 2 do `consultor-ia-pppm` respeita o método que o senhor ensinou, e obter sinal verde para levar aos alunos em palestra.
-**Preparação:** app rodando em `http://localhost:8512` (ou na URL pública se já publicada).
+**Preparação:** app rodando em `https://consultor-ia-pppm-qyhmm8jymmjnsv6bauodz4.streamlit.app/` (ou `http://localhost:8512` local).
 
 ---
 
@@ -34,7 +34,7 @@ Toda linguagem do app cita o slide de origem. Nada foi inventado — só operaci
 
 ## Bloco 4 · Demo ao vivo (3–4 min)
 
-Abrir `http://localhost:8512` (ou URL pública).
+Abrir `https://consultor-ia-pppm-qyhmm8jymmjnsv6bauodz4.streamlit.app/`.
 
 ### Demo 1 — Aba 9 · Priorização (~90 s)
 
@@ -69,7 +69,7 @@ Abrir `http://localhost:8512` (ou URL pública).
 ## Bloco 6 · Próximo passo se ele autorizar (30 s)
 
 > "Perfeito. Combino três coisas:
-> 1. Deixo a URL pública do app para os alunos usarem depois da palestra.
+> 1. Deixo a URL pública do app para os alunos usarem depois da palestra: `https://consultor-ia-pppm-qyhmm8jymmjnsv6bauodz4.streamlit.app/`.
 > 2. Envio antes o roteiro dos slides da palestra para o senhor validar.
 > 3. Publico o app no folder do Drive da turma junto com o PPTX da palestra e a instrução de uso."
 

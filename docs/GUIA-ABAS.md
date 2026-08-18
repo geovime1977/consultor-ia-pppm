@@ -52,6 +52,6 @@ Cadastrados intencionalmente como referência didática — o aluno vê o diagn�
 
 ## Concorrência — múltiplos alunos ao mesmo tempo
 
-- URL é a mesma para todos: `https://consultor-ia-pppm.streamlit.app`.
+- URL é a mesma para todos: `https://consultor-ia-pppm-qyhmm8jymmjnsv6bauodz4.streamlit.app/`.
 - Cada aba/navegador = uma sessão isolada (Streamlit `session_state`). Ninguém sobrescreve o trabalho do outro.
 - Streamlit Community Cloud (grátis, 1 GB RAM): 20-30 alunos simultâneos tranquilamente. Sem limite de tempo de uso — o app fica no ar 24/7 sem custo.
