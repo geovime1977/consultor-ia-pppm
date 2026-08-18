@@ -3,7 +3,7 @@ from datetime import date
 
 import streamlit as st
 
-from src import db, mapa_pmbok
+from src import db, import_export, mapa_pmbok
 
 _PORTES = ["MEI", "Pequena", "Média", "Grande", "N/A"]
 
@@ -29,12 +29,66 @@ def _selecionar_projeto_ativo(projetos: list[dict]) -> None:
         st.session_state["projeto_ativo_id"] = int(escolha.split("]")[0].strip("["))
 
 
+def _bloco_import_export() -> None:
+    with st.expander("📁 Salvar / Carregar meu projeto (JSON)", expanded=False):
+        st.caption(
+            "O Streamlit Cloud não guarda seu progresso entre sessões. "
+            "**Exporte um JSON no fim da sessão** e **importe da próxima vez** para continuar de onde parou. "
+            "Cobre Aula 1 (contexto, diagnóstico, mapa, pilotos) e Aula 2 (casos, governança, HITL)."
+        )
+        col_exp, col_imp = st.columns(2)
+        with col_exp:
+            st.markdown("**📤 Exportar sessão atual**")
+            estado = {
+                "contexto": st.session_state.get("contexto", {}),
+                "diagnostico": st.session_state.get("diagnostico", {}),
+                "mapa": st.session_state.get("mapa", {}),
+                "pilotos_selecionados": st.session_state.get("pilotos_selecionados", []),
+                "aula2_casos": st.session_state.get("aula2_casos", []),
+                "aula2_gov_respostas": st.session_state.get("aula2_gov_respostas", {}),
+                "aula2_gov_rastro": st.session_state.get("aula2_gov_rastro", {}),
+            }
+            payload = import_export.exportar_json(estado)
+            empresa = (st.session_state.get("contexto", {}) or {}).get("empresa") or "meu-projeto"
+            slug = "".join(c if c.isalnum() else "-" for c in empresa.lower()).strip("-") or "projeto"
+            st.download_button(
+                "📥 Baixar JSON do meu projeto",
+                data=payload,
+                file_name=f"consultor-ia-pppm-{slug}.json",
+                mime="application/json",
+                use_container_width=True,
+            )
+        with col_imp:
+            st.markdown("**📥 Importar sessão anterior**")
+            arquivo = st.file_uploader(
+                "Escolha o JSON exportado",
+                type=["json"],
+                key="proj_import_json",
+                label_visibility="collapsed",
+            )
+            if arquivo is not None:
+                try:
+                    texto = arquivo.read().decode("utf-8")
+                    novo = import_export.importar_json(texto)
+                    for k, v in novo.items():
+                        st.session_state[k] = v
+                    st.success(
+                        "✅ Projeto importado com sucesso!\n\n"
+                        + import_export.resumo_importacao(novo)
+                    )
+                    st.info("Abra as abas 2, 3, 4, 9 e 10 para ver os dados carregados.")
+                except import_export.ErroImportacao as e:
+                    st.error(f"❌ Falha na importação: {e}")
+
+
 def render() -> None:
     st.subheader("7. Projetos cadastrados")
     st.caption(
         "Base persistente (SQLite `data/diag.db`) para acompanhar diagnósticos "
         "de múltiplos projetos e usar em benchmarks cross-portfólio."
     )
+
+    _bloco_import_export()
 
     projetos = db.listar_projetos()
     c1, c2, c3, c4 = st.columns(4)
