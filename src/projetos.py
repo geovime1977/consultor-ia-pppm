@@ -29,7 +29,7 @@ def _selecionar_projeto_ativo(projetos: list[dict]) -> None:
         st.session_state["projeto_ativo_id"] = int(escolha.split("]")[0].strip("["))
 
 
-def _bloco_import_export() -> None:
+def _bloco_import_export() -> None:  # noqa: D401 - documented via docstring
     with st.expander("📁 Salvar / Carregar meu projeto (JSON)", expanded=False):
         st.caption(
             "O Streamlit Cloud não guarda seu progresso entre sessões. "
@@ -293,7 +293,7 @@ def render() -> None:
     with aba_processos:
         st.markdown(
             "Marcar quais dos 40 processos PMBOK são críticos para o projeto ativo, "
-            "e o tratamento sugerido (só-IA, IA+PO, gap não atendido)."
+            "e o tratamento sugerido (aplicação de IA ou gap não atendido)."
         )
         pid_ativo = st.session_state.get("projeto_ativo_id")
         if not pid_ativo:

@@ -9,10 +9,14 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
+from src.config import MOSTRAR_PO_UI
+
 try:
     from src import db as _db
 except ImportError:
     _db = None
+
+_COLUNAS_PO = ["IA+PO — combinação", "IA+PO — como usar", "IA+PO — exemplo", "IA+PO — risco"]
 
 _JSON_PATH = Path(__file__).resolve().parent.parent / "data" / "pmbok_processos.json"
 _MATRIZ_PATH = Path(__file__).resolve().parent.parent / "data" / "matriz_pilotos_processos.json"
@@ -267,9 +271,11 @@ def _renderizar_matriz_cruzada(processos: list[dict]) -> None:
 
 
 def render() -> None:
-    st.subheader("Mapa PMBOK 8ª Ed. × IA × IA+PO")
+    titulo_extra = " × IA+PO" if MOSTRAR_PO_UI else ""
+    caption_extra = " × IA + Pesquisa Operacional" if MOSTRAR_PO_UI else ""
+    st.subheader(f"Mapa PMBOK 8ª Ed. × IA{titulo_extra}")
     st.caption(
-        "Referência mestre — 40 processos do PMBOK 8ª Edição × IA (só-IA) × IA + Pesquisa Operacional. "
+        f"Referência mestre — 40 processos do PMBOK 8ª Edição × IA (só-IA){caption_extra}. "
         "Núcleo do consultor-ia-pppm (aba 1)."
     )
 
@@ -362,17 +368,15 @@ def render() -> None:
     processos_view = [p for p in processos if p["id"] in df_view["ID"].tolist()]
 
     if modo == "Tabela comparativa":
-        st.dataframe(
-            df_view,
-            use_container_width=True,
-            height=520,
-            column_config={
-                "IA — como usar": st.column_config.TextColumn(width="large"),
-                "IA — exemplo": st.column_config.TextColumn(width="large"),
-                "IA+PO — como usar": st.column_config.TextColumn(width="large"),
-                "IA+PO — exemplo": st.column_config.TextColumn(width="large"),
-            },
-        )
+        df_render = df_view if MOSTRAR_PO_UI else df_view.drop(columns=_COLUNAS_PO, errors="ignore")
+        col_cfg = {
+            "IA — como usar": st.column_config.TextColumn(width="large"),
+            "IA — exemplo": st.column_config.TextColumn(width="large"),
+        }
+        if MOSTRAR_PO_UI:
+            col_cfg["IA+PO — como usar"] = st.column_config.TextColumn(width="large")
+            col_cfg["IA+PO — exemplo"] = st.column_config.TextColumn(width="large")
+        st.dataframe(df_render, use_container_width=True, height=520, column_config=col_cfg)
     else:
         for p in processos_view:
             cor = _CORES_AREA.get(p["area"], "607D8B")
@@ -402,9 +406,13 @@ def render() -> None:
                     f"border-radius:4px;display:inline-block;font-size:12px'>{p['area']}</div>",
                     unsafe_allow_html=True,
                 )
-                col_ia, col_iapo = st.columns(2)
+                if MOSTRAR_PO_UI:
+                    col_ia, col_iapo = st.columns(2)
+                else:
+                    col_ia = st.container()
+                    col_iapo = None
                 with col_ia:
-                    st.markdown("### 🤖 Só IA")
+                    st.markdown("### 🤖 Aplicação de IA")
                     st.markdown(f"**Ferramenta:** {p['ia'].get('ferramenta', '')}")
                     st.markdown(f"**Como usar:** {p['ia'].get('como_usar', '')}")
                     st.markdown(f"**Exemplo:** {p['ia'].get('exemplo', '')}")
@@ -413,16 +421,17 @@ def render() -> None:
                         f"border-radius:3px'><b>⚠ Risco:</b> {p['ia'].get('risco', '')}</div>",
                         unsafe_allow_html=True,
                     )
-                with col_iapo:
-                    st.markdown("### 🧮 IA + PO")
-                    st.markdown(f"**Combinação:** {p['ia_po'].get('combinacao', '')}")
-                    st.markdown(f"**Como usar:** {p['ia_po'].get('como_usar', '')}")
-                    st.markdown(f"**Exemplo:** {p['ia_po'].get('exemplo', '')}")
-                    st.markdown(
-                        f"<div style='background:#FFF3E0;padding:8px;border-left:3px solid #FB8C00;"
-                        f"border-radius:3px'><b>⚠ Risco:</b> {p['ia_po'].get('risco', '')}</div>",
-                        unsafe_allow_html=True,
-                    )
+                if MOSTRAR_PO_UI and col_iapo is not None:
+                    with col_iapo:
+                        st.markdown("### 🧮 IA + PO")
+                        st.markdown(f"**Combinação:** {p['ia_po'].get('combinacao', '')}")
+                        st.markdown(f"**Como usar:** {p['ia_po'].get('como_usar', '')}")
+                        st.markdown(f"**Exemplo:** {p['ia_po'].get('exemplo', '')}")
+                        st.markdown(
+                            f"<div style='background:#FFF3E0;padding:8px;border-left:3px solid #FB8C00;"
+                            f"border-radius:3px'><b>⚠ Risco:</b> {p['ia_po'].get('risco', '')}</div>",
+                            unsafe_allow_html=True,
+                        )
 
                 # Métricas de mercado (benchmark) — opcional
                 if p.get("metricas"):

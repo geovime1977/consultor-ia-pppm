@@ -6,7 +6,7 @@ Este documento é a referência oficial das abas do app. Publicado junto com o r
 
 | # | Aba | Aula | O que faz |
 |---|---|---|---|
-| 1 | Mapa PMBOK × IA × IA+PO | Aula 1 | Referência mestre dos 40 processos do PMBOK 8ª ed. cruzados com "IA só" e "IA + Pesquisa Operacional" |
+| 1 | Mapa PMBOK × IA | Aula 1 | Referência mestre dos 40 processos do PMBOK 8ª ed. com aplicação de IA sugerida por processo |
 | 2 | Contexto | Aula 1 | Cadastra o consultor/aluno e a empresa-alvo (nome, cargo, porte, nº de projetos, PMO ativo) |
 | 3 | Diagnóstico | Aula 1 | Score de maturidade em 5 dimensões (Estratégia · Dados · Casos de uso · Governança · Benefícios) |
 | 4 | Mapa 5 Blocos | Aula 1 | Preenche Contexto · Dor · Dados · Riscos · Valor para gerar recomendação |

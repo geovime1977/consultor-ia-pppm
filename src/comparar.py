@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src import db, mapa_pmbok
+from src.config import MOSTRAR_PO_UI
 
 _DIMENSOES = [
     ("estrategia", "Estratégia"),
@@ -61,8 +62,12 @@ def _heatmap_pmbok(projetos: list[dict], processos: list[dict]) -> go.Figure:
         for pid in proc_ids:
             t = tratamentos.get(pid)
             if t:
-                linha_n.append(map_trat_num[t["tratamento"]])
-                linha_t.append(f"{t['tratamento']} · {t['criticidade']}<br>{t['observacao']}")
+                # Quando PO está oculto, tratamento "ia_po" aparece como "ia" para o aluno.
+                trat = t["tratamento"]
+                if not MOSTRAR_PO_UI and trat == "ia_po":
+                    trat = "ia"
+                linha_n.append(map_trat_num[trat])
+                linha_t.append(f"{trat} · {t['criticidade']}<br>{t['observacao']}")
             else:
                 linha_n.append(0)
                 linha_t.append("não marcado")
@@ -87,8 +92,8 @@ def _heatmap_pmbok(projetos: list[dict], processos: list[dict]) -> go.Figure:
             showscale=True,
             colorbar=dict(
                 title="Tratamento",
-                tickvals=[-1, 0, 1, 2],
-                ticktext=["gap", "—", "IA", "IA+PO"],
+                tickvals=[-1, 0, 1, 2] if MOSTRAR_PO_UI else [-1, 0, 1],
+                ticktext=["gap", "—", "IA", "IA+PO"] if MOSTRAR_PO_UI else ["gap", "—", "IA"],
             ),
         )
     )
@@ -112,28 +117,31 @@ def _dataframe_ranking(projetos: list[dict]) -> pd.DataFrame:
         criticos = sum(
             1 for t in tratamentos.values() if t["criticidade"] == "alta"
         )
-        linhas.append(
-            {
-                "ID": p["id"],
-                "Projeto": p["nome"],
-                "Empresa": p["empresa"],
-                "Porte": p["porte"],
-                "Maturidade /30": total_matur,
-                "Processos marcados": len(tratamentos),
-                "Só IA": cont["ia"],
-                "IA + PO": cont["ia_po"],
-                "Gaps": cont["gap"],
-                "Críticos (alta)": criticos,
-            }
-        )
+        # Quando PO está oculto, tratamentos IA+PO já contam como IA para o aluno.
+        cont_ia_visivel = cont["ia"] + (cont["ia_po"] if not MOSTRAR_PO_UI else 0)
+        linha = {
+            "ID": p["id"],
+            "Projeto": p["nome"],
+            "Empresa": p["empresa"],
+            "Porte": p["porte"],
+            "Maturidade /30": total_matur,
+            "Processos marcados": len(tratamentos),
+            "IA aplicada" if not MOSTRAR_PO_UI else "Só IA": cont_ia_visivel,
+        }
+        if MOSTRAR_PO_UI:
+            linha["IA + PO"] = cont["ia_po"]
+        linha["Gaps"] = cont["gap"]
+        linha["Críticos (alta)"] = criticos
+        linhas.append(linha)
     return pd.DataFrame(linhas).sort_values("Maturidade /30", ascending=False)
 
 
 def render() -> None:
     st.subheader("8. Comparar projetos")
+    cross = "PMBOK × IA × PO" if MOSTRAR_PO_UI else "PMBOK × IA"
     st.caption(
-        "Visão cross-portfólio: maturidade em IA-PPPM (5 dimensões) e cobertura "
-        "PMBOK × IA × PO por projeto. Serve para benchmark interno e demo comercial."
+        f"Visão cross-portfólio: maturidade em IA-PPPM (5 dimensões) e cobertura "
+        f"{cross} por projeto. Serve para benchmark interno e demo comercial."
     )
 
     projetos = db.listar_projetos()
@@ -175,11 +183,16 @@ def render() -> None:
         st.plotly_chart(_radar_multi_projeto(projetos_sel), use_container_width=True)
 
     with aba_heat:
-        st.markdown(
-            "Cobertura PMBOK × IA × PO por projeto. **Verde:** IA+PO. **Azul:** só IA. "
-            "**Vermelho:** gap declarado (processo importante ainda não atendido). "
-            "Serve para achar padrões de subutilização e priorizar próximos pilotos."
-        )
+        if MOSTRAR_PO_UI:
+            st.markdown(
+                "Cobertura PMBOK × IA × PO por projeto. **Verde:** IA+PO. **Azul:** só IA. "
+                "**Vermelho:** gap declarado. Serve para achar padrões de subutilização e priorizar próximos pilotos."
+            )
+        else:
+            st.markdown(
+                "Cobertura PMBOK × IA por projeto. **Azul:** IA aplicada. "
+                "**Vermelho:** gap declarado (processo importante ainda não atendido)."
+            )
         st.plotly_chart(_heatmap_pmbok(projetos_sel, processos), use_container_width=True)
 
     with aba_rank:
@@ -188,19 +201,18 @@ def render() -> None:
 
         st.markdown("---")
         st.markdown("**Distribuição de tratamentos (todos os projetos selecionados):**")
-        col_a, col_b = st.columns(2)
-        totais_trat = {"Só IA": 0, "IA + PO": 0, "Gaps": 0}
+        totais_trat = {"ia": 0, "ia_po": 0, "gap": 0}
         for p in projetos_sel:
             for t in db.listar_tratamentos_pmbok(p["id"]).values():
-                if t["tratamento"] == "ia":
-                    totais_trat["Só IA"] += 1
-                elif t["tratamento"] == "ia_po":
-                    totais_trat["IA + PO"] += 1
-                elif t["tratamento"] == "gap":
-                    totais_trat["Gaps"] += 1
-        col_a.metric("Só IA", totais_trat["Só IA"])
-        col_b.metric("IA + PO", totais_trat["IA + PO"])
-        st.metric("Gaps declarados", totais_trat["Gaps"])
+                if t["tratamento"] in totais_trat:
+                    totais_trat[t["tratamento"]] += 1
+        if MOSTRAR_PO_UI:
+            col_a, col_b = st.columns(2)
+            col_a.metric("Só IA", totais_trat["ia"])
+            col_b.metric("IA + PO", totais_trat["ia_po"])
+        else:
+            st.metric("IA aplicada", totais_trat["ia"] + totais_trat["ia_po"])
+        st.metric("Gaps declarados", totais_trat["gap"])
 
         st.markdown("**Áreas PMBOK mais atendidas:**")
         contagem_area: dict[str, int] = {}
@@ -212,17 +224,14 @@ def render() -> None:
                     if proc:
                         contagem_area[proc["area"]] = contagem_area.get(proc["area"], 0) + 1
         if contagem_area:
+            col_label = "Marcações IA/IA+PO" if MOSTRAR_PO_UI else "Marcações IA"
             df_area = pd.DataFrame(
                 sorted(contagem_area.items(), key=lambda x: -x[1]),
-                columns=["Área PMBOK", "Marcações IA/IA+PO"],
+                columns=["Área PMBOK", col_label],
             )
             fig_bar = px.bar(
-                df_area,
-                x="Marcações IA/IA+PO",
-                y="Área PMBOK",
-                orientation="h",
-                color="Marcações IA/IA+PO",
-                color_continuous_scale="Blues",
+                df_area, x=col_label, y="Área PMBOK", orientation="h",
+                color=col_label, color_continuous_scale="Blues",
             )
             fig_bar.update_layout(height=280, margin=dict(t=10, b=10, l=10, r=10))
             st.plotly_chart(fig_bar, use_container_width=True)
