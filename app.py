@@ -101,17 +101,67 @@ with tabs[4]:
         st.warning("Complete o Diagnóstico e o Mapa 5 Blocos antes de gerar os pilotos.")
     else:
         catalogo = recomendador.carregar_catalogo()
-        pilotos = recomendador.recomendar(
-            st.session_state["diagnostico"],
-            st.session_state["mapa"],
-            top_n=3,
-        )
-        st.session_state["pilotos_selecionados"] = pilotos
+
+        def _computar_top3() -> list[dict]:
+            return recomendador.recomendar(
+                st.session_state["diagnostico"],
+                st.session_state["mapa"],
+                top_n=3,
+            )
+
+        def _enriquecer(piloto: dict) -> dict:
+            total = sum(int(st.session_state["diagnostico"].get(k, 0) or 0) for k, _, _ in DIMENSOES)
+            from src import niveis as niveis_mod
+            nivel_num = niveis_mod.get_nivel(total)["numero"]
+            categorias = recomendador.extrair_categorias_dor(st.session_state["mapa"].get("dor", ""))
+            entry = dict(piloto)
+            entry["scoring"] = recomendador.scoring_piloto(piloto, nivel_num, categorias)
+            entry.setdefault("score_bruto", 0)
+            return entry
+
+        if not st.session_state.get("pilotos_selecionados"):
+            st.session_state["pilotos_selecionados"] = _computar_top3()
+
+        col_rec, col_reset = st.columns([1, 1])
+        if col_rec.button("🔄 Recalcular recomendação (top 3)"):
+            st.session_state["pilotos_selecionados"] = _computar_top3()
+            st.session_state.pop("pilotos_multiselect", None)
+            st.rerun()
+        if col_reset.button("🧹 Limpar seleção"):
+            st.session_state["pilotos_selecionados"] = []
+            st.session_state.pop("pilotos_multiselect", None)
+            st.rerun()
 
         st.info(
             "🤝 **HITL — Human-in-the-Loop:** *A IA recomenda, o humano valida e decide.* "
             "(Prof. Dr. José Bezerra, Aula 1 IA-PPPM, BSBr, 2026-08-08 [16])"
         )
+
+        nomes_catalogo = [p["nome"] for p in catalogo]
+        nomes_selecionados = [p["nome"] for p in st.session_state["pilotos_selecionados"]]
+        escolha = st.multiselect(
+            "Pilotos incluídos no mapa e no PDF (adicione, tire ou troque à vontade):",
+            options=nomes_catalogo,
+            default=nomes_selecionados,
+            key="pilotos_multiselect",
+            help="Os 3 recomendados vêm marcados por padrão. Marque outros do catálogo para incluir; desmarque para remover.",
+        )
+
+        if escolha != nomes_selecionados:
+            por_nome = {p["nome"]: p for p in catalogo}
+            atual_por_nome = {p["nome"]: p for p in st.session_state["pilotos_selecionados"]}
+            nova_lista = []
+            for nome in escolha:
+                if nome in atual_por_nome:
+                    nova_lista.append(atual_por_nome[nome])
+                elif nome in por_nome:
+                    nova_lista.append(_enriquecer(por_nome[nome]))
+            st.session_state["pilotos_selecionados"] = nova_lista
+            st.rerun()
+
+        pilotos = st.session_state["pilotos_selecionados"]
+        if not pilotos:
+            st.warning("Nenhum piloto selecionado. Clique em '🔄 Recalcular recomendação (top 3)' ou escolha manualmente acima.")
 
         for idx, piloto in enumerate(pilotos, start=1):
             with st.container(border=True):
@@ -133,26 +183,6 @@ with tabs[4]:
                         st.markdown(f"- {f}")
                 st.success(f"Ganho esperado: {piloto['ganho_esperado']}")
                 st.caption(f"Tempo estimado: {piloto['tempo_estimado_semanas']} semanas")
-
-                nomes = [p["nome"] for p in catalogo]
-                atual_idx = nomes.index(piloto["nome"]) if piloto["nome"] in nomes else 0
-                escolha = st.selectbox(
-                    "Substituir por outro piloto do catálogo:",
-                    nomes,
-                    index=atual_idx,
-                    key=f"substituir_{idx}",
-                )
-                if escolha != piloto["nome"]:
-                    novo = next(p for p in catalogo if p["nome"] == escolha)
-                    total = sum(int(st.session_state["diagnostico"].get(k, 0) or 0) for k, _, _ in DIMENSOES)
-                    from src import niveis as niveis_mod
-                    nivel_num = niveis_mod.get_nivel(total)["numero"]
-                    categorias = recomendador.extrair_categorias_dor(st.session_state["mapa"].get("dor", ""))
-                    novo_entry = dict(novo)
-                    novo_entry["scoring"] = recomendador.scoring_piloto(novo, nivel_num, categorias)
-                    novo_entry["score_bruto"] = 0
-                    st.session_state["pilotos_selecionados"][idx - 1] = novo_entry
-                    st.rerun()
 
 with tabs[5]:
     st.subheader("6. Exportar PDF")
