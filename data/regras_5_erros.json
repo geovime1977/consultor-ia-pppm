@@ -1,0 +1,52 @@
+{
+  "versao": "1.0",
+  "fonte": "Prof. Dr. José Bezerra — Aula 2 IA-PPPM (BSBr, 2026-08-17), slides 7-12 do deck oficial 'Casos de Uso, Priorização e Governança'.",
+  "principio": "O erro não é testar IA. O erro é testar sem problema, sem dados e sem governança.",
+  "erros": [
+    {
+      "id": "E1",
+      "nome": "Começar pela ferramenta",
+      "descricao_slide": "A pergunta errada: 'Qual IA vamos usar?'. A pergunta certa: 'Qual decisão, processo ou dor precisa melhorar?'",
+      "correcao_de_rota": "Sem dor clara, a IA vira demonstração bonita e impacto pequeno.",
+      "keywords_ferramenta": [
+        "gpt", "chatgpt", "claude", "copilot", "gemini", "llm",
+        "rag", "chatbot", "genai", "openai", "anthropic",
+        "vertex", "bedrock", "ollama", "mistral"
+      ],
+      "tamanho_minimo_dor": 30
+    },
+    {
+      "id": "E2",
+      "nome": "Escolher pelo fascínio técnico",
+      "descricao_slide": "Casos chamativos nem sempre são casos estratégicos. O que encanta a equipe técnica pode não gerar valor executivo.",
+      "correcao_de_rota": "Priorize problemas relevantes, não modismos.",
+      "keywords_fascinio": [
+        "transformer", "embedding", "vector db", "vector database",
+        "mlops", "fine-tuning", "fine tuning", "prompt engineering",
+        "agente autônomo", "agente autonomo", "multiagente", "multi-agente",
+        "rag avançado", "rag avancado", "graph rag", "cot",
+        "chain of thought", "moe", "mixture of experts"
+      ]
+    },
+    {
+      "id": "E3",
+      "nome": "Ignorar dados e processos",
+      "descricao_slide": "Sem dados confiáveis e processo compreendido, a IA tende a recomendar com baixa precisão e alto risco.",
+      "correcao_de_rota": "A qualidade da decisão começa antes do prompt.",
+      "tamanho_minimo_dados": 20
+    },
+    {
+      "id": "E4",
+      "nome": "Confundir automação com decisão",
+      "descricao_slide": "Automatizar tarefas não significa delegar responsabilidade. Em PPPM, recomendações precisam ser validadas.",
+      "correcao_de_rota": "IA recomenda. O humano valida e decide."
+    },
+    {
+      "id": "E5",
+      "nome": "Não medir valor nem risco",
+      "descricao_slide": "Sem métricas, o piloto vira opinião. Sem governança, o resultado pode ser inseguro, injusto ou pouco rastreável.",
+      "correcao_de_rota": "Valor sem controle não sustenta escala.",
+      "tamanho_minimo_metrica": 15
+    }
+  ]
+}

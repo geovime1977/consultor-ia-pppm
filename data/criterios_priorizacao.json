@@ -1,0 +1,133 @@
+{
+  "versao": "1.0",
+  "fonte": "Prof. Dr. José Bezerra — Aula 2 IA-PPPM (BSBr, 2026-08-17), slides 24-30 e 37 do deck oficial 'Casos de Uso, Priorização e Governança'.",
+  "criterios": [
+    {
+      "id": "impacto",
+      "nome": "Impacto no resultado",
+      "peso": 0.30,
+      "pergunta_executiva": "Qual resultado muda se esse caso for implementado?",
+      "checklist": [
+        "Afeta decisão crítica?",
+        "Reduz dor relevante?",
+        "Melhora indicadores do projeto?"
+      ]
+    },
+    {
+      "id": "viabilidade",
+      "nome": "Viabilidade técnica",
+      "peso": 0.20,
+      "pergunta_executiva": "Conseguimos começar sem colocar a operação em risco?",
+      "checklist": [
+        "Existe capacidade técnica?",
+        "Pode começar pequeno?",
+        "Depende de integração complexa?"
+      ]
+    },
+    {
+      "id": "dados",
+      "nome": "Dados disponíveis",
+      "peso": 0.20,
+      "pergunta_executiva": "Os dados existem, são acessíveis, confiáveis e suficientes?",
+      "checklist": [
+        "Dados são limpos?",
+        "Há histórico relevante?",
+        "Existe dono dos dados?"
+      ]
+    },
+    {
+      "id": "risco",
+      "nome": "Risco / segurança",
+      "peso": 0.15,
+      "pergunta_executiva": "Quais riscos éticos, legais, operacionais, reputacionais ou de segurança podem surgir?",
+      "checklist": [
+        "Existe risco de decisão indevida?",
+        "Há dados sensíveis?",
+        "O erro da IA seria crítico?"
+      ]
+    },
+    {
+      "id": "valor",
+      "nome": "Valor potencial",
+      "peso": 0.15,
+      "pergunta_executiva": "Qual benefício executivo pode ser demonstrado, medido e comunicado?",
+      "checklist": [
+        "ROI ou economia?",
+        "Velocidade de decisão?",
+        "Redução de risco ou retrabalho?"
+      ]
+    }
+  ],
+  "escala_nota": {
+    "1": "Muito baixo",
+    "2": "Baixo",
+    "3": "Médio",
+    "4": "Alto",
+    "5": "Muito alto"
+  },
+  "thresholds": {
+    "fazer_agora": 3.5,
+    "preparar": 2.5,
+    "descricao": "Fazer agora ≥ 3.5 · Preparar 2.5–3.49 · Não priorizar < 2.5. Regra prática (slide 30): 'Escolha 3 casos com alto potencial, dados mínimos e risco controlável'."
+  },
+  "corte_obrigatorio": {
+    "regra": "Se não houver dono humano da decisão, o caso NÃO ESTÁ PRONTO.",
+    "fonte": "Slide 30, box 'Corte obrigatório'.",
+    "campo": "dono",
+    "override_ranking": "Não priorizar"
+  },
+  "quadrantes_matriz": {
+    "descricao": "Matriz Impacto × Viabilidade (slide 29). Use para localizar visualmente antes de aplicar filtros de risco, dados e governança.",
+    "regras": [
+      {"impacto_min": 4, "viabilidade_min": 4, "rotulo": "Comece aqui", "acao": "Alto impacto + alta viabilidade + risco controlável."},
+      {"impacto_min": 4, "viabilidade_max": 3, "rotulo": "Investigue", "acao": "Alto impacto, mas exige dados, governança ou integração."},
+      {"impacto_max": 3, "viabilidade_max": 3, "rotulo": "Evite agora", "acao": "Baixo impacto, baixa viabilidade ou risco desproporcional."},
+      {"impacto_max": 3, "viabilidade_min": 4, "rotulo": "Baixa prioridade", "acao": "Fácil de fazer, mas gera pouco valor executivo."}
+    ]
+  },
+  "empresa_alfa": {
+    "descricao": "Exemplo do slide 37 do deck oficial da Aula 2. Organização já usa IA de forma pontual, mas ainda precisa de método, governança e valor mensurável.",
+    "casos": [
+      {
+        "id": "alfa-A",
+        "nome": "Relatório executivo automático para patrocinadores",
+        "contexto": "PMO corporativo",
+        "dor": "Consolidação semanal de status consome horas do PMO e sai com atraso.",
+        "dados": "Status reports Jira, atas de comitê, plano de riscos.",
+        "decisao": "Publicar resumo executivo semanal aprovado pelo PMO.",
+        "dono": "PMO — Diretor de Projetos",
+        "metrica_valor": "Redução de 70% no tempo de consolidação; publicação em D+1 vs. D+3."
+      },
+      {
+        "id": "alfa-B",
+        "nome": "Análise preditiva de atrasos e dependências críticas",
+        "contexto": "Programa multi-projeto",
+        "dor": "Atrasos em dependências críticas só aparecem depois do impacto.",
+        "dados": "Histórico de 3 anos de cronogramas MS Project + registro de atrasos.",
+        "decisao": "Alertar gestor 2 semanas antes de risco alto de atraso.",
+        "dono": "Gerente de Programa",
+        "metrica_valor": "Redução de 30% em atrasos > 15 dias."
+      },
+      {
+        "id": "alfa-C",
+        "nome": "Priorização de portfólio com critérios de ROI e risco",
+        "contexto": "Comitê de portfólio",
+        "dor": "Priorização atual é política; alta gestão pede critério auditável.",
+        "dados": "Business cases, planilha ROI, matriz de risco corporativa.",
+        "decisao": "Ranquear 40 iniciativas trimestralmente.",
+        "dono": "CIO — patrocinador do comitê",
+        "metrica_valor": "Realocação de 15% do CAPEX para top 10 iniciativas."
+      },
+      {
+        "id": "alfa-D",
+        "nome": "Chatbot interno para dúvidas de metodologia",
+        "contexto": "Escritório de projetos + times",
+        "dor": "PMs iniciantes pedem apoio de metodologia; resposta demora dias.",
+        "dados": "Base PMBOK + manual interno + FAQs.",
+        "decisao": "Responder dúvida em minutos ao PM.",
+        "dono": null,
+        "metrica_valor": "Redução do backlog de dúvidas do PMO."
+      }
+    ]
+  }
+}

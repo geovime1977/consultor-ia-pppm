@@ -7,9 +7,11 @@ from src import (
     contexto,
     diagnostico,
     db,
+    governanca_ui,
     mapa_blocos,
     mapa_pmbok,
     pdf_export,
+    priorizacao_ui,
     projetos,
     recomendador,
     state,
@@ -66,6 +68,8 @@ tabs = st.tabs(
         "6. Exportar PDF",
         "7. Projetos",
         "8. Comparar",
+        "9. Priorização (Aula 2)",
+        "10. Governança + HITL (Aula 2)",
     ]
 )
 
@@ -181,3 +185,9 @@ with tabs[6]:
 
 with tabs[7]:
     comparar.render()
+
+with tabs[8]:
+    priorizacao_ui.render()
+
+with tabs[9]:
+    governanca_ui.render()

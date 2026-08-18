@@ -1,0 +1,52 @@
+{
+  "versao": "1.0",
+  "fonte": "Prof. Dr. José Bezerra — Aula 2 IA-PPPM (BSBr, 2026-08-17), slides 31-36 do deck oficial.",
+  "principio_de_ouro": "Quanto maior o impacto da decisão, maior deve ser a validação humana.",
+  "seguranca": {
+    "descricao": "Antes de automatizar: a pergunta não é só 'a IA consegue?'. É também 'a IA pode, deve e será validada?' (slide 32).",
+    "blocos": [
+      {"id": "dados_sensiveis", "titulo": "Dados sensíveis", "regra": "Classifique informações e evite exposição indevida."},
+      {"id": "acessos", "titulo": "Acessos", "regra": "Defina quem pode consultar, treinar, editar ou decidir."},
+      {"id": "ambiente_seguro", "titulo": "Ambiente seguro", "regra": "Evite inserir dados confidenciais em ferramentas sem política clara."},
+      {"id": "controle_uso", "titulo": "Controle de uso", "regra": "Registre finalidade, dono, permissões e limites."}
+    ]
+  },
+  "etica": {
+    "descricao": "Modelos podem reproduzir distorções dos dados, do contexto e das decisões humanas (slide 33).",
+    "riscos": [
+      "Recomendações injustas ou enviesadas.",
+      "Ausência de explicação para decisões críticas.",
+      "Uso de dados sem autorização ou finalidade clara.",
+      "Dependência cega da recomendação da IA."
+    ]
+  },
+  "rastreabilidade": {
+    "descricao": "Se a recomendação não pode ser explicada, auditada ou contestada, ela não está pronta para decisões críticas (slide 34).",
+    "fluxo": [
+      {"passo": 1, "id": "entrada", "titulo": "Entrada", "conteudo": "Dados usados"},
+      {"passo": 2, "id": "processamento", "titulo": "Processamento", "conteudo": "Prompt, modelo e regra"},
+      {"passo": 3, "id": "saida", "titulo": "Saída", "conteudo": "Recomendação gerada"},
+      {"passo": 4, "id": "validacao", "titulo": "Validação", "conteudo": "Humano aprova ou ajusta"},
+      {"passo": 5, "id": "registro", "titulo": "Registro", "conteudo": "Decisão e evidência"}
+    ]
+  },
+  "hitl": {
+    "descricao": "Human-in-the-Loop: A IA recomenda. O humano valida, decide e responde pela decisão (slide 35).",
+    "papeis": [
+      {"passo": 1, "papel": "IA recomenda", "responsabilidade": "Gera análise, alerta, cenário ou sugestão."},
+      {"passo": 2, "papel": "Humano valida", "responsabilidade": "Verifica contexto, ética, risco e coerência."},
+      {"passo": 3, "papel": "Gestor decide", "responsabilidade": "Assume a decisão e registra evidências."}
+    ],
+    "workflow_validacao": [
+      "IA gera recomendação",
+      "Consultor verifica dados e contexto",
+      "Especialista valida riscos e regras",
+      "Gestor decide e registra"
+    ],
+    "niveis": [
+      {"id": "leve", "impacto_min": 0.0, "impacto_max": 2.5, "descricao": "Validação amostral pelo próprio operador.", "aprovador": "Operador"},
+      {"id": "moderada", "impacto_min": 2.5, "impacto_max": 3.75, "descricao": "Consultor verifica dados/contexto antes da decisão.", "aprovador": "Consultor + Operador"},
+      {"id": "alta", "impacto_min": 3.75, "impacto_max": 5.0, "descricao": "Especialista valida riscos/regras e gestor assume decisão registrada.", "aprovador": "Especialista + Gestor"}
+    ]
+  }
+}
