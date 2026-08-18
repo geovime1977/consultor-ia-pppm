@@ -270,14 +270,152 @@ def _renderizar_matriz_cruzada(processos: list[dict]) -> None:
     c3.metric("Pilotos no catálogo", len(pilotos))
 
 
+_DIMENSOES_ALVO = {
+    "estrategia": "Estratégia",
+    "dados": "Dados",
+    "casos_uso": "Casos de uso",
+    "governanca": "Governança",
+    "beneficios": "Benefícios",
+}
+
+
+def _renderizar_pilotos_didatico(pilotos: list[dict]) -> None:
+    """Visão principal da aba 1: os 16 pilotos como cards didáticos."""
+    idx_cases = _carregar_cases_index()
+    citados = [p for p in pilotos if p.get("citado_por_bezerra")]
+    complementares = [p for p in pilotos if not p.get("citado_por_bezerra")]
+
+    st.markdown(
+        "Foco prático: **onde IA muda o jogo em Portfólio, Programa e Projeto (PPPM)**. "
+        "Cada piloto abaixo é uma aplicação concreta com dor real, exemplo, "
+        "esforço estimado, ganho esperado e KPI benchmark auditável. "
+        "Os 🎯 foram citados pelo Prof. Bezerra na Aula 1."
+    )
+
+    with st.container(border=True):
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Total de pilotos", len(pilotos))
+        c2.metric("Citados por Bezerra", len(citados))
+        c3.metric("Complementares", len(complementares))
+        tempo_medio = sum(p.get("tempo_estimado_semanas", 0) for p in pilotos) / max(len(pilotos), 1)
+        c4.metric("Tempo médio (sem.)", f"{tempo_medio:.1f}")
+
+    dims = ["(todas)"] + list(_DIMENSOES_ALVO.values())
+    filtro_dim = st.selectbox(
+        "Filtrar por dimensão do diagnóstico",
+        dims,
+        key="pilotos_didatico_dim",
+        help="Dimensões da aba 3 (Diagnóstico): Estratégia, Dados, Casos de uso, Governança, Benefícios.",
+    )
+    filtro_bezerra = st.checkbox(
+        "Mostrar só os 🎯 citados pelo Prof. Bezerra",
+        value=False,
+        key="pilotos_didatico_bezerra",
+    )
+    busca = st.text_input(
+        "Buscar termo no piloto (nome, descrição, ferramentas)", "",
+        key="pilotos_didatico_busca",
+    )
+
+    def _match(p: dict) -> bool:
+        if filtro_bezerra and not p.get("citado_por_bezerra"):
+            return False
+        if filtro_dim != "(todas)":
+            rot_para_id = {v: k for k, v in _DIMENSOES_ALVO.items()}
+            if rot_para_id[filtro_dim] not in (p.get("dimensoes_alvo") or []):
+                return False
+        if busca.strip():
+            alvo = " ".join([
+                p.get("nome", ""), p.get("descricao", ""),
+                " ".join(p.get("ferramentas_recomendadas") or []),
+                " ".join(p.get("categorias_dor") or []),
+            ]).lower()
+            if busca.lower() not in alvo:
+                return False
+        return True
+
+    pilotos_view = [p for p in pilotos if _match(p)]
+    st.caption(f"{len(pilotos_view)} de {len(pilotos)} pilotos após filtros.")
+
+    for p in pilotos_view:
+        emoji = " 🎯" if p.get("citado_por_bezerra") else ""
+        titulo = f"**{p['nome']}**{emoji}"
+        with st.expander(titulo, expanded=False):
+            st.markdown(p.get("descricao", ""))
+
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Impacto", str(p.get("impacto_base", "—")).capitalize())
+            c2.metric("Viabilidade", str(p.get("viabilidade_base", "—")).capitalize())
+            c3.metric("Risco", str(p.get("risco_base", "—")).capitalize())
+            c4.metric("Tempo (sem.)", p.get("tempo_estimado_semanas", "—"))
+
+            col_a, col_b = st.columns(2)
+            with col_a:
+                st.markdown("**🎯 Dimensões que endereça**")
+                for d in p.get("dimensoes_alvo") or []:
+                    st.markdown(f"- {_DIMENSOES_ALVO.get(d, d)}")
+                st.markdown("**🩹 Categorias de dor**")
+                for c in p.get("categorias_dor") or []:
+                    st.markdown(f"- {c}")
+            with col_b:
+                st.markdown("**⚙️ Ferramentas recomendadas**")
+                for f in p.get("ferramentas_recomendadas") or []:
+                    st.markdown(f"- {f}")
+                st.markdown("**📋 Pré-requisitos**")
+                for pr in p.get("pre_requisitos") or []:
+                    st.markdown(f"- {pr}")
+
+            st.success(f"**Ganho esperado:** {p.get('ganho_esperado', '—')}")
+
+            if p.get("metricas"):
+                st.markdown("**📊 KPI benchmark auditável**")
+                for m in p["metricas"]:
+                    with st.container(border=True):
+                        st.markdown(f"**{m.get('nome', 'KPI')}** — unidade: `{m.get('unidade', '')}`")
+                        base = m.get("baseline_mercado", {})
+                        meta = m.get("meta_com_ia", {})
+                        st.markdown(
+                            f"- Baseline mercado: {base.get('valor', '—')}  \n"
+                            f"  *Fonte: {base.get('fonte', '—')}*"
+                        )
+                        st.markdown(
+                            f"- Meta com IA: {meta.get('valor', '—')}  \n"
+                            f"  *Fonte: {meta.get('fonte', '—')}*"
+                        )
+                        if m.get("reducao_percentual"):
+                            st.markdown(f"- 🏁 **Ganho:** {m['reducao_percentual']}")
+
+            if p.get("plano_projeto_30d"):
+                with st.expander("📅 Plano de 30 dias (EAP + cronograma)"):
+                    plano = p["plano_projeto_30d"]
+                    if isinstance(plano, dict):
+                        for k, v in plano.items():
+                            st.markdown(f"**{k}:** {v}" if not isinstance(v, list)
+                                        else f"**{k}:**\n" + "\n".join(f"- {x}" for x in v))
+                    else:
+                        st.write(plano)
+
+
 def render() -> None:
     titulo_extra = " × IA+PO" if MOSTRAR_PO_UI else ""
     caption_extra = " × IA + Pesquisa Operacional" if MOSTRAR_PO_UI else ""
-    st.subheader(f"Mapa PMBOK 8ª Ed. × IA{titulo_extra}")
+    st.subheader("Pilotos de IA em PPPM · foco prático")
     st.caption(
-        f"Referência mestre — 40 processos do PMBOK 8ª Edição × IA (só-IA){caption_extra}. "
-        "Núcleo do consultor-ia-pppm (aba 1)."
+        "Onde a IA muda o jogo em Portfólio, Programa e Projeto. "
+        f"16 pilotos com dor, exemplo, esforço e KPI. "
+        f"O mapa completo dos 40 processos PMBOK{titulo_extra} fica como referência opcional no fim da aba{caption_extra}."
     )
+
+    pilotos = _carregar_pilotos()
+    if pilotos:
+        _renderizar_pilotos_didatico(pilotos)
+
+    st.markdown("---")
+    with st.expander("📚 Referência opcional — Mapa completo dos 40 processos PMBOK 8ª Ed.", expanded=False):
+        _render_mapa_40_processos()
+
+
+def _render_mapa_40_processos() -> None:
 
     processos = carregar_processos()
     if not processos:

@@ -49,20 +49,13 @@ with st.sidebar:
         marcador = "✅" if state.is_step_complete(numero) else "⬜"
         st.write(f"{marcador} {numero}. {rotulo}")
     st.markdown("---")
-    if MOSTRAR_PO_UI:
-        st.caption(
-            "**Aba 1 — Mapa PMBOK × IA × IA+PO** é a referência mestre "
-            "dos 40 processos do PMBOK 8ª Ed. cruzados com IA (só-IA) e IA + Pesquisa Operacional. "
-            "As demais abas rodam o diagnóstico consultivo (Contexto → Diagnóstico → Mapa 5 Blocos → Pilotos → PDF), "
-            "as próximas gerenciam múltiplos projetos e comparações, e as duas últimas (9 e 10) trazem o método da Aula 2."
-        )
-    else:
-        st.caption(
-            "**Aba 1 — Mapa PMBOK × IA** é a referência mestre "
-            "dos 40 processos do PMBOK 8ª Ed. com aplicação de IA por processo. "
-            "As demais abas rodam o diagnóstico consultivo (Contexto → Diagnóstico → Mapa 5 Blocos → Pilotos → PDF), "
-            "as próximas gerenciam múltiplos projetos e comparações, e as duas últimas (9 e 10) trazem o método da Aula 2."
-        )
+    st.caption(
+        "**Aba 1 — Pilotos de IA em PPPM** mostra 16 aplicações concretas onde IA muda o jogo "
+        "em Portfólio, Programa e Projeto (dor real, exemplo, esforço, KPI benchmark). "
+        "O mapa completo dos 40 processos PMBOK fica como referência opcional no fim da aba. "
+        "As demais abas rodam o diagnóstico consultivo (Contexto → Diagnóstico → Mapa 5 Blocos → Pilotos → PDF), "
+        "as próximas gerenciam múltiplos projetos e comparações, e as duas últimas (9 e 10) trazem o método da Aula 2."
+    )
     st.markdown("---")
     if st.button("Reiniciar sessão"):
         state.reset_state()
@@ -71,7 +64,7 @@ with st.sidebar:
 
 tabs = st.tabs(
     [
-        "1. Mapa PMBOK × IA × IA+PO" if MOSTRAR_PO_UI else "1. Mapa PMBOK × IA",
+        "1. Pilotos de IA em PPPM",
         "2. Contexto",
         "3. Diagnóstico",
         "4. Mapa 5 Blocos",
