@@ -53,11 +53,11 @@ def _preview_sugestoes(sugestoes: dict) -> None:
 
 
 def render() -> None:
-    st.subheader("11. Auto-preencher a partir de documento (upload)")
+    st.subheader("Auto-preencher a partir de documento (upload)")
     st.caption(
         "Envie um PDF, DOCX ou TXT (briefing, termo de abertura, ata, "
         "descrição de projeto) e o app sugere preenchimento das abas "
-        "2 (Contexto), 4 (Mapa 5 Blocos) e 9 (Casos da Aula 2). "
+        "Contexto, Mapa 5 Blocos e Casos da Aula 2 (Priorização). "
         "**Você sempre revisa antes de aplicar.**"
     )
     _painel_status_chave()
@@ -104,29 +104,29 @@ def render() -> None:
     )
     col1, col2, col3 = st.columns(3)
     with col1:
-        if st.button("Aplicar Contexto (aba 2)", use_container_width=True):
+        if st.button("Aplicar Contexto", use_container_width=True):
             ctx_novo = sugestoes.get("contexto", {}) or {}
             ctx_atual = dict(st.session_state.get("contexto") or {})
             for k, v in ctx_novo.items():
                 if v not in (None, "", 0, False):
                     ctx_atual[k] = v
             st.session_state["contexto"] = ctx_atual
-            st.success("Contexto atualizado. Confira na aba 2.")
+            st.success("Contexto atualizado. Confira na aba Contexto.")
     with col2:
-        if st.button("Aplicar Mapa 5 Blocos (aba 4)", use_container_width=True):
+        if st.button("Aplicar Mapa 5 Blocos", use_container_width=True):
             mapa_novo = sugestoes.get("mapa", {}) or {}
             mapa_atual = dict(st.session_state.get("mapa") or {})
             for k, v in mapa_novo.items():
                 if v and str(v).strip():
                     mapa_atual[k] = v
             st.session_state["mapa"] = mapa_atual
-            st.success("Mapa 5 Blocos atualizado. Confira na aba 4.")
+            st.success("Mapa 5 Blocos atualizado. Confira na aba Mapa 5 Blocos.")
     with col3:
-        if st.button("Aplicar Casos de Uso (aba 9)", use_container_width=True):
+        if st.button("Aplicar Casos de Uso (Aula 2)", use_container_width=True):
             novos = upload_documento.sugestoes_para_casos_de_uso(sugestoes)
             existentes = list(st.session_state.get(priorizacao_ui.STATE_KEY) or [])
             st.session_state[priorizacao_ui.STATE_KEY] = existentes + novos
-            st.success(f"{len(novos)} caso(s) adicionado(s). Confira na aba 9.")
+            st.success(f"{len(novos)} caso(s) adicionado(s). Confira na aba Priorização (Aula 2).")
 
     st.markdown("---")
     st.caption(

@@ -12,3 +12,13 @@ ver docs/ROADMAP-PO.md.
 """
 
 MOSTRAR_PO_UI: bool = False
+
+MOSTRAR_ABA_PILOTOS_PMBOK: bool = False
+"""Aba 'Pilotos de IA em PPPM' + referência dos 40 processos PMBOK.
+
+    - False (padrão para a turma): oculta a aba. O app começa direto no
+      diagnóstico consultivo (Contexto → Diagnóstico → Mapa → Pilotos → PDF)
+      e no método Aula 2 (Priorização + Governança/HITL).
+    - True: reexibe a aba com o catálogo dos 16 pilotos e o mapa dos 40
+      processos PMBOK como referência opcional (uso interno / próxima turma).
+"""

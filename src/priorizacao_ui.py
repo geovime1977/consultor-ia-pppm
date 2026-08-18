@@ -134,7 +134,7 @@ def render() -> None:
     criterios_data = priorizacao.carregar_criterios()
     criterios = criterios_data["criterios"]
 
-    st.subheader("9. Priorização de Casos de Uso — Aula 2")
+    st.subheader("Priorização de Casos de Uso — Aula 2")
     st.caption(
         "*Ideia boa só vira valor quando passa por método, governança e decisão humana.* "
         "— Prof. Dr. José Bezerra, Aula 2 IA-PPPM (BSBr, 2026-08-17)"
@@ -238,8 +238,8 @@ def render() -> None:
     st.markdown("### 📄 Exportar priorização em PDF")
     st.caption(
         "Gera um PDF com esta priorização, alertas dos 5 erros e — se você preencher "
-        "a aba 10 — a governança/HITL de cada caso. Se quiser o relatório completo "
-        "com contexto, diagnóstico e mapa da Aula 1, use a **aba 6 · Exportar PDF**."
+        "a aba de Governança + HITL — a governança/HITL de cada caso. Se quiser o relatório "
+        "completo com contexto, diagnóstico e mapa da Aula 1, use a **aba Exportar PDF**."
     )
     if st.button("📥 Gerar PDF da priorização", type="primary", use_container_width=True):
         from pathlib import Path

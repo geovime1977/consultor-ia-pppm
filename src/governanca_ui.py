@@ -116,7 +116,7 @@ def _editor_governanca_por_caso(caso: priorizacao.CasoDeUso) -> None:
 
 def render() -> None:
     politica = governanca.carregar_politica()
-    st.subheader("10. Governança + HITL — Aula 2")
+    st.subheader("Governança + HITL — Aula 2")
     st.caption(
         "*Sem governança, a IA escala problemas. Com governança, a IA escala valor.* "
         "— Prof. Dr. José Bezerra, Aula 2 IA-PPPM (BSBr, 2026-08-17)"
@@ -154,7 +154,7 @@ def render() -> None:
     st.markdown("### 📄 Exportar PDF completo (Aula 1 + Aula 2)")
     st.caption(
         "Gera o mapa consultivo completo — contexto, diagnóstico, mapa 5 blocos, pilotos, "
-        "priorização e governança/HITL de cada caso. Se quiser só a Aula 1, use a **aba 6**."
+        "priorização e governança/HITL de cada caso. Se quiser só a Aula 1, use a **aba Exportar PDF**."
     )
     if st.button(
         "📚 Gerar PDF completo (Aula 1 + Aula 2)",

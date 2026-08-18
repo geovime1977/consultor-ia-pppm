@@ -15,13 +15,13 @@ def _reset_form_state() -> None:
 
 
 def _selecionar_projeto_ativo(projetos: list[dict]) -> None:
-    """Sidebar-style seletor de projeto ativo (compartilhado com aba 6)."""
+    """Seletor de projeto ativo (usado internamente para persistência SQLite)."""
     nomes = ["(nenhum)"] + [f"[{p['id']}] {p['nome']}" for p in projetos]
     escolha = st.selectbox(
-        "Projeto ativo (compartilhado com aba 6 Mapa PMBOK)",
+        "Projeto ativo",
         nomes,
         key="proj_ativo_select",
-        help="Ao escolher um projeto aqui, a aba 6 destaca os processos que ele já marcou.",
+        help="Ao escolher um projeto aqui, ele fica marcado como ativo na sessão.",
     )
     if escolha == "(nenhum)":
         st.session_state["projeto_ativo_id"] = None
@@ -82,7 +82,7 @@ def _bloco_import_export() -> None:  # noqa: D401 - documented via docstring
 
 
 def render() -> None:
-    st.subheader("7. Projetos cadastrados")
+    st.subheader("Projetos cadastrados")
     st.caption(
         "Base persistente (SQLite `data/diag.db`) para acompanhar diagnósticos "
         "de múltiplos projetos e usar em benchmarks cross-portfólio."

@@ -137,7 +137,7 @@ def _dataframe_ranking(projetos: list[dict]) -> pd.DataFrame:
 
 
 def render() -> None:
-    st.subheader("8. Comparar projetos")
+    st.subheader("Comparar projetos")
     cross = "PMBOK × IA × PO" if MOSTRAR_PO_UI else "PMBOK × IA"
     st.caption(
         f"Visão cross-portfólio: maturidade em IA-PPPM (5 dimensões) e cobertura "
@@ -146,7 +146,7 @@ def render() -> None:
 
     projetos = db.listar_projetos()
     if not projetos:
-        st.warning("Nenhum projeto cadastrado. Popule a base pela aba 7 ou rode `scripts/seed_projetos_locais.py`.")
+        st.warning("Nenhum projeto cadastrado. Popule a base pela aba Projetos ou rode `scripts/seed_projetos_locais.py`.")
         return
 
     processos = mapa_pmbok.carregar_processos()

@@ -17,7 +17,7 @@ from src import (
     state,
     upload_ui,
 )
-from src.config import MOSTRAR_PO_UI
+from src.config import MOSTRAR_ABA_PILOTOS_PMBOK, MOSTRAR_PO_UI
 from src.diagnostico import DIMENSOES, rotulo_dimensao
 
 _TITULO_APP = "Consultor IA-PPPM — Mapa PMBOK 8ª Ed. × IA" + (" × IA+PO" if MOSTRAR_PO_UI else "")
@@ -51,52 +51,53 @@ with st.sidebar:
         st.write(f"{marcador} {numero}. {rotulo}")
     st.markdown("---")
     st.caption(
-        "**Aba 1 — Pilotos de IA em PPPM** mostra 16 aplicações concretas onde IA muda o jogo "
-        "em Portfólio, Programa e Projeto (dor real, exemplo, esforço, KPI benchmark). "
-        "O mapa completo dos 40 processos PMBOK fica como referência opcional no fim da aba. "
-        "As demais abas rodam o diagnóstico consultivo (Contexto → Diagnóstico → Mapa 5 Blocos → Pilotos → PDF), "
-        "as próximas gerenciam múltiplos projetos e comparações, e as duas últimas (9 e 10) trazem o método da Aula 2."
+        "**Aula 1** conduz o diagnóstico consultivo: Contexto → Diagnóstico → Mapa 5 Blocos → "
+        "Pilotos Recomendados → Exportar PDF. **Aula 2** traz Priorização e Governança + HITL. "
+        "As abas de Projetos, Comparar e Auto-preencher são utilitárias — permitem salvar/reabrir "
+        "seu trabalho e continuar depois."
     )
     st.markdown("---")
     if st.button("Reiniciar sessão"):
         state.reset_state()
         st.rerun()
-    st.caption("Método Aula 1 — Prof. Dr. José Bezerra | BSBr")
+    st.caption("Método Aulas 1 e 2 — Prof. Dr. José Bezerra | BSBr")
 
-tabs = st.tabs(
-    [
-        "1. Pilotos de IA em PPPM",
-        "2. Contexto",
-        "3. Diagnóstico",
-        "4. Mapa 5 Blocos",
-        "5. Pilotos Recomendados",
-        "6. Exportar PDF",
-        "7. Projetos",
-        "8. Comparar",
-        "9. Priorização (Aula 2)",
-        "10. Governança + HITL (Aula 2)",
-        "11. Auto-preencher (upload)",
-    ]
-)
+_LABELS_BASE = [
+    "Contexto",
+    "Diagnóstico",
+    "Mapa 5 Blocos",
+    "Pilotos Recomendados",
+    "Exportar PDF",
+    "Projetos",
+    "Comparar",
+    "Priorização (Aula 2)",
+    "Governança + HITL (Aula 2)",
+    "Auto-preencher (upload)",
+]
+_labels = (["Pilotos de IA em PPPM"] if MOSTRAR_ABA_PILOTOS_PMBOK else []) + _LABELS_BASE
+tabs = st.tabs([f"{i}. {rot}" for i, rot in enumerate(_labels, start=1)])
 
-with tabs[0]:
-    mapa_pmbok.render()
+_off = 0
+if MOSTRAR_ABA_PILOTOS_PMBOK:
+    with tabs[0]:
+        mapa_pmbok.render()
+    _off = 1
 
-with tabs[1]:
+with tabs[_off + 0]:
     contexto.render()
 
-with tabs[2]:
+with tabs[_off + 1]:
     if not state.is_step_complete(1):
-        st.warning("Preencha e salve o contexto na aba 2 antes de avançar.")
+        st.warning("Preencha e salve o contexto na aba anterior antes de avançar.")
     diagnostico.render()
 
-with tabs[3]:
+with tabs[_off + 2]:
     if not state.is_step_complete(1):
         st.warning("Preencha o contexto antes de estruturar o Mapa 5 Blocos.")
     mapa_blocos.render()
 
-with tabs[4]:
-    st.subheader("5. Pilotos Recomendados")
+with tabs[_off + 3]:
+    st.subheader("Pilotos Recomendados")
     if not (state.is_step_complete(2) and state.is_step_complete(3)):
         st.warning("Complete o Diagnóstico e o Mapa 5 Blocos antes de gerar os pilotos.")
     else:
@@ -186,10 +187,10 @@ with tabs[4]:
                 st.success(f"Ganho esperado: {piloto['ganho_esperado']}")
                 st.caption(f"Tempo estimado: {piloto['tempo_estimado_semanas']} semanas")
 
-with tabs[5]:
-    st.subheader("6. Exportar PDF")
+with tabs[_off + 4]:
+    st.subheader("Exportar PDF")
     if not state.is_step_complete(4):
-        st.warning("Gere os pilotos recomendados na aba 5 antes de exportar.")
+        st.warning("Gere os pilotos recomendados na aba anterior antes de exportar.")
     else:
         ctx = st.session_state["contexto"]
         n_casos_a2 = len(st.session_state.get("aula2_casos") or [])
@@ -208,7 +209,7 @@ with tabs[5]:
             )
         else:
             st.caption(
-                "Aula 2 vazia — cadastre casos na aba 9 para habilitar o PDF completo."
+                "Aula 2 vazia — cadastre casos na aba de Priorização para habilitar o PDF completo."
             )
 
         with st.expander("Ver leitura executiva do diagnóstico"):
@@ -242,7 +243,7 @@ with tabs[5]:
             type="primary",
             use_container_width=True,
             disabled=(n_casos_a2 == 0),
-            help="Requer pelo menos 1 caso cadastrado na aba 9 (Priorização)."
+            help="Requer pelo menos 1 caso cadastrado na aba de Priorização (Aula 2)."
         ):
             output_dir = Path(__file__).resolve().parent / "output"
             output_dir.mkdir(exist_ok=True)
@@ -258,17 +259,17 @@ with tabs[5]:
                 )
             st.success(f"PDF completo gerado em: {caminho}")
 
-with tabs[6]:
+with tabs[_off + 5]:
     projetos.render()
 
-with tabs[7]:
+with tabs[_off + 6]:
     comparar.render()
 
-with tabs[8]:
+with tabs[_off + 7]:
     priorizacao_ui.render()
 
-with tabs[9]:
+with tabs[_off + 8]:
     governanca_ui.render()
 
-with tabs[10]:
+with tabs[_off + 9]:
     upload_ui.render()
