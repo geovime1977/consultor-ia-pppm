@@ -20,7 +20,10 @@ from src import (
 from src.config import MOSTRAR_ABA_PILOTOS_PMBOK, MOSTRAR_PO_UI
 from src.diagnostico import DIMENSOES, rotulo_dimensao
 
-_TITULO_APP = "Consultor IA-PPPM — Mapa PMBOK 8ª Ed. × IA" + (" × IA+PO" if MOSTRAR_PO_UI else "")
+if MOSTRAR_ABA_PILOTOS_PMBOK:
+    _TITULO_APP = "Consultor IA-PPPM — Mapa PMBOK 8ª Ed. × IA" + (" × IA+PO" if MOSTRAR_PO_UI else "")
+else:
+    _TITULO_APP = "Consultor IA-PPPM" + (" × PO" if MOSTRAR_PO_UI else "")
 
 st.set_page_config(
     page_title=_TITULO_APP,

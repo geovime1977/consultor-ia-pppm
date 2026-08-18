@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src import db, mapa_pmbok
-from src.config import MOSTRAR_PO_UI
+from src.config import MOSTRAR_ABA_PILOTOS_PMBOK, MOSTRAR_PO_UI
 
 _DIMENSOES = [
     ("estrategia", "Estratégia"),
@@ -138,25 +138,35 @@ def _dataframe_ranking(projetos: list[dict]) -> pd.DataFrame:
 
 def render() -> None:
     st.subheader("Comparar projetos")
-    cross = "PMBOK × IA × PO" if MOSTRAR_PO_UI else "PMBOK × IA"
-    st.caption(
-        f"Visão cross-portfólio: maturidade em IA-PPPM (5 dimensões) e cobertura "
-        f"{cross} por projeto. Serve para benchmark interno e demo comercial."
-    )
+    if MOSTRAR_ABA_PILOTOS_PMBOK:
+        cross = "PMBOK × IA × PO" if MOSTRAR_PO_UI else "PMBOK × IA"
+        st.caption(
+            f"Visão cross-portfólio: maturidade em IA-PPPM (5 dimensões) e cobertura "
+            f"{cross} por projeto. Serve para benchmark interno e demo comercial."
+        )
+    else:
+        st.caption(
+            "Visão cross-portfólio: maturidade em IA-PPPM (5 dimensões) por projeto. "
+            "Serve para benchmark interno e demo comercial."
+        )
 
     projetos = db.listar_projetos()
     if not projetos:
         st.warning("Nenhum projeto cadastrado. Popule a base pela aba Projetos ou rode `scripts/seed_projetos_locais.py`.")
         return
 
-    processos = mapa_pmbok.carregar_processos()
+    processos = mapa_pmbok.carregar_processos() if MOSTRAR_ABA_PILOTOS_PMBOK else []
 
     with st.container(border=True):
-        c1, c2, c3 = st.columns(3)
+        if MOSTRAR_ABA_PILOTOS_PMBOK:
+            c1, c2, c3 = st.columns(3)
+        else:
+            c1, c2 = st.columns(2)
         c1.metric("Total de projetos", len(projetos))
         c2.metric("Empresas únicas", len({p["empresa"] for p in projetos if p["empresa"]}))
-        total_marc = sum(len(db.listar_tratamentos_pmbok(p["id"])) for p in projetos)
-        c3.metric("Total de marcações PMBOK", total_marc)
+        if MOSTRAR_ABA_PILOTOS_PMBOK:
+            total_marc = sum(len(db.listar_tratamentos_pmbok(p["id"])) for p in projetos)
+            c3.metric("Total de marcações PMBOK", total_marc)
 
     nomes = {f"[{p['id']}] {p['nome']}": p["id"] for p in projetos}
     escolhidos = st.multiselect(
@@ -171,9 +181,15 @@ def render() -> None:
         st.info("Selecione ao menos 1 projeto.")
         return
 
-    aba_radar, aba_heat, aba_rank = st.tabs(
-        ["🕸 Radar de maturidade", "🔥 Heatmap PMBOK", "🏁 Ranking / tabela"]
-    )
+    if MOSTRAR_ABA_PILOTOS_PMBOK:
+        aba_radar, aba_heat, aba_rank = st.tabs(
+            ["🕸 Radar de maturidade", "🔥 Heatmap PMBOK", "🏁 Ranking / tabela"]
+        )
+    else:
+        aba_radar, aba_rank = st.tabs(
+            ["🕸 Radar de maturidade", "🏁 Ranking / tabela"]
+        )
+        aba_heat = None
 
     with aba_radar:
         st.markdown(
@@ -182,22 +198,26 @@ def render() -> None:
         )
         st.plotly_chart(_radar_multi_projeto(projetos_sel), use_container_width=True)
 
-    with aba_heat:
-        if MOSTRAR_PO_UI:
-            st.markdown(
-                "Cobertura PMBOK × IA × PO por projeto. **Verde:** IA+PO. **Azul:** só IA. "
-                "**Vermelho:** gap declarado. Serve para achar padrões de subutilização e priorizar próximos pilotos."
-            )
-        else:
-            st.markdown(
-                "Cobertura PMBOK × IA por projeto. **Azul:** IA aplicada. "
-                "**Vermelho:** gap declarado (processo importante ainda não atendido)."
-            )
-        st.plotly_chart(_heatmap_pmbok(projetos_sel, processos), use_container_width=True)
+    if aba_heat is not None:
+        with aba_heat:
+            if MOSTRAR_PO_UI:
+                st.markdown(
+                    "Cobertura PMBOK × IA × PO por projeto. **Verde:** IA+PO. **Azul:** só IA. "
+                    "**Vermelho:** gap declarado. Serve para achar padrões de subutilização e priorizar próximos pilotos."
+                )
+            else:
+                st.markdown(
+                    "Cobertura PMBOK × IA por projeto. **Azul:** IA aplicada. "
+                    "**Vermelho:** gap declarado (processo importante ainda não atendido)."
+                )
+            st.plotly_chart(_heatmap_pmbok(projetos_sel, processos), use_container_width=True)
 
     with aba_rank:
         df = _dataframe_ranking(projetos_sel)
         st.dataframe(df, use_container_width=True, hide_index=True)
+
+        if not MOSTRAR_ABA_PILOTOS_PMBOK:
+            return
 
         st.markdown("---")
         st.markdown("**Distribuição de tratamentos (todos os projetos selecionados):**")

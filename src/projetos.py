@@ -4,6 +4,7 @@ from datetime import date
 import streamlit as st
 
 from src import db, import_export, mapa_pmbok
+from src.config import MOSTRAR_ABA_PILOTOS_PMBOK
 
 _PORTES = ["MEI", "Pequena", "Média", "Grande", "N/A"]
 
@@ -91,21 +92,31 @@ def render() -> None:
     _bloco_import_export()
 
     projetos = db.listar_projetos()
-    c1, c2, c3, c4 = st.columns(4)
+    if MOSTRAR_ABA_PILOTOS_PMBOK:
+        c1, c2, c3, c4 = st.columns(4)
+    else:
+        c1, c2, c4 = st.columns(3)
     c1.metric("Projetos", len(projetos))
     if projetos:
         c2.metric("Empresas únicas", len({p["empresa"] for p in projetos if p["empresa"]}))
-        total_procs = sum(len(db.listar_tratamentos_pmbok(p["id"])) for p in projetos)
-        c3.metric("Processos PMBOK marcados", total_procs)
+        if MOSTRAR_ABA_PILOTOS_PMBOK:
+            total_procs = sum(len(db.listar_tratamentos_pmbok(p["id"])) for p in projetos)
+            c3.metric("Processos PMBOK marcados", total_procs)
         c4.metric("Última atualização", projetos[0]["atualizado_em"][:10] if projetos else "—")
 
     _selecionar_projeto_ativo(projetos)
 
     st.markdown("---")
 
-    aba_lista, aba_novo, aba_da_sessao, aba_processos = st.tabs(
-        ["📋 Lista", "➕ Cadastrar novo", "💾 Salvar sessão atual", "🎯 Marcar processos PMBOK"]
-    )
+    if MOSTRAR_ABA_PILOTOS_PMBOK:
+        aba_lista, aba_novo, aba_da_sessao, aba_processos = st.tabs(
+            ["📋 Lista", "➕ Cadastrar novo", "💾 Salvar sessão atual", "🎯 Marcar processos PMBOK"]
+        )
+    else:
+        aba_lista, aba_novo, aba_da_sessao = st.tabs(
+            ["📋 Lista", "➕ Cadastrar novo", "💾 Salvar sessão atual"]
+        )
+        aba_processos = None
 
     with aba_lista:
         if not projetos:
@@ -150,15 +161,16 @@ def render() -> None:
                                 f"risco: {piloto.get('risco', '?')}"
                             )
 
-                    tratamentos = db.listar_tratamentos_pmbok(p["id"])
-                    if tratamentos:
-                        st.markdown(f"**Processos PMBOK marcados:** {len(tratamentos)}")
-                        for pid_pr, t in sorted(tratamentos.items()):
-                            emoji = {"ia": "🤖", "ia_po": "🧮", "gap": "⚠️", "nenhum": "⬜"}.get(t["tratamento"], "?")
-                            st.markdown(
-                                f"- {emoji} `{pid_pr}` — **{t['tratamento']}** · "
-                                f"criticidade: {t['criticidade']} · _{t['observacao']}_"
-                            )
+                    if MOSTRAR_ABA_PILOTOS_PMBOK:
+                        tratamentos = db.listar_tratamentos_pmbok(p["id"])
+                        if tratamentos:
+                            st.markdown(f"**Processos PMBOK marcados:** {len(tratamentos)}")
+                            for pid_pr, t in sorted(tratamentos.items()):
+                                emoji = {"ia": "🤖", "ia_po": "🧮", "gap": "⚠️", "nenhum": "⬜"}.get(t["tratamento"], "?")
+                                st.markdown(
+                                    f"- {emoji} `{pid_pr}` — **{t['tratamento']}** · "
+                                    f"criticidade: {t['criticidade']} · _{t['observacao']}_"
+                                )
 
                     col_del, col_json = st.columns(2)
                     if col_del.button("🗑 Excluir", key=f"del_{p['id']}"):
@@ -290,6 +302,8 @@ def render() -> None:
                 except Exception as e:
                     st.error(f"Erro: {e}")
 
+    if aba_processos is None:
+        return
     with aba_processos:
         st.markdown(
             "Marcar quais dos 40 processos PMBOK são críticos para o projeto ativo, "
