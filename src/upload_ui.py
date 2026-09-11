@@ -17,6 +17,45 @@ def _painel_status_chave() -> None:
             "A chave fica só na sua sessão do navegador; para não digitar toda "
             "vez, marque a opção de salvar no JSON de projeto (aba Projetos)."
         )
+        with st.expander("❓ Como conseguir a chave Groq (passo a passo)", expanded=False):
+            st.markdown(
+                """
+**1. Criar conta grátis no Groq** *(30 segundos)*
+Acesse **[console.groq.com](https://console.groq.com)** → clique **Sign up** →
+login com Google ou e-mail.
+*Não pede cartão. Nem cobra. Nunca.*
+
+**2. Gerar a chave**
+No console, menu esquerdo → **[API Keys](https://console.groq.com/keys)** →
+botão **Create API Key** → dê um nome tipo `curso-bezerra` → clique **Submit**.
+
+**3. Copiar a chave**
+Vai aparecer uma string começando com `gsk_...` (uns 50 caracteres).
+⚠️ **Copie AGORA** — o Groq só mostra 1 vez. Depois de fechar, some.
+Se perder, é só voltar em API Keys e gerar outra.
+
+**4. Colar aqui embaixo**
+No campo *"Sua chave Groq"* logo abaixo desse expander → clique
+**💾 Usar essa chave nesta sessão**. Status vira 🟢 **IA ativa**.
+
+**5. Testar**
+Sobe um PDF/DOCX qualquer (briefing, ata, termo de abertura) →
+clique **🧠 Analisar e sugerir preenchimento** → em 5-10 seg volta com
+Contexto, Mapa 5 Blocos e Casos de uso da Aula 2.
+
+**6. (Opcional) Não digitar toda vez**
+Aba **Projetos** → **📁 Salvar / Carregar meu projeto (JSON)** →
+marque **"Incluir minha chave Groq no JSON"** → **📥 Baixar JSON**.
+Guarde esse arquivo *como se fosse senha*. Da próxima sessão, importa
+e a chave volta sozinha.
+
+**Limites do free tier:** ~30 chamadas/minuto e ~14 400/dia. Pro fluxo
+do curso, sobra e muito.
+
+**Se preferir sem chave:** o app funciona igual, só as sugestões viram
+heurística simples (só Contexto + Mapa, não gera casos de uso da Aula 2).
+                """
+            )
         chave_atual = st.session_state.get(upload_documento.STATE_KEY_GROQ, "")
         nova = st.text_input(
             "Sua chave Groq (começa com `gsk_...`)",

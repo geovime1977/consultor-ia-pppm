@@ -23,3 +23,14 @@ pacote-entrega/diag-ia-pppm.zip
 
 # Backups temporários
 data/*.bak.*
+
+*.env.local
+node_modules/
+*.db-shm
+*.db-wal
+dist/
+build/
+.next/
+target/
+.ruff_cache/
+.streamlit/secrets.toml
