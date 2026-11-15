@@ -2,11 +2,11 @@
 
 App Streamlit que operacionaliza a Aula 1 do Prof. Dr. José Bezerra (BSBr) — "Formação de Consultores em IA aplicada ao PPPM (Portfólio, Programa e Projeto)".
 
-- **Porta:** 8512
+- **Porta:** 8509
 - **Stack:** Streamlit + ReportLab + Python 3.14
 - **LLM:** nenhum na v1 (100% determinístico)
 - **Localização:** `/Users/virmecati/projetos/consultor-ia-pppm/`
-- **Execução:** `streamlit run app.py --server.port 8512`
+- **Execução:** `streamlit run app.py --server.port 8509`
 
 ---
 

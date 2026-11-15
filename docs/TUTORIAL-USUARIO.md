@@ -40,10 +40,10 @@ Pronto. Instalação demora ~30 segundos.
 
 ```bash
 cd ~/projetos/consultor-ia-pppm
-.venv/bin/streamlit run app.py --server.port 8512
+.venv/bin/streamlit run app.py --server.port 8509
 ```
 
-O navegador abre em `http://localhost:8512`.
+O navegador abre em `http://localhost:8509`.
 
 ### Passo 2 — Preencher as 5 abas em ordem
 
@@ -97,7 +97,7 @@ Leve o PDF para:
 
 **"streamlit: command not found"** — você não ativou o venv. Rode com `.venv/bin/streamlit` no caminho completo, não só `streamlit`.
 
-**"Address already in use" na porta 8512** — outro app já está usando. Troque a porta: `--server.port 8512`.
+**"Address already in use" na porta 8509** — outro app já está usando. Troque a porta: `--server.port 8509`.
 
 **Botão "Salvar mapa" não habilita** — algum bloco tem menos de 30 caracteres. Preencha melhor.
 

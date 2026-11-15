@@ -17,7 +17,7 @@ casos reais para storytelling, taglines Bezerra, preset Empresa Alfa e documenta
 
 - **O que faz:** App Streamlit que transforma demanda vaga de IA em mapa inicial estruturado — contexto, diagnóstico de maturidade em 5 dimensões, Mapa 5 Blocos, 3 pilotos recomendados **com KPI benchmark auditável + plano 30d + case reais** e PDF final para o cliente. Herda de diag-ia-pppm as abas Mapa PMBOK × IA × PO, Projetos (CRUD SQLite) e Comparar (radar + heatmap Plotly).
 - **Stack:** Streamlit 1.40+, ReportLab 4.2+, openpyxl 3.1+, pandas 2.2+, plotly 5.20+, SQLite, Python 3.14. Zero LLM (100% determinístico).
-- **Como rodar:** `.venv/bin/streamlit run app.py --server.port 8512`
+- **Como rodar:** `.venv/bin/streamlit run app.py --server.port 8509`
 - **Status:** em-desenvolvimento (upgrade pós-Aula 1)
 
 ## Localização
@@ -34,7 +34,7 @@ casos reais para storytelling, taglines Bezerra, preset Empresa Alfa e documenta
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt -r requirements-dev.txt
 
 # Rodar
-.venv/bin/streamlit run app.py --server.port 8512
+.venv/bin/streamlit run app.py --server.port 8509
 
 # Testar
 .venv/bin/pytest tests/ -v
@@ -60,4 +60,4 @@ Lidas e catalogadas em `docs/`:
 
 ## Portas reservadas do portfólio
 
-8501 mestrado · 8502 study · 8503 casos-reais · 8504 prospec · 8506 concurso-radar · 8507 juridica · 8510 dashboard-win · **8511 diag-ia-pppm (snapshot)** · **8512 consultor-ia-pppm (este)**
+8501 mestrado · 8502 study · 8503 casos-reais · 8504 prospec · 8506 concurso-radar · 8507 juridica · 8510 dashboard-win · **8511 diag-ia-pppm (snapshot)** · **8509 consultor-ia-pppm (este)**

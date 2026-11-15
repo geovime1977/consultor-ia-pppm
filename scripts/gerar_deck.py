@@ -275,7 +275,7 @@ r.font.name = "Helvetica"; r.font.size = Pt(20); r.font.color.rgb = LIGHT; r.fon
 tb = s.shapes.add_textbox(Inches(1), Inches(5.2), Inches(11), Inches(0.6))
 tf = tb.text_frame
 p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER
-r = p.add_run(); r.text = "http://localhost:8512"
+r = p.add_run(); r.text = "http://localhost:8509"
 r.font.name = "Courier New"; r.font.size = Pt(24); r.font.color.rgb = ORANGE; r.font.bold = True
 
 add_notes(s, """Este slide é só para o público entender que agora começa a demo. Não fica muito tempo aqui — abre o app no navegador e roda o caso ao vivo.

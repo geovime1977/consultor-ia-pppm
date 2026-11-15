@@ -141,7 +141,7 @@ def exportar_markdown_obsidian(processos: list[dict]) -> str:
         "",
         "Referência de uso de IA (só-IA) e IA combinada com Pesquisa Operacional (IA+PO)",
         "para cada um dos 40 processos do PMBOK 8ª Edição. Alimenta o app [[consultor-ia-pppm]]",
-        "(porta 8512) e serve como base para consultoria PME e material didático.",
+        "(porta 8509) e serve como base para consultoria PME e material didático.",
         "",
         "Relacionado: [[_MOC Pesquisa]] · [[MBA em Pesquisa Operacional]] · [[Framework Eixo Estratégico]]",
         "",

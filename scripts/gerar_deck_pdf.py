@@ -191,8 +191,8 @@ c.drawString((W - tw) / 2, H - 4.5 * inch, "Vou rodar aqui — na minha máquina
 
 c.setFillColor(ORANGE)
 c.setFont("Courier-Bold", 24)
-tw = c.stringWidth("http://localhost:8512", "Courier-Bold", 24)
-c.drawString((W - tw) / 2, H - 5.8 * inch, "http://localhost:8512")
+tw = c.stringWidth("http://localhost:8509", "Courier-Bold", 24)
+c.drawString((W - tw) / 2, H - 5.8 * inch, "http://localhost:8509")
 
 c.showPage()
 

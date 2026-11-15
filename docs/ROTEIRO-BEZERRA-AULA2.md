@@ -2,7 +2,7 @@
 
 **Formato:** reunião 1:1 (Zoom/Meet), 7–8 min, com demo ao vivo do app.
 **Objetivo:** validar que a extensão Aula 2 do `consultor-ia-pppm` respeita o método que o senhor ensinou, e obter sinal verde para levar aos alunos em palestra.
-**Preparação:** app rodando em `https://consultor-ia-pppm-qyhmm8jymmjnsv6bauodz4.streamlit.app/` (ou `http://localhost:8512` local).
+**Preparação:** app rodando em `https://consultor-ia-pppm-qyhmm8jymmjnsv6bauodz4.streamlit.app/` (ou `http://localhost:8509` local).
 
 ---
 

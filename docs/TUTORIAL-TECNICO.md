@@ -46,13 +46,13 @@ python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt -r requirements-dev.txt
 
 # Rodar app
-.venv/bin/streamlit run app.py --server.port 8512
+.venv/bin/streamlit run app.py --server.port 8509
 
 # Rodar testes
 .venv/bin/pytest tests/ -v
 ```
 
-Porta 8512 é reservada no ecossistema Eixo (portas 8501–8510 usadas por outros apps).
+Porta 8509 é reservada no ecossistema Eixo (portas 8501–8510 usadas por outros apps).
 
 Smoke test end-to-end sem UI (útil em CI):
 ```bash
@@ -74,9 +74,9 @@ print(gerar_pdf(dados, '/tmp/smoke.pdf'))
 ## Como rodar em produção
 
 **Local (cliente final ou sala de aula):**
-Basta o setup acima. App roda em `localhost:8512`. Sem servidor, sem SSL, sem exposição pública. Este é o modo de uso principal.
+Basta o setup acima. App roda em `localhost:8509`. Sem servidor, sem SSL, sem exposição pública. Este é o modo de uso principal.
 
-**Não recomendado deploy VPS/Coolify** — o app é ferramenta de demo pontual, não serviço 24/7. Se algum dia precisar, adicionar `Dockerfile` (base `python:3.14-slim`), expor porta 8512, configurar `CMD ["streamlit","run","app.py","--server.port","8512","--server.address","0.0.0.0"]`.
+**Não recomendado deploy VPS/Coolify** — o app é ferramenta de demo pontual, não serviço 24/7. Se algum dia precisar, adicionar `Dockerfile` (base `python:3.14-slim`), expor porta 8509, configurar `CMD ["streamlit","run","app.py","--server.port","8509","--server.address","0.0.0.0"]`.
 
 ---
 

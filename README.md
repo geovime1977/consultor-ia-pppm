@@ -26,10 +26,10 @@ O `diag-ia-pppm` é o snapshot congelado da versão apresentada ao Bezerra na Au
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-.venv/bin/streamlit run app.py --server.port 8512
+.venv/bin/streamlit run app.py --server.port 8509
 ```
 
-Abre em `http://localhost:8512`.
+Abre em `http://localhost:8509`.
 
 ## Como rodar os testes
 

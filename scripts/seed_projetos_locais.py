@@ -53,7 +53,7 @@ PROJETOS_LOCAIS = [
         "n_projetos": 1,
         "pmo_ativo": False,
         "estrategia": 5, "dados": 4, "casos_uso": 5, "governanca": 5, "beneficios": 4,
-        "mapa_contexto": "App Streamlit que operacionaliza a Aula 1 do Prof. Dr. José Bezerra (BSBr) sobre IA-PPPM; roda em localhost:8512 com 6 abas.",
+        "mapa_contexto": "App Streamlit que operacionaliza a Aula 1 do Prof. Dr. José Bezerra (BSBr) sobre IA-PPPM; roda em localhost:8509 com 6 abas.",
         "mapa_dor": "Transformar método pedagógico da aula 1 em ferramenta operacional que gera diagnóstico + Mapa 5 Blocos + 3 pilotos + PDF sem refazer raciocínio manual.",
         "mapa_dados": "PDF da Aula 1, 12 pilotos derivados, catálogo PMBOK 8ª (40 processos × IA × IA+PO), templates de PDF ReportLab.",
         "mapa_riscos": "Método é do Prof. Bezerra — respeitar autoria; alucinação bloqueada por design (v1 100% determinística); testes 28/28 verdes.",
